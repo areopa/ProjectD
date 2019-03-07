@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10862c5b-f55e-46a0-9999-e2fd6e46cd48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/Testbestand.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/blockchain.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/nodes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/robcoin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/robcoin_node_5001.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/robcoin_node_5002.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/robcoin_node_5003.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectD/python/transaction.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testbestand.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockchain.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/robcoin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/robcoin_node_5001.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/robcoin_node_5002.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/robcoin_node_5003.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transaction.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +37,7 @@
             <path>
               <item name="ProjectD" type="b2602c69:ProjectViewProjectNode" />
               <item name="ProjectD" type="462c0819:PsiDirectoryNode" />
-              <item name="ProjectD" type="462c0819:PsiDirectoryNode" />
+              <item name="python" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -68,6 +50,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Robrecht Cornelis\Documents\GitHub\ProjectD" />
+      <recent name="C:\Users\Robrecht Cornelis\Documents\GitHub\ProjectD\ProjectD\python" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -91,12 +79,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551965376496</updated>
-      <workItem from="1551965377798" duration="337000" />
+      <workItem from="1551965377798" duration="584000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="337000" />
+    <option name="totallyTimeSpent" value="584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
