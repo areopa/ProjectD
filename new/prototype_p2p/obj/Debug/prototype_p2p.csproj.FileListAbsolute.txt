@@ -1,2 +1,0 @@
-C:\Users\valerius\Desktop\prototype_p2p\prototype_p2p\obj\Debug\prototype_p2p.csprojAssemblyReference.cache
-C:\Users\valerius\Desktop\prototype_p2p\prototype_p2p\obj\Debug\prototype_p2p.csproj.CoreCompileInputs.cache
