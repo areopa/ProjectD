@@ -28,7 +28,9 @@ namespace prototype_p2p
         {
             SHA256 sha256 = SHA256.Create();
 
-            byte[] input = Encoding.ASCII.GetBytes($"{TimeCode}-{FormerHashcode ?? ""}-{JsonConvert.SerializeObject(MessageList)}");
+            string TimeCodeString = TimeCode.ToString("yyyyMMddHHmmss");
+            byte[] input = Encoding.ASCII.GetBytes($"{TimeCodeString}-{FormerHashcode ?? ""}-{JsonConvert.SerializeObject(MessageList)}");
+            //Console.WriteLine("De bytes zijn" + Encoding.Default.GetString(input));
             byte[] output = sha256.ComputeHash(input);
 
             return Convert.ToBase64String(output);
