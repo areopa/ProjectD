@@ -69,6 +69,8 @@ namespace prototype_p2p
 
                 Console.WriteLine("Choose something from the instruction list");
                 string action = Console.ReadLine();
+                /*TODO1: Input filteren op integers zodat het programma niet crasht bij onverwachte input*/
+
                 instruction = int.Parse(action);
             }
 
