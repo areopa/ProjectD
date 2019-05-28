@@ -14,6 +14,7 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
+        private static List<string> validActions = new List<string> { "1", "2", "3", "4" };
 
         static void Main(string[] args)
         {
@@ -70,8 +71,15 @@ namespace prototype_p2p
                 Console.WriteLine("Choose something from the instruction list");
                 string action = Console.ReadLine();
                 /*TODO1: Input filteren op integers zodat het programma niet crasht bij onverwachte input*/
-
-                instruction = int.Parse(action);
+                if (validActions.Contains(action))
+                {
+                    instruction = int.Parse(action);
+                }
+                else
+                {
+                    Console.WriteLine("Please pick a valid action!");
+                    instruction = 0;
+                }
             }
 
             ClientInstance.Exit();
