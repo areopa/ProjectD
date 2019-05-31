@@ -23,7 +23,7 @@ namespace prototype_p2p
           Possible idea: use a user editable config file to point to the key locations.
           Possible idea: use keyrings instead of files for keys.
         */
-        public static String Demo(string toBeEncryptedData) 
+        public static String StringEncrypter(string toBeEncryptedData) 
         {
 
             Console.Write("Please enter the passphrase of the chosen private key: ");
@@ -61,7 +61,7 @@ namespace prototype_p2p
                else if (e is DidiSoft.Pgp.Exceptions.WrongPasswordException)
                 {
                     Console.WriteLine("The entered passphrase is incorrect, please try again.");
-                    return  Demo(toBeEncryptedData);
+                    return  StringEncrypter(toBeEncryptedData);
                 }
                 else if (e is DidiSoft.Pgp.Exceptions.KeyIsExpiredException)
                 {
@@ -86,7 +86,7 @@ namespace prototype_p2p
         static void Main1(string[] args)
         {
             Console.Write("Enter the data you want encrypted: ");
-            Console.WriteLine(SignAndEncryptString.Demo(Console.ReadLine()));
+            Console.WriteLine(SignAndEncryptString.StringEncrypter(Console.ReadLine()));
         }
     }
     */

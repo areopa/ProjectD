@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace prototype_p2p
 {
@@ -15,15 +16,46 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
+        private static List<string> validActions = new List<string> { "1", "2", "3", "4" };
 
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Enter networkport:");
-            NetworkPort = System.Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter Node name:");
-            NodeName =Console.ReadLine();
+
+            //This is only for testing the encryption for now.
+            //Console.Write("Enter the data you want encrypted: ");
+            //Console.WriteLine(SignAndEncryptString.StringEncrypter(Console.ReadLine()));
+
+
+
+            string pathKey = @"..\\..\\Keys";
+            var test = System.IO.Directory.GetFiles(pathKey);
+            var atestArray = test.ToArray();
+            var testNew = test.GetLength(0);
+
+
+
+            Console.Write("Enter networkport: ");
+            while (NetworkPort == 0)
+            {
+                if(int.TryParse(Console.ReadLine(), out int port))
+                {
+                    NetworkPort = port;
+                    break;
+                }
+                Console.WriteLine("A port has to be a number. Try again.");
+                Console.Write("Enter networkport: ");
+            }
+
+
+                
+
+
+
+
+            Console.Write("Enter Node name: ");
+            NodeName = Console.ReadLine();
 
 
 
@@ -84,7 +116,15 @@ namespace prototype_p2p
 
                 Console.WriteLine("Choose something from the instruction list\n");
                 string action = Console.ReadLine();
-                instruction = int.Parse(action);
+                if (validActions.Contains(action))
+                {
+                    instruction = int.Parse(action);
+                }
+                else
+                {
+                    Console.WriteLine("Please pick a valid action!");
+                    instruction = 0;
+                }
             }
            
             string workingDirectory = AppDomain.CurrentDomain.BaseDirectory;

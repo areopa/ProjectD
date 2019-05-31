@@ -345,3 +345,4 @@ csharp/Blockchain/obj/RVL_Applicatie.csproj.nuget.g.props
 csharp/Blockchain/obj/RVL_Applicatie.csproj.nuget.cache
 new/prototype_p2p/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.cache
+*.cache
