@@ -26,11 +26,12 @@ namespace prototype_p2p
                 using (StreamReader sr = new StreamReader(workingDirectory + "\\chain.json"))
                 {
                     string json = sr.ReadToEnd();
-                    Console.WriteLine("Reading from previous state...\n");
+                    Console.WriteLine("Reading from previous state...");
                     Chain deserializedChain = JsonConvert.DeserializeObject<Chain>(json);
                     MessageQueue = deserializedChain.MessageQueue;
                     ChainList = deserializedChain.ChainList;
-                    Console.WriteLine("Done.\n");
+                    Console.WriteLine("Done.");
+                    Console.WriteLine($"Length of chain: {deserializedChain.ChainList.Count}\n");
                 }
             }
             catch (Exception)
