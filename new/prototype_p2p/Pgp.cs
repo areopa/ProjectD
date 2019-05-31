@@ -25,6 +25,7 @@ namespace decryptionTesting //prototype_p2p
           TODO: Make used public key a paremeter instead of a hardcoded path.
           TODO: Make the secret key path dynamic to the path where the program is located.
           TODO: Implement multiple recipient support
+          Possible idea: use a user editable config file to point to the key locations.
           Possible idea: use keyrings instead of files for keys.
         */
         public static String Demo(string toBeEncryptedData) //this paramter can be commented out if asking for the data later is desired.
