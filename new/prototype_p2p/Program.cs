@@ -34,10 +34,10 @@ namespace prototype_p2p
                 ProjectD.SetupChain(); 
             }
 
-            if (args.Length >= 1)
-                NetworkPort = int.Parse(args[0]);
-            if (args.Length >= 2)
-                NodeName = args[1];
+        //    if (args.Length >= 1)
+         //       NetworkPort = int.Parse(args[0]);
+        //    if (args.Length >= 2)
+        //        NodeName = args[1];
 
             if (NetworkPort > 0)
             {
