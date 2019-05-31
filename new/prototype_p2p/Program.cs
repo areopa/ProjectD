@@ -73,14 +73,13 @@ namespace prototype_p2p
 
                 }
 
-                Console.WriteLine("Choose something from the instruction list");
+                Console.WriteLine("Choose something from the instruction list\n");
                 string action = Console.ReadLine();
                 instruction = int.Parse(action);
             }
            
-            //Hier de chain opslaan dmv schrijven naar een bestand
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter file = File.CreateText(documentsPath + "\\Github\\ProjectD\\new\\prototype_p2p\\chain.json"))
+            string workingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            using (StreamWriter file = File.CreateText(workingDirectory + "\\chain.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, ProjectD);

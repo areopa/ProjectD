@@ -20,20 +20,23 @@ namespace prototype_p2p
        
         public void ReadChain()
         {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string workingDirectory = AppDomain.CurrentDomain.BaseDirectory;
             try
             {
-                using (StreamReader sr = new StreamReader(documentsPath + "\\Github\\ProjectD\\new\\prototype_p2p\\chain.json"))
+                using (StreamReader sr = new StreamReader(workingDirectory + "\\chain.json"))
                 {
                     string json = sr.ReadToEnd();
+                    Console.WriteLine("Reading from previous state...\n");
                     Chain deserializedChain = JsonConvert.DeserializeObject<Chain>(json);
                     MessageQueue = deserializedChain.MessageQueue;
                     ChainList = deserializedChain.ChainList;
+                    Console.WriteLine("Done.\n");
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("Cannot find a previous state. Setting up a new blockchain...\n");
+                Console.WriteLine("Cannot find a previous state. Creating a fresh blockchain... \n");
+                Console.WriteLine("Done. \n");
             }
         }
 
