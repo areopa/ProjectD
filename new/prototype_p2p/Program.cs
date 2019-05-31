@@ -18,6 +18,13 @@ namespace prototype_p2p
 
         static void Main(string[] args)
         {
+
+
+            //This is only for testing the encryption for now.
+            //Console.Write("Enter the data you want encrypted: ");
+            //Console.WriteLine(SignAndEncryptString.Demo(Console.ReadLine()));
+
+
             ProjectD.SetupChain();
 
             if (args.Length >= 1)
