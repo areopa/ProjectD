@@ -16,7 +16,9 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
-        private static List<string> validActions = new List<string> { "1", "2", "3", "4" };
+        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4" };
+        //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
+        private static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
 
         static void Main(string[] args)
         {
@@ -36,16 +38,27 @@ namespace prototype_p2p
 
 
 
-            Console.Write("Enter networkport: ");
+            Console.Write("Enter network port: ");
             while (NetworkPort == 0)
             {
                 if(int.TryParse(Console.ReadLine(), out int port))
                 {
+                    port = Math.Abs(port);
+                    if (!portBlacklist.Contains(port))
+                    {
                     NetworkPort = port;
                     break;
+                    }                   
+                    Console.Write("Pick a port number that does not match any of the following: ");
+                    Console.WriteLine(string.Join<int>(", ", portBlacklist));
+                    Console.Write("Enter network port: ");
+                    
                 }
+                else
+                { 
                 Console.WriteLine("A port has to be a number. Try again.");
-                Console.Write("Enter networkport: ");
+                Console.Write("Enter network port: ");
+                }
             }
 
 
