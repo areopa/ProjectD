@@ -32,6 +32,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DidiSoft.BouncyCastle, Version=1.8.2.3, Culture=neutral, PublicKeyToken=e37f9891223147cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DidiSoft.Pgp.Trial.1.9.1.11\lib\net45\DidiSoft.BouncyCastle.dll</HintPath>
+    </Reference>
+    <Reference Include="DidiSoft.Pgp, Version=1.9.1.11, Culture=neutral, PublicKeyToken=e37f9891223147cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DidiSoft.Pgp.Trial.1.9.1.11\lib\net45\DidiSoft.Pgp.dll</HintPath>
+    </Reference>
+    <Reference Include="DidiSoft.Pgp.Mail, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e37f9891223147cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DidiSoft.Pgp.Trial.1.9.1.11\lib\net45\DidiSoft.Pgp.Mail.dll</HintPath>
+    </Reference>
+    <Reference Include="DidiSoft.Pgp.Net.LdapClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e37f9891223147cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DidiSoft.Pgp.Trial.1.9.1.11\lib\net45\DidiSoft.Pgp.Net.LdapClient.dll</HintPath>
+    </Reference>
+    <Reference Include="DidiSoft.Pgp.Smartcard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e37f9891223147cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DidiSoft.Pgp.Trial.1.9.1.11\lib\net45\DidiSoft.Pgp.Smartcard.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -50,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="Chain.cs" />
+    <Compile Include="Pgp.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />

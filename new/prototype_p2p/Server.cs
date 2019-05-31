@@ -14,10 +14,10 @@ namespace prototype_p2p
 
         public void Initialize()
         {
-            ServerInstance = new WebSocketServer($"ws://145.137.115.173:{Program.NetworkPort}");
+            ServerInstance = new WebSocketServer($"ws://127.0.0.1:{Program.NetworkPort}");
             ServerInstance.AddWebSocketService<Server>("/Chain");
             ServerInstance.Start();
-            Console.WriteLine($"Server initialized at ws://145.137.115.173:{Program.NetworkPort}");
+            Console.WriteLine($"Server initialized at ws://127.0.0.1:{Program.NetworkPort}");
         }
 
         protected override void OnMessage(MessageEventArgs e)
