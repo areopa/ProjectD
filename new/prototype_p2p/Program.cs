@@ -18,6 +18,15 @@ namespace prototype_p2p
 
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Enter networkport:");
+            NetworkPort = System.Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter Node name:");
+            NodeName =Console.ReadLine();
+
+
+
             //Eerst ProjectD.ReadChain() --> Als geen resultaat, dan SetupChain()
             ProjectD.ReadChain();
             if (ProjectD.ChainList == null)
