@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace prototype_p2p
 {
@@ -14,6 +16,25 @@ namespace prototype_p2p
         public Chain()
         {
 
+        }
+       
+        public void ReadChain()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            try
+            {
+                using (StreamReader sr = new StreamReader(documentsPath + "\\Github\\ProjectD\\new\\prototype_p2p\\chain.json"))
+                {
+                    string json = sr.ReadToEnd();
+                    Chain deserializedChain = JsonConvert.DeserializeObject<Chain>(json);
+                    MessageQueue = deserializedChain.MessageQueue;
+                    ChainList = deserializedChain.ChainList;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Cannot find a previous state. Setting up a new blockchain...\n");
+            }
         }
 
         public void SetupChain()

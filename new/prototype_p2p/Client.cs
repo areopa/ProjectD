@@ -23,6 +23,7 @@ namespace prototype_p2p
                     }
                     else
                     {
+                        Console.WriteLine("Creating new chain from client");
                         Chain newChain = JsonConvert.DeserializeObject<Chain>(e.Data);
                         if (newChain.CheckIntegrity() && newChain.ChainList.Count > Program.ProjectD.ChainList.Count)
                         {

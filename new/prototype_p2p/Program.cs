@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,12 @@ namespace prototype_p2p
 
         static void Main(string[] args)
         {
-            ProjectD.SetupChain();
+            //Eerst ProjectD.ReadChain() --> Als geen resultaat, dan SetupChain()
+            ProjectD.ReadChain();
+            if (ProjectD.ChainList == null)
+            {
+                ProjectD.SetupChain(); 
+            }
 
             if (args.Length >= 1)
                 NetworkPort = int.Parse(args[0]);
@@ -54,7 +60,7 @@ namespace prototype_p2p
                     case 2:
                         Console.WriteLine("Enter the name of the server");
                         string receiverName = Console.ReadLine();
-                        Console.WriteLine("Type you message");
+                        Console.WriteLine("Type your message");
                         string data = Console.ReadLine();
                         ProjectD.CreateMessage(new Message(NodeName, receiverName, data));
                         ProjectD.ProcessMessageQueue(NodeName);
@@ -70,6 +76,14 @@ namespace prototype_p2p
                 Console.WriteLine("Choose something from the instruction list");
                 string action = Console.ReadLine();
                 instruction = int.Parse(action);
+            }
+           
+            //Hier de chain opslaan dmv schrijven naar een bestand
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            using (StreamWriter file = File.CreateText(documentsPath + "\\Github\\ProjectD\\new\\prototype_p2p\\chain.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, ProjectD);
             }
 
             ClientInstance.Exit();
