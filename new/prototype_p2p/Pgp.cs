@@ -23,7 +23,7 @@ namespace prototype_p2p
           Possible idea: use a user editable config file to point to the key locations.
           Possible idea: use keyrings instead of files for keys.
         */
-        public static String StringEncrypter(string toBeEncryptedData) 
+        public static String StringEncrypter(string toBeEncryptedData, string secretKeyPath, string publicKeyPath) 
         {
 
             Console.Write("Please enter the passphrase of the chosen private key: ");
@@ -31,6 +31,7 @@ namespace prototype_p2p
 
             // create an instance of the library
             PGPLib pgp = new PGPLib();
+            
 
             //Sign and encrypt
             //The keys used here are added to the project data, the password for both is "lol". The keys are testing purposes only.
@@ -39,9 +40,9 @@ namespace prototype_p2p
             {
                 String encryptedAndSignedString =
                      pgp.SignAndEncryptString(toBeEncryptedData,
-                            new FileInfo(@"C:\Users\robin\Desktop\test keys\testes_secret.asc"), //secret key path
+                            new FileInfo(secretKeyPath), //secret key path
                             privatePassWord, //this is the password of the secret key
-                            new FileInfo(@"C:\Users\robin\Desktop\test keys\testos_public.asc")); //public key path
+                            new FileInfo(publicKeyPath)); //public key path
 
             return encryptedAndSignedString; //Because it returns the encrypted message you can write it in the console, write it to a file or pass the data along. 
             }
@@ -61,7 +62,7 @@ namespace prototype_p2p
                else if (e is DidiSoft.Pgp.Exceptions.WrongPasswordException)
                 {
                     Console.WriteLine("The entered passphrase is incorrect, please try again.");
-                    return  StringEncrypter(toBeEncryptedData);
+                    return  StringEncrypter(toBeEncryptedData, secretKeyPath, publicKeyPath);
                 }
                 else if (e is DidiSoft.Pgp.Exceptions.KeyIsExpiredException)
                 {
@@ -80,15 +81,26 @@ namespace prototype_p2p
             }
         }
     }
-    /*
-     class Program
+    class EncryptFileMultipleRecipients
     {
-        static void Main1(string[] args)
+        public void EncryptFileMultiRec(string[] recipientPublicKeyPaths, string inputFilePath, string outputPathName)
         {
-            Console.Write("Enter the data you want encrypted: ");
-            Console.WriteLine(SignAndEncryptString.StringEncrypter(Console.ReadLine()));
+            // create an instance of the library
+            PGPLib pgp = new PGPLib();
+
+            // specify should the output be ASCII or binary
+            bool asciiArmor = true;
+            // should additional integrity information be added
+            // set to true for compatibility with GnuPG 2.2.8+
+            bool withIntegrityCheck = true;
+
+            pgp.EncryptFile(inputFilePath,
+                    recipientPublicKeyPaths,
+                    outputPathName,
+                    asciiArmor,
+                    withIntegrityCheck);
         }
     }
-    */
+
 }
 
