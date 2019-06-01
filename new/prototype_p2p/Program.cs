@@ -16,8 +16,8 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
-        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "8" };
-        public static string pathKey = @"Keys";
+        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8" };
+        public static string pathKey = @"..\\..\\Keys";
         public static string pathMessages = @"Messages";
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         private static List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
@@ -25,54 +25,35 @@ namespace prototype_p2p
 
         static void Main(string[] args)
         {
-            Directory.CreateDirectory(pathMessages);
-            Directory.CreateDirectory(pathKey);
+
             
-            if (Directory.GetFiles(pathKey).Length == 0)
-            {
-                string pathKeyAlt = @"..//..//Keys";
-                if (Directory.Exists(pathKeyAlt) && Directory.GetFiles(pathKeyAlt).Length > 0)
-                {
-                    pathKey = pathKeyAlt;
-                }
-                else
-                {
-                    Console.WriteLine("No pgp keys have been found in the " + pathKey + " folder");
-                }
-            }
-            else
-            {
-                Console.WriteLine(Directory.GetFiles(pathKey).Length+" pgp keys have been found in the "+pathKey+" folder");
-            }
-            Console.WriteLine("Messages directory exists:" + Directory.Exists(pathMessages));
+            
+            Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
             Console.WriteLine("Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
-            
-
-
-            // Console.WriteLine("Messages\\WriteLines.txt:" + File.Exists("Messages\\WriteLines.txt"));
+           // Console.WriteLine("Messages\\WriteLines.txt:" + File.Exists("Messages\\WriteLines.txt"));
             string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
 
-            //try
-            //{   // Open the text file using a stream reader.
-            //   using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
-            //    //using (StreamReader sr = new StreamReader("Messages\\WriteLines.txt"))
-            //    {
-            //      //Read the stream to a string, and write the string to the console.
-            //        String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
-            //        char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more could be added if needed.
-            //        string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
-            //        for (int i = 0; i < configSplit.Length; i++)
-            //        {
-            //            Console.Write(configSplit[i] + "=" + i);
-            //        }
-            //        Console.WriteLine();  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
-            //    }
-            //}
-            //catch (IOException e)
-            //{
-            //    Console.WriteLine("The file could not be read:"+"\n"+e.Message);
-            //}
+            try
+            {   // Open the text file using a stream reader.
+               using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
+                //using (StreamReader sr = new StreamReader("Messages\\WriteLines.txt"))
+                {
+                  //Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
+                    char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more could be added if needed.
+                    string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < configSplit.Length; i++)
+                    {
+                        Console.Write(configSplit[i] + "=" + i);
+                    }
+                    Console.WriteLine();  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:"+"\n"+e.Message);
+            }
 
 
             //string[] lines = { "First line", "Second line", "Third line" };
@@ -149,8 +130,8 @@ namespace prototype_p2p
             Console.WriteLine("4. Exit the program");
             Console.WriteLine("5. List all keys in the keys directory");
             Console.WriteLine("6. Encrypt a message, encryption key ID's are listed under 5"); 
-            //Console.WriteLine("7. Decrypt a stored message"); //TODO
-            Console.WriteLine("8. Multi encryption method"); 
+            Console.WriteLine("7. Decrypt a stored message"); //TODO
+            Console.WriteLine("8. Multi encryption method"); //TODO
             Console.WriteLine("--------------------------------------");
 
             int instruction = 0;
@@ -212,7 +193,7 @@ namespace prototype_p2p
                         break;
                     case 8:
 
-                        Console.WriteLine("Enter the data you want to have encrypted");
+                        Console.WriteLine("Make sure to enter the numbered IDs of the keys you want to use, look them up in the 5 menu if you forgot them.");
                         Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                         string dataToEncrypt = Console.ReadLine();
                         string filename = unixTimestamp.ToString() + ".txt";
@@ -238,10 +219,10 @@ namespace prototype_p2p
                             recipientKeyPaths[j] = keyArrayPathAppended[ids[j]];
                         }
                         EncryptFileMultipleRecipients encryptFileMultipleRecipients = new EncryptFileMultipleRecipients();
-                        encryptFileMultipleRecipients.EncryptFileMultiRec(recipientKeyPaths, (Path.Combine(pathMessages, filename)), (Path.Combine(pathMessages, outputFilePath)));
+                        encryptFileMultipleRecipients.EncryptFileMultiRec(recipientKeyPaths, (Path.Combine(pathMessages, filename)), outputFilePath);
                         try
                         {   
-                            using (StreamReader sr = new StreamReader(Path.Combine(pathMessages, outputFilePath)))            
+                            using (StreamReader sr = new StreamReader(outputFilePath))            
                                                                                                 
                             {
                                 //Read the stream to a string, and write the string to the console.
@@ -253,7 +234,6 @@ namespace prototype_p2p
                         {
                             Console.WriteLine("The file could not be read:" + "\n" + e.Message);
                         }
-                        File.Delete(Path.Combine(pathMessages, filename));
                         break;
 
                 }
