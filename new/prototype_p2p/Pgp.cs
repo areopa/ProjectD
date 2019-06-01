@@ -129,7 +129,7 @@ namespace prototype_p2p
 
     class DecryptAndVerifyString
     {
-        public static void decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath)
+        public static void Decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath)
         {
 
             Console.Write("Please enter the passphrase of the chosen private key: ");
@@ -160,7 +160,7 @@ namespace prototype_p2p
             }
             else if (signatureCheck == SignatureCheckResult.SignatureBroken)
             {
-                Console.WriteLine("Signare of the message is either broken or forged");
+                Console.WriteLine("Signature of the message is either broken or forged");
             }
             else if (signatureCheck == SignatureCheckResult.PublicKeyNotMatching)
             {

@@ -186,10 +186,10 @@ namespace prototype_p2p
                         {
                             Console.WriteLine(keyArray[i] + " key ID:" + i);
                         }
-                        for (int i = 0; i < keyArrayPathAppended.Length; i++)
-                        {
-                            Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
-                        }
+                        //for (int i = 0; i < keyArrayPathAppended.Length; i++)
+                        //{
+                        //    Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
+                        //}
                         break;
                     case 6:
                         //This is only for testing the encryption for now.
@@ -199,9 +199,9 @@ namespace prototype_p2p
 
                         Console.WriteLine("Enter the data you want encrypted: ");
                         string dataToBeEncrypted = Console.ReadLine();
-                        Console.WriteLine("Enter the ID of the private key");
+                        Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privateKeyPath = Console.ReadLine(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
-                        Console.WriteLine("Enter the ID of the public key");
+                        Console.WriteLine("Enter the ID of the public key you want to encrypt for");
                         string publicKeyPath = Console.ReadLine();
                         if (int.TryParse(privateKeyPath, out int secretPath) && (int.TryParse(publicKeyPath, out int publicPath))) //makes sure and int is given by the user.
                         {
@@ -248,13 +248,13 @@ namespace prototype_p2p
 
 
 
-                        Console.WriteLine("Enter the ID of the private key");
+                        Console.WriteLine("Enter the ID of the private key you want to use to decrypt");
                         string privateKeyPathDecrypt = Console.ReadLine(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
-                        Console.WriteLine("Enter the ID of the public key");
+                        Console.WriteLine("Enter the ID of the public key of the sender");
                         string publicKeyPathDecrypt = Console.ReadLine();
                         if (int.TryParse(privateKeyPathDecrypt, out int secretPathDecrypt) && (int.TryParse(publicKeyPathDecrypt, out int publicPathDecrypt))) //makes sure and int is given by the user.
                         {
-                            DecryptAndVerifyString.decrypt(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt], keyArrayPathAppended[publicPathDecrypt]);
+                            DecryptAndVerifyString.Decrypt(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt], keyArrayPathAppended[publicPathDecrypt]);
                             break;
                         }
 
@@ -264,7 +264,7 @@ namespace prototype_p2p
 
                     case 8:
 
-                        Console.WriteLine("Enter the name of the recievers");
+                        Console.WriteLine("Enter the name of the receivers");
                         string receiverNameFor8 = Console.ReadLine();
 
                       
@@ -274,7 +274,7 @@ namespace prototype_p2p
                         string dataToEncrypt = Console.ReadLine();
                         string filename = unixTimestamp.ToString() + ".txt";
 
-                        Console.WriteLine("Enter the ID of the private key");
+                        Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privateKeyPath8 = Console.ReadLine();
                         using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, filename)))  //code to create new data files.
                         {
