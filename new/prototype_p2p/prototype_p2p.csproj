@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="Chain.cs" />
+    <Compile Include="ParseKeyID.cs" />
     <Compile Include="Pgp.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Message.cs" />

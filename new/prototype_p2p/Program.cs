@@ -19,73 +19,53 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8" };
         public static string pathKey = @"..\\..\\Keys";
         public static string pathMessages = @"..\\..\\Messages";
+        public static string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
 
-       
+
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         private static List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
 
 
         static void Main(string[] args)
         { 
-  Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
+            Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
             Console.WriteLine("Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
-           // Console.WriteLine("Messages\\WriteLines.txt:" + File.Exists("Messages\\WriteLines.txt"));
-            string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
-
+            //for (int i = 0; i < keyArrayPathAppended.Length; i++)
+            //{
+            //    Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
+            //}
+            //Console.WriteLine("Enter the public key ID's for every recipient");
+            //string[] recipientKeyPathsArr2 = ParseKeyID.BuildVerifiedKeyIdPathArray();
+            //Console.WriteLine(recipientKeyPathsArr2[0]+recipientKeyPathsArr2.Length);
+            /*
             try
             {   // Open the text file using a stream reader.
                using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
-                //using (StreamReader sr = new StreamReader("Messages\\WriteLines.txt"))
-                {
-                  //Read the stream to a string, and write the string to the console.
-                    String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
-        char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more could be added if needed.
-        string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
+                {   
+                    String line = sr.ReadToEnd(); //Load the file contents as a string, and write the string to the console.
+                    char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more can be added if needed.
+                    string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i<configSplit.Length; i++)
                     {
                         Console.Write(configSplit[i] + "=" + i);
                     }
-    Console.WriteLine();  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
                 }
             }
             catch (IOException e)
             {
                 Console.WriteLine("The file could not be read:"+"\n"+e.Message);
             }
+            
 
+            string[] lines = { "First line", "Second line", "Third line" };
 
-
-            //try
-            //{   // Open the text file using a stream reader.
-            //   using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
-            //    //using (StreamReader sr = new StreamReader("Messages\\WriteLines.txt"))
-            //    {
-            //      //Read the stream to a string, and write the string to the console.
-            //        String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
-            //        char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more could be added if needed.
-            //        string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
-            //        for (int i = 0; i < configSplit.Length; i++)
-            //        {
-            //            Console.Write(configSplit[i] + "=" + i);
-            //        }
-            //        Console.WriteLine();  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
-            //    }
-            //}
-            //catch (IOException e)
-            //{
-            //    Console.WriteLine("The file could not be read:"+"\n"+e.Message);
-            //}
-
-
-            //string[] lines = { "First line", "Second line", "Third line" };
-
-            //using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, "WriteLines.txt")))  //code to create new data files.
-            //{
-            //    foreach (string line in lines)
-            //        outputFile.WriteLine(line);
-            //}
-
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, "WriteLines.txt")))  //code to create new data files.
+            {
+                foreach (string line in lines)
+                    outputFile.WriteLine(line);
+            }
+            */
 
 
 
@@ -154,6 +134,7 @@ namespace prototype_p2p
             Console.WriteLine("6. Encrypt a message, encryption key ID's are listed under 5");
             Console.WriteLine("7. Decrypt a stored message");
             Console.WriteLine("8. Multi encryption method");
+            //Console.WriteLine("9. Alternative multi encryption method");
             Console.WriteLine("--------------------------------------");
 
             int instruction = 0;
@@ -254,79 +235,105 @@ namespace prototype_p2p
                         string publicKeyPathDecrypt = Console.ReadLine();
                         if (int.TryParse(privateKeyPathDecrypt, out int secretPathDecrypt) && (int.TryParse(publicKeyPathDecrypt, out int publicPathDecrypt))) //makes sure and int is given by the user.
                         {
-                            DecryptAndVerifyString.Decrypt(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt], keyArrayPathAppended[publicPathDecrypt]);
+                           // DecryptAndVerifyString.Decrypt(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt], keyArrayPathAppended[publicPathDecrypt]);
+                            DecryptAndVerifyString.DecryptMulti(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt]);
                             break;
                         }
 
                         break;
+                    case 9:
 
+                        Console.WriteLine("Enter the name(s) of the receiver(s)");
+                        string receiverNameForImprovedMultiEnc = Console.ReadLine();
 
-
-                    case 8:
-
-                        Console.WriteLine("Enter the name of the receivers");
-                        string receiverNameFor8 = Console.ReadLine();
-
-                      
                         Console.WriteLine("Enter data you want to encrypt:");
-
-                        Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                        string dataToEncrypt = Console.ReadLine();
-                        string filename = unixTimestamp.ToString() + ".txt";
+                        string inputData = Console.ReadLine();
 
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privateKeyPath8 = Console.ReadLine();
-                        using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, filename)))  //code to create new data files.
-                        {
-
-                            outputFile.WriteLine(dataToEncrypt);
-
-                        }
-                        Console.WriteLine("Enter the public key ID's for every recipient seperated by a comma(,) or a semicolon (;)");
-                        string recipientIDs = Console.ReadLine();
-                        char[] strSeperator = new char[] { ';', ',' };
-                        string[] recipientSplit = recipientIDs.Split(strSeperator, StringSplitOptions.RemoveEmptyEntries);
-                        int[] ids = new int[recipientSplit.Length];
-                        for (int i = 0; i < recipientSplit.Length; i++)
-                        {
-                            ids[i] = int.Parse(recipientSplit[i]);
-                        }
-                        string[] recipientKeyPaths = new string[ids.Length];
-                        string outputFilePath = unixTimestamp.ToString() + "encrypted.pgp";
-                        for (int j = 0; j < ids.Length; j++)
-                        {
-                            recipientKeyPaths[j] = keyArrayPathAppended[ids[j]];
-                        }
-                        EncryptFileMultipleRecipients encryptFileMultipleRecipients = new EncryptFileMultipleRecipients();
+                        string privKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
 
 
-                        if (int.TryParse(privateKeyPath8, out int secretPath8))
-                        {
-                            encryptFileMultipleRecipients.EncryptFileMultiRec(recipientKeyPaths, (Path.Combine(pathMessages, filename)), outputFilePath, keyArrayPathAppended[secretPath8]);
-                        }
+                        Console.WriteLine("Enter the public key ID's for every recipient");
+                        string[] recipientKeyPathsArr = ParseKeyID.BuildVerifiedKeyIdPathArray();
 
-                        try
-                        {
-                            using (StreamReader sr = new StreamReader(outputFilePath))
 
-                            {
-                                //Read the stream to a string, and write the string to the console.
-                                String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
-                                Console.WriteLine(line);  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
 
-                                ProjectD.CreateMessage(new Message(NodeName, receiverNameFor8, line));
-                                ProjectD.ProcessMessageQueue(NodeName);
-                                ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
 
-                            }
-                        }
-                        catch (IOException e)
-                        {
-                            Console.WriteLine("The file could not be read:" + "\n" + e.Message);
-                        }
-                        File.Delete(Path.Combine(pathMessages, filename)); //deleted unencrypted output file
-                        File.Delete(Path.Combine(pathMessages, outputFilePath)); //deleted encrypted output file
+                        string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
+                        Console.WriteLine(encData);
+
+                        ProjectD.CreateMessage(new Message(NodeName, receiverNameForImprovedMultiEnc, encData));
+                        ProjectD.ProcessMessageQueue(NodeName);
+                        ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
                         break;
+
+
+                        //case 8:
+
+                        //    Console.WriteLine("Enter the name of the receivers");
+                        //    string receiverNameFor8 = Console.ReadLine();
+
+
+                        //    Console.WriteLine("Enter data you want to encrypt:");
+
+                        //    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                        //    string dataToEncrypt = Console.ReadLine();
+                        //    string filename = unixTimestamp.ToString() + ".txt";
+
+                        //    Console.WriteLine("Enter the ID of the private key you want to sign with");
+                        //    string privateKeyPath8 = Console.ReadLine();
+                        //    using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, filename)))  //code to create new data files.
+                        //    {
+
+                        //        outputFile.WriteLine(dataToEncrypt);
+
+                        //    }
+                        //    Console.WriteLine("Enter the public key ID's for every recipient seperated by a comma(,) or a semicolon (;)");
+                        //    string recipientIDs = Console.ReadLine();
+                        //    char[] strSeperator = new char[] { ';', ',' };
+                        //    string[] recipientSplit = recipientIDs.Split(strSeperator, StringSplitOptions.RemoveEmptyEntries);
+                        //    int[] ids = new int[recipientSplit.Length];
+                        //    for (int i = 0; i < recipientSplit.Length; i++)
+                        //    {
+                        //        ids[i] = int.Parse(recipientSplit[i]);
+                        //    }
+                        //    string[] recipientKeyPaths = new string[ids.Length];
+                        //    string outputFilePath = unixTimestamp.ToString() + "encrypted.pgp";
+                        //    for (int j = 0; j < ids.Length; j++)
+                        //    {
+                        //        recipientKeyPaths[j] = keyArrayPathAppended[ids[j]];
+                        //    }
+                        //    EncryptFileMultipleRecipients encryptFileMultipleRecipients = new EncryptFileMultipleRecipients();
+
+
+                        //    if (int.TryParse(privateKeyPath8, out int secretPath8))
+                        //    {
+                        //        encryptFileMultipleRecipients.EncryptFileMultiRec(recipientKeyPaths, (Path.Combine(pathMessages, filename)), outputFilePath, keyArrayPathAppended[secretPath8]);
+                        //    }
+
+                        //    try
+                        //    {
+                        //        using (StreamReader sr = new StreamReader(outputFilePath))
+
+                        //        {
+                        //            //Read the stream to a string, and write the string to the console.
+                        //            String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
+                        //            Console.WriteLine(line);  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
+
+                        //            ProjectD.CreateMessage(new Message(NodeName, receiverNameFor8, line));
+                        //            ProjectD.ProcessMessageQueue(NodeName);
+                        //            ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+
+                        //        }
+                        //    }
+                        //    catch (IOException e)
+                        //    {
+                        //        Console.WriteLine("The file could not be read:" + "\n" + e.Message);
+                        //    }
+                        //    File.Delete(Path.Combine(pathMessages, filename)); //deleted unencrypted output file
+                        //    File.Delete(Path.Combine(pathMessages, outputFilePath)); //deleted encrypted output file
+                        //    break;
+
 
                 }
 

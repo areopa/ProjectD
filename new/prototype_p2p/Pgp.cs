@@ -83,6 +83,8 @@ namespace prototype_p2p
     }
     class EncryptFileMultipleRecipients
     {
+
+
         public void EncryptFileMultiRec(string[] recipientPublicKeyPaths, string inputFilePath, string outputPathName, string privateKeyfile)
         {
 
@@ -122,6 +124,33 @@ namespace prototype_p2p
             //          outputPathName,
             //         asciiArmor,
             //        withIntegrityCheck);
+        }
+        //public string EncryptString(string stringToEncrypt, FileInfo[] publicKeyFiles); for multi recipients without creating and deleting files
+        //public string SignString(string stringToSign, FileInfo privateKeyFile, string privateKeyPassword); can then be used to sign the string
+        public static String MultiRecipientStringEncrypter(string toBeEncryptedData, string secretKeyPath, string[] recipientPublicKeyPaths)
+        {
+
+            PGPLib pgp = new PGPLib();
+
+            FileInfo[] publicKeys = new FileInfo[recipientPublicKeyPaths.Length];
+            int i = 0;
+            foreach (string s in recipientPublicKeyPaths)
+            {
+                publicKeys[i] = new FileInfo(s);
+                i++;
+            }
+
+
+
+            //string encryptedMultiRecipientString = pgp.EncryptString(toBeEncryptedData, publicKeys);
+            Console.Write("Please enter the passphrase of the chosen private key: ");
+            String privatePassWord = Console.ReadLine();
+
+           // string signedEncryptedMultiRecipientString = pgp.SignString(encryptedMultiRecipientString, new FileInfo(secretKeyPath), privatePassWord);
+            string signedEncryptedMultiRecipientString = pgp.SignString(toBeEncryptedData, new FileInfo(secretKeyPath), privatePassWord);
+
+
+            return signedEncryptedMultiRecipientString;
         }
 
         //TODO: Remove files
@@ -173,6 +202,19 @@ namespace prototype_p2p
 
             Console.WriteLine("Extracted message: " + plainTextExtracted);
         }
+        public static void DecryptMulti(string encryptedMessage, string secretKeyPath)
+        {
+            Console.Write("Please enter the passphrase of the chosen private key: ");
+            String privatePassWord = Console.ReadLine();
+            // obtain encrypted and signed message
+            
+            // create an instance of the library
+            PGPLib pgp = new PGPLib();
+
+            String plainTextExtracted = pgp.DecryptString(encryptedMessage, new FileInfo(secretKeyPath), privatePassWord);
+            Console.WriteLine("Extracted message: " + plainTextExtracted);
+        }
+        //public string DecryptString(string encryptedString, FileInfo privateKeyFile, string privateKeyPassword);
     }
 
 }
