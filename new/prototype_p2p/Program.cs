@@ -27,17 +27,15 @@ namespace prototype_p2p
 
 
         static void Main(string[] args)
-        { 
-            Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
+        {
+            //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
             Console.WriteLine("Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
             //for (int i = 0; i < keyArrayPathAppended.Length; i++)
             //{
             //    Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
             //}
-            //Console.WriteLine("Enter the public key ID's for every recipient");
-            //string[] recipientKeyPathsArr2 = ParseKeyID.BuildVerifiedKeyIdPathArray();
-            //Console.WriteLine(recipientKeyPathsArr2[0]+recipientKeyPathsArr2.Length);
+
             /*
             try
             {   // Open the text file using a stream reader.
@@ -94,10 +92,6 @@ namespace prototype_p2p
 
 
 
-
-
-
-
             Console.Write("Enter Node name: ");
             NodeName = Console.ReadLine();
 
@@ -122,20 +116,22 @@ namespace prototype_p2p
             }
             if (NodeName != "Unkown")
             {
-                Console.WriteLine($"Your name is {NodeName}");
+                Console.WriteLine($"Your node name is {NodeName}");
             }
 
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("1. Setup a connection with a server");
-            Console.WriteLine("2. Add data to chain");
+            Console.WriteLine("2. Add unencrypted data to chain");
             Console.WriteLine("3. Display records");
             Console.WriteLine("4. Exit the program");
             Console.WriteLine("5. List all keys in the keys directory");
             Console.WriteLine("6. Encrypt a message, encryption key ID's are listed under 5");
             Console.WriteLine("7. Decrypt a stored message");
             Console.WriteLine("8. Multi encryption method");
-            //Console.WriteLine("9. Alternative multi encryption method");
+           // Console.WriteLine("9. Toggle loading from config");
             Console.WriteLine("--------------------------------------");
+
+            
 
             int instruction = 0;
             while (instruction != 4)
@@ -143,14 +139,14 @@ namespace prototype_p2p
                 switch (instruction)
                 {
                     case 1:
-                        Console.WriteLine("Enter the URL of the server");
+                        Console.WriteLine("Enter the URL and port of the server:");
                         string serverURL = Console.ReadLine();
                         ClientInstance.Handshake($"{serverURL}/Chain");
                         break;
                     case 2:
-                        Console.WriteLine("Enter the name of the server");
+                        Console.Write("Enter the name(s) of the intended recipient(s): ");
                         string receiverName = Console.ReadLine();
-                        Console.WriteLine("Type your message");
+                        Console.WriteLine("Enter the data:");
                         string data = Console.ReadLine();
                         ProjectD.CreateMessage(new Message(NodeName, receiverName, data));
                         ProjectD.ProcessMessageQueue(NodeName);
@@ -173,78 +169,67 @@ namespace prototype_p2p
                         //}
                         break;
                     case 6:
-                        //This is only for testing the encryption for now.
-                        Console.WriteLine("Enter the name of the server");
+                        Console.WriteLine("Enter the name of the receiver");
                         string receiverNameFor6 = Console.ReadLine();
 
 
                         Console.WriteLine("Enter the data you want encrypted: ");
                         string dataToBeEncrypted = Console.ReadLine();
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privateKeyPath = Console.ReadLine(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                        string privateKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
-                        string publicKeyPath = Console.ReadLine();
-                        if (int.TryParse(privateKeyPath, out int secretPath) && (int.TryParse(publicKeyPath, out int publicPath))) //makes sure and int is given by the user.
-                        {
-                            string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, keyArrayPathAppended[secretPath], keyArrayPathAppended[publicPath]); // keyArrayPathAppended has all the key paths, the ID entered by the user corresponds to the array position of the key.
-                            Console.WriteLine(encryptedData);
-                            ProjectD.CreateMessage(new Message(NodeName, receiverNameFor6, encryptedData));
-                            ProjectD.ProcessMessageQueue(NodeName);
-                            ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+                        string publicKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
+                         
+                        
+                        string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath); 
+                        Console.WriteLine(encryptedData);
+                        ProjectD.CreateMessage(new Message(NodeName, receiverNameFor6, encryptedData));
+                        ProjectD.ProcessMessageQueue(NodeName);
+                        ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
 
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Make sure to enter the numbered IDs of the keys you want to use, look them up in the 5 menu if you forgot them.");
-                        }
                         break;
                     case 7:
 
                         int blockNumber = 0;
                         while (blockNumber <= 0)
                         {
-                            Console.WriteLine("Enter the blocknumber you want to decrypt");
+                            Console.Write("Enter the number of the block you want to decrypt: ");
                             if (int.TryParse(Console.ReadLine(), out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
                             {
-                                blockNumber = inputBlockNumber;
-                                if (blockNumber < ProjectD.ChainList.Count())
+
+                                if (inputBlockNumber >= ProjectD.ChainList.Count)
                                 {
-                                    break;
+                                    Console.WriteLine("The number you enter must correspond to an existing block. Try again.");
                                 }
-
-                                Console.WriteLine("Block does not exist");
-
+                                else
+                                {
+                                    blockNumber = Math.Abs(inputBlockNumber);
+                                }    
                             }
                             else
                             {
-                                Console.WriteLine("A blocknumber has to be a number. Try again.");
+                                Console.WriteLine("The number of the block has to be a number. Try again.");
                             }
                         }
-                        Console.WriteLine("Encrypted data");
-
+                        Console.WriteLine("Encrypted data:");
+                        
                         string encryptedDataFromChain = ProjectD.ChainList[blockNumber].MessageList[0].Data;
-
                         Console.WriteLine(encryptedDataFromChain);
 
+                        Console.Write("Enter the ID of the private key you want to use to decrypt: ");
+                        string privateKeyPathDecrypt = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                        Console.Write("Enter the ID of the public key of the sender: ");
+                        string publicKeyPathDecrypt = ParseKeyID.ParseAndReturnVerifiedKeyPath();
 
 
-                        Console.WriteLine("Enter the ID of the private key you want to use to decrypt");
-                        string privateKeyPathDecrypt = Console.ReadLine(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
-                        Console.WriteLine("Enter the ID of the public key of the sender");
-                        string publicKeyPathDecrypt = Console.ReadLine();
-                        if (int.TryParse(privateKeyPathDecrypt, out int secretPathDecrypt) && (int.TryParse(publicKeyPathDecrypt, out int publicPathDecrypt))) //makes sure and int is given by the user.
-                        {
-                           // DecryptAndVerifyString.Decrypt(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt], keyArrayPathAppended[publicPathDecrypt]);
-                            DecryptAndVerifyString.DecryptMulti(encryptedDataFromChain, keyArrayPathAppended[secretPathDecrypt]);
-                            break;
-                        }
+                        DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
+                        //DecryptAndVerifyString.DecryptMulti(encryptedDataFromChain, privateKeyPathDecrypt);
 
                         break;
-                    case 9:
+                    case 8:
 
-                        Console.WriteLine("Enter the name(s) of the receiver(s)");
-                        string receiverNameForImprovedMultiEnc = Console.ReadLine();
+                        Console.WriteLine("Enter the names of the designated recipients");
+                        string receiverNamesForImprovedMultiEnc = Console.ReadLine();
 
                         Console.WriteLine("Enter data you want to encrypt:");
                         string inputData = Console.ReadLine();
@@ -262,82 +247,15 @@ namespace prototype_p2p
                         string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
                         Console.WriteLine(encData);
 
-                        ProjectD.CreateMessage(new Message(NodeName, receiverNameForImprovedMultiEnc, encData));
+                        ProjectD.CreateMessage(new Message(NodeName, receiverNamesForImprovedMultiEnc, encData));
                         ProjectD.ProcessMessageQueue(NodeName);
                         ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
                         break;
 
 
-                        //case 8:
-
-                        //    Console.WriteLine("Enter the name of the receivers");
-                        //    string receiverNameFor8 = Console.ReadLine();
-
-
-                        //    Console.WriteLine("Enter data you want to encrypt:");
-
-                        //    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                        //    string dataToEncrypt = Console.ReadLine();
-                        //    string filename = unixTimestamp.ToString() + ".txt";
-
-                        //    Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        //    string privateKeyPath8 = Console.ReadLine();
-                        //    using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, filename)))  //code to create new data files.
-                        //    {
-
-                        //        outputFile.WriteLine(dataToEncrypt);
-
-                        //    }
-                        //    Console.WriteLine("Enter the public key ID's for every recipient seperated by a comma(,) or a semicolon (;)");
-                        //    string recipientIDs = Console.ReadLine();
-                        //    char[] strSeperator = new char[] { ';', ',' };
-                        //    string[] recipientSplit = recipientIDs.Split(strSeperator, StringSplitOptions.RemoveEmptyEntries);
-                        //    int[] ids = new int[recipientSplit.Length];
-                        //    for (int i = 0; i < recipientSplit.Length; i++)
-                        //    {
-                        //        ids[i] = int.Parse(recipientSplit[i]);
-                        //    }
-                        //    string[] recipientKeyPaths = new string[ids.Length];
-                        //    string outputFilePath = unixTimestamp.ToString() + "encrypted.pgp";
-                        //    for (int j = 0; j < ids.Length; j++)
-                        //    {
-                        //        recipientKeyPaths[j] = keyArrayPathAppended[ids[j]];
-                        //    }
-                        //    EncryptFileMultipleRecipients encryptFileMultipleRecipients = new EncryptFileMultipleRecipients();
-
-
-                        //    if (int.TryParse(privateKeyPath8, out int secretPath8))
-                        //    {
-                        //        encryptFileMultipleRecipients.EncryptFileMultiRec(recipientKeyPaths, (Path.Combine(pathMessages, filename)), outputFilePath, keyArrayPathAppended[secretPath8]);
-                        //    }
-
-                        //    try
-                        //    {
-                        //        using (StreamReader sr = new StreamReader(outputFilePath))
-
-                        //        {
-                        //            //Read the stream to a string, and write the string to the console.
-                        //            String line = sr.ReadToEnd(); //ReadToEnd loads the whole file into a string.
-                        //            Console.WriteLine(line);  //to make sure the next write will be on a new line without screwing up the for loop to achieve it
-
-                        //            ProjectD.CreateMessage(new Message(NodeName, receiverNameFor8, line));
-                        //            ProjectD.ProcessMessageQueue(NodeName);
-                        //            ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
-
-                        //        }
-                        //    }
-                        //    catch (IOException e)
-                        //    {
-                        //        Console.WriteLine("The file could not be read:" + "\n" + e.Message);
-                        //    }
-                        //    File.Delete(Path.Combine(pathMessages, filename)); //deleted unencrypted output file
-                        //    File.Delete(Path.Combine(pathMessages, outputFilePath)); //deleted encrypted output file
-                        //    break;
-
-
                 }
 
-                Console.WriteLine("Choose something from the instruction list\n");
+                Console.Write("Enter the number of the action you want to execute: ");
                 string action = Console.ReadLine();
                 if (validActions.Contains(action))
                 {
@@ -348,10 +266,14 @@ namespace prototype_p2p
                     Console.WriteLine("Please pick a valid action!");
                     instruction = 0;
                 }
+                using (StreamWriter file = File.CreateText(@"chain.json")) //placed it here as well to save the chain after every action
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, ProjectD);
+                }
             }
 
-            string workingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            using (StreamWriter file = File.CreateText(workingDirectory + "\\chain.json"))
+            using (StreamWriter file = File.CreateText(@"chain.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, ProjectD);

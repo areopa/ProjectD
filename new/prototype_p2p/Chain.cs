@@ -20,10 +20,9 @@ namespace prototype_p2p
        
         public void ReadChain()
         {
-            string workingDirectory = AppDomain.CurrentDomain.BaseDirectory;
             try
             {
-                using (StreamReader sr = new StreamReader(workingDirectory + "\\chain.json"))
+                using (StreamReader sr = new StreamReader(@"chain.json"))//this points to Debug\chain.json currently because that's where the .exe is located. @ is for relative path
                 {
                     string json = sr.ReadToEnd();
                     Console.WriteLine("Reading from previous state...");

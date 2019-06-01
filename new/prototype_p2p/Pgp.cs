@@ -125,35 +125,41 @@ namespace prototype_p2p
             //         asciiArmor,
             //        withIntegrityCheck);
         }
-        //public string EncryptString(string stringToEncrypt, FileInfo[] publicKeyFiles); for multi recipients without creating and deleting files
-        //public string SignString(string stringToSign, FileInfo privateKeyFile, string privateKeyPassword); can then be used to sign the string
+
         public static String MultiRecipientStringEncrypter(string toBeEncryptedData, string secretKeyPath, string[] recipientPublicKeyPaths)
         {
 
-            PGPLib pgp = new PGPLib();
 
-            FileInfo[] publicKeys = new FileInfo[recipientPublicKeyPaths.Length];
-            int i = 0;
-            foreach (string s in recipientPublicKeyPaths)
+            FileInfo secKeyPathInfo = new FileInfo(secretKeyPath);
+            FileStream secKeyStream = secKeyPathInfo.OpenRead();
+
+            
+            PGPLib pgp = new PGPLib();
+            MemoryStream streamString = new MemoryStream(Encoding.UTF8.GetBytes(toBeEncryptedData));
+            
+
+            FileStream[] recipientPublicKeyPathsStream = new FileStream[recipientPublicKeyPaths.Length];
+            for(int i = 0; i < recipientPublicKeyPaths.Length; i++)
             {
-                publicKeys[i] = new FileInfo(s);
-                i++;
+                FileInfo publicKeyInfo = new FileInfo(recipientPublicKeyPaths[i]);
+                recipientPublicKeyPathsStream[i] = publicKeyInfo.OpenRead();
             }
 
-
-
-            //string encryptedMultiRecipientString = pgp.EncryptString(toBeEncryptedData, publicKeys);
+            
             Console.Write("Please enter the passphrase of the chosen private key: ");
-            String privatePassWord = Console.ReadLine();
+            string privatePassWord = Console.ReadLine();
 
-           // string signedEncryptedMultiRecipientString = pgp.SignString(encryptedMultiRecipientString, new FileInfo(secretKeyPath), privatePassWord);
-            string signedEncryptedMultiRecipientString = pgp.SignString(toBeEncryptedData, new FileInfo(secretKeyPath), privatePassWord);
+            MemoryStream encryptedOutputStream = new MemoryStream();
+            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            string filler = unixTimestamp.ToString(); //needed for the encryption, decided that it may as well have a semi-useful value
+
+            pgp.SignAndEncryptStream(streamString, filler, secKeyStream, privatePassWord, recipientPublicKeyPathsStream, encryptedOutputStream, true, true);
+            string encryptedMultiRecipientString = Encoding.ASCII.GetString(encryptedOutputStream.ToArray());
 
 
-            return signedEncryptedMultiRecipientString;
-        }
 
-        //TODO: Remove files
+            return encryptedMultiRecipientString;
+        }       
     }
 
     class DecryptAndVerifyString
@@ -162,45 +168,70 @@ namespace prototype_p2p
         {
 
             Console.Write("Please enter the passphrase of the chosen private key: ");
-            String privatePassWord = Console.ReadLine();
-
-
-            // obtain encrypted and signed message
-            String signedAndEncryptedMessage = encryptedMessage;
-
-
-            String plainTextExtracted;
+            string privatePassWord = Console.ReadLine();
 
             // create an instance of the library
             PGPLib pgp = new PGPLib();
 
             // decrypt and verify
-            SignatureCheckResult signatureCheck =
-                pgp.DecryptAndVerifyString(signedAndEncryptedMessage,
-                         new FileInfo(secretKeyPath), //secret key path
-                         privatePassWord, //this is the password of the secret key
-                         new FileInfo(publicKeyPath),
-                         out plainTextExtracted);
+            try
+            {
+                SignatureCheckResult signatureCheck =
+                    pgp.DecryptAndVerifyString(encryptedMessage,
+                             new FileInfo(secretKeyPath), //secret key path
+                             privatePassWord, //this is the password of the secret key
+                             new FileInfo(publicKeyPath),
+                             out string plainTextExtracted);
 
-            // print the results
-            if (signatureCheck == SignatureCheckResult.SignatureVerified)
-            {
-                Console.WriteLine("Signare OK");
-            }
-            else if (signatureCheck == SignatureCheckResult.SignatureBroken)
-            {
-                Console.WriteLine("Signature of the message is either broken or forged");
-            }
-            else if (signatureCheck == SignatureCheckResult.PublicKeyNotMatching)
-            {
-                Console.WriteLine("The provided public key doesn't match the signature");
-            }
-            else if (signatureCheck == SignatureCheckResult.NoSignatureFound)
-            {
-                Console.WriteLine("This message is not digitally signed");
-            }
+                // print the results
+                if (signatureCheck == SignatureCheckResult.SignatureVerified)
+                {
+                    Console.WriteLine("Signare OK");
+                }
+                else if (signatureCheck == SignatureCheckResult.SignatureBroken)
+                {
+                    Console.WriteLine("Signature of the message is either broken or forged");
+                }
+                else if (signatureCheck == SignatureCheckResult.PublicKeyNotMatching)
+                {
+                    Console.WriteLine("The provided public key doesn't match the signature");
+                }
+                else if (signatureCheck == SignatureCheckResult.NoSignatureFound)
+                {
+                    Console.WriteLine("This message is not digitally signed");
+                }
 
-            Console.WriteLine("Extracted message: " + plainTextExtracted);
+                Console.WriteLine("Extracted message: " + plainTextExtracted);
+            }
+            catch (PGPException e)
+            {
+                if (e is DidiSoft.Pgp.Exceptions.WrongPrivateKeyException)
+                {
+                    Console.WriteLine("The chosen private key is either not a private key or not suited to decrypt this message.");
+                    //The supplied private key source is not a private key at all  
+
+                }
+                else if (e is DidiSoft.Pgp.Exceptions.WrongPasswordException)
+                {
+                    Console.WriteLine("The entered passphrase is incorrect, please try again.");
+                    Decrypt(encryptedMessage, secretKeyPath, publicKeyPath);
+
+                }
+                else if (e is DidiSoft.Pgp.Exceptions.KeyIsExpiredException)
+                {
+                    Console.WriteLine("The public key you want to encrypt for is expired and cannot be used.");
+                    //Can be worked around by setting UseExpiredKeys to true
+                }
+                else if (e is DidiSoft.Pgp.Exceptions.KeyIsRevokedException)
+                {
+                    Console.WriteLine("The public key you want to encrypt for appears to be revoked and cannot be used.");
+                    //Can be worked around by setting UseRevokedKeys to true
+                }
+                else
+                {
+                    throw new ApplicationException("Something unexpected went wrong, contact support and explain your actions in detail and chronological order.");
+                }
+            }
         }
         public static void DecryptMulti(string encryptedMessage, string secretKeyPath)
         {
