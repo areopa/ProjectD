@@ -210,7 +210,7 @@ namespace prototype_p2p
                     case 7:
 
                         break;
-                    case 8:  //multi recipient encryption creates a text file with the data to be encrypted, an encrypted file and then reads the file. Both files are deleted at the end and the encrypted message is written in the console. The used library is pretty limited so this is a work around.
+                    case 8:
 
                         Console.WriteLine("Enter the data you want to have encrypted");
                         Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
@@ -253,8 +253,7 @@ namespace prototype_p2p
                         {
                             Console.WriteLine("The file could not be read:" + "\n" + e.Message);
                         }
-                        File.Delete(Path.Combine(pathMessages, filename)); //deleted unencrypted output file
-                        File.Delete(Path.Combine(pathMessages, outputFilePath)); //deleted encrypted output file
+                        File.Delete(Path.Combine(pathMessages, filename));
                         break;
 
                 }
