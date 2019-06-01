@@ -23,7 +23,7 @@ namespace prototype_p2p
           Possible idea: use a user editable config file to point to the key locations.
           Possible idea: use keyrings instead of files for keys.
         */
-        public static String StringEncrypter(string toBeEncryptedData, string secretKeyPath, string publicKeyPath) 
+        public static String StringEncrypter(string toBeEncryptedData, string secretKeyPath, string publicKeyPath)
         {
 
             Console.Write("Please enter the passphrase of the chosen private key: ");
@@ -31,7 +31,7 @@ namespace prototype_p2p
 
             // create an instance of the library
             PGPLib pgp = new PGPLib();
-            
+
 
             //Sign and encrypt
             //The keys used here are added to the project data, the password for both is "lol". The keys are testing purposes only.
@@ -44,12 +44,12 @@ namespace prototype_p2p
                             privatePassWord, //this is the password of the secret key
                             new FileInfo(publicKeyPath)); //public key path
 
-            return encryptedAndSignedString; //Because it returns the encrypted message you can write it in the console, write it to a file or pass the data along. 
+                return encryptedAndSignedString; //Because it returns the encrypted message you can write it in the console, write it to a file or pass the data along. 
             }
             catch (System.IO.IOException e)
             {
                 //In case of an input file not found or other I/O related error
-                throw new ApplicationException("Error 551: File not found or other I/O related error."+e.Message);
+                throw new ApplicationException("Error 551: File not found or other I/O related error." + e.Message);
             }
             catch (DidiSoft.Pgp.PGPException e)
             {
@@ -59,10 +59,10 @@ namespace prototype_p2p
                     //The supplied private key source is not a private key at all  
                     //Or in the case with a KeyStore parameter, there is no private key with the specified Key ID or User ID
                 }
-               else if (e is DidiSoft.Pgp.Exceptions.WrongPasswordException)
+                else if (e is DidiSoft.Pgp.Exceptions.WrongPasswordException)
                 {
                     Console.WriteLine("The entered passphrase is incorrect, please try again.");
-                    return  StringEncrypter(toBeEncryptedData, secretKeyPath, publicKeyPath);
+                    return StringEncrypter(toBeEncryptedData, secretKeyPath, publicKeyPath);
                 }
                 else if (e is DidiSoft.Pgp.Exceptions.KeyIsExpiredException)
                 {
@@ -83,8 +83,12 @@ namespace prototype_p2p
     }
     class EncryptFileMultipleRecipients
     {
-        public void EncryptFileMultiRec(string[] recipientPublicKeyPaths, string inputFilePath, string outputPathName)
+        public void EncryptFileMultiRec(string[] recipientPublicKeyPaths, string inputFilePath, string outputPathName, string privateKeyfile)
         {
+
+            Console.Write("Please enter the passphrase of the chosen private key: ");
+            String privatePassWord = Console.ReadLine();
+
             // create an instance of the library
             PGPLib pgp = new PGPLib();
 
@@ -94,11 +98,80 @@ namespace prototype_p2p
             // set to true for compatibility with GnuPG 2.2.8+
             bool withIntegrityCheck = true;
 
-            pgp.EncryptFile(inputFilePath,
-                    recipientPublicKeyPaths,
-                    outputPathName,
-                    asciiArmor,
-                    withIntegrityCheck);
+            FileInfo inputFile = new FileInfo(inputFilePath);
+            //FileInfo privateKey = new FileInfo(privateKeyfile);
+            FileInfo outputname = new FileInfo(outputPathName);
+
+            FileInfo[] fileinputs = new FileInfo[recipientPublicKeyPaths.Length];
+
+            int i = 0;
+            foreach (string s in recipientPublicKeyPaths)
+            {
+                fileinputs[i] = new FileInfo(s);
+                i++;
+            }
+
+
+            pgp.SignAndEncryptFile(inputFile, new FileInfo(privateKeyfile), privatePassWord, fileinputs,
+                outputname, asciiArmor, withIntegrityCheck);
+
+
+
+            //    pgp.EncryptFile(inputFilePath,
+            //           recipientPublicKeyPaths,
+            //          outputPathName,
+            //         asciiArmor,
+            //        withIntegrityCheck);
+        }
+
+        //TODO: Remove files
+    }
+
+    class DecryptAndVerifyString
+    {
+        public static void decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath)
+        {
+
+            Console.Write("Please enter the passphrase of the chosen private key: ");
+            String privatePassWord = Console.ReadLine();
+
+
+            // obtain encrypted and signed message
+            String signedAndEncryptedMessage = encryptedMessage;
+
+
+            String plainTextExtracted;
+
+            // create an instance of the library
+            PGPLib pgp = new PGPLib();
+
+            // decrypt and verify
+            SignatureCheckResult signatureCheck =
+                pgp.DecryptAndVerifyString(signedAndEncryptedMessage,
+                         new FileInfo(secretKeyPath), //secret key path
+                         privatePassWord, //this is the password of the secret key
+                         new FileInfo(publicKeyPath),
+                         out plainTextExtracted);
+
+            // print the results
+            if (signatureCheck == SignatureCheckResult.SignatureVerified)
+            {
+                Console.WriteLine("Signare OK");
+            }
+            else if (signatureCheck == SignatureCheckResult.SignatureBroken)
+            {
+                Console.WriteLine("Signare of the message is either broken or forged");
+            }
+            else if (signatureCheck == SignatureCheckResult.PublicKeyNotMatching)
+            {
+                Console.WriteLine("The provided public key doesn't match the signature");
+            }
+            else if (signatureCheck == SignatureCheckResult.NoSignatureFound)
+            {
+                Console.WriteLine("This message is not digitally signed");
+            }
+
+            Console.WriteLine("Extracted message: " + plainTextExtracted);
         }
     }
 
