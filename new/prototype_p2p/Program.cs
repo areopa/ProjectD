@@ -152,40 +152,45 @@ namespace prototype_p2p
 
                         break;
                     case 7:
-
-                        int blockNumber = 0;
-                        while (blockNumber <= 0)
+                        if (ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.
                         {
-                            Console.Write("Enter the number of the block you want to decrypt: ");
-                            if (int.TryParse(Console.ReadLine(), out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
+                            int blockNumber = 0;
+                            while (blockNumber <= 0)
                             {
-
-                                if (inputBlockNumber >= ProjectD.ChainList.Count)
+                                Console.Write("Enter the number of the block you want to decrypt: ");
+                                if (int.TryParse(Console.ReadLine(), out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
                                 {
-                                    Console.WriteLine("The number you enter must correspond to an existing block. Try again.");
+
+                                    if (inputBlockNumber >= ProjectD.ChainList.Count)
+                                    {
+                                        Console.WriteLine("The number you enter must correspond to an existing block. Try again.");
+                                    }
+                                    else
+                                    {
+                                        blockNumber = Math.Abs(inputBlockNumber);
+                                    }
                                 }
                                 else
                                 {
-                                    blockNumber = Math.Abs(inputBlockNumber);
+                                    Console.WriteLine("The number of the block has to be a number. Try again.");
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("The number of the block has to be a number. Try again.");
-                            }
+                            Console.WriteLine("Encrypted data:");
+
+                            string encryptedDataFromChain = ProjectD.ChainList[blockNumber].MessageList[0].Data;
+                            Console.WriteLine(encryptedDataFromChain);
+
+                            Console.Write("Enter the ID of the private key you want to use to decrypt: ");
+                            string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                            Console.Write("Enter the ID of the public key of the sender: ");
+                            string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath();
+
+                            DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
                         }
-                        Console.WriteLine("Encrypted data:");
-
-                        string encryptedDataFromChain = ProjectD.ChainList[blockNumber].MessageList[0].Data;
-                        Console.WriteLine(encryptedDataFromChain);
-
-                        Console.Write("Enter the ID of the private key you want to use to decrypt: ");
-                        string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
-                        Console.Write("Enter the ID of the public key of the sender: ");
-                        string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath();
-
-                        DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
-
+                        else
+                        {
+                            Console.WriteLine("There are no blocks to decrypt!");
+                        }
                         break;
                     case 8:
 
