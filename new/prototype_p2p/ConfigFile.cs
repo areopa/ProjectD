@@ -12,9 +12,9 @@ namespace prototype_p2p
 
         public Dictionary<string, string> configSettings;
         public bool IsInitialized;
-        public ConfigFile()
+        public ConfigFile(string keysPath)
         {
-            InitConfigFile();
+            InitConfigFile(keysPath);
             configSettings = LoadConfigFileData();
             LoadConfigValues();
             IsInitialized = true;
@@ -22,7 +22,7 @@ namespace prototype_p2p
         }
         // public static Dictionary<string, string> configSettings = new Dictionary<string, string>();
 
-        private void InitConfigFile()
+        private void InitConfigFile(string keysPath)
         {
             if (!File.Exists("Config.ini"))
             {

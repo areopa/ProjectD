@@ -31,7 +31,7 @@ namespace prototype_p2p
             Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
-            ConfigFile configData = new ConfigFile();
+            ConfigFile configData = new ConfigFile(pathKey);
             configData.WriteAllValuesConsole();
 
             try
