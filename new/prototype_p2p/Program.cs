@@ -230,20 +230,12 @@ namespace prototype_p2p
                             Console.WriteLine("Please pick a valid action!");
                             instruction = 0;
                         }
-                        using (StreamWriter file = File.CreateText(@"chain.json")) //placed it here as well to save the chain after every action
-                        {
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Serialize(file, ProjectD);
-                        }
+                        ProjectD.SaveChainStateToDisk(ProjectD);
                 }
 
-                using (StreamWriter file = File.CreateText(@"chain.json"))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(file, ProjectD);
-                }
+            ProjectD.SaveChainStateToDisk(ProjectD);
 
-                ClientInstance.Exit();
+            ClientInstance.Exit();
             }
         }
     }
