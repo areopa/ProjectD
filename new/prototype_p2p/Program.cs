@@ -32,6 +32,10 @@ namespace prototype_p2p
             //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
             Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
+            if (!File.Exists("Config.ini"))
+            {
+                File.WriteAllText("Config.ini", "//== Use two or more = characters in one line to prevent the program from loading it\nuseConfigFile=false");
+            }
 
             Dictionary<string, string> configSettings = new Dictionary<string, string>();
             try
@@ -192,6 +196,7 @@ namespace prototype_p2p
             Console.WriteLine("7. Decrypt a stored message");
             Console.WriteLine("8. Multi encryption method");
             Console.WriteLine("9. Toggle loading from config");
+           // Console.WriteLine("10. Delete current chain");
             Console.WriteLine("--------------------------------------");
 
 
