@@ -22,73 +22,18 @@ namespace prototype_p2p
         public static string[] keyArrayPathAppended;
         //public static string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
 
-
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
-        private static List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
-
+        public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
 
         static void Main(string[] args)
         {
             //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
             Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
-            if (!File.Exists("Config.ini"))
-            {
-                File.WriteAllText("Config.ini", "//== Use two or more = characters in one line to prevent the program from loading it\nuseConfigFile=false");
-            }
 
-            Dictionary<string, string> configSettings = new Dictionary<string, string>();
-            try
-            {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
-                {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        string[] keyvalue = line.Split('=');
-                        if (keyvalue.Length == 2)
-                        {
-                            configSettings.Add(keyvalue[0], keyvalue[1]);
-                        }
-                    }
-                }
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("The file could not be read:" + "\n" + e.Message);
-            }
-            foreach (var pair in configSettings)
-            {
-                Console.WriteLine($"Setting:{pair.Key} Value:{pair.Value}");
-            }
+            ConfigFile configData = new ConfigFile();
+            configData.WriteAllValuesConsole();
 
-
-            if (configSettings.TryGetValue("useConfigFile", out string value))
-            {
-                if (value.ToLower() == "true")
-                {
-                    if (configSettings.TryGetValue("NetworkPort", out string portVal))
-                    {
-                        if (int.TryParse(portVal, out int portValInt))
-                        {
-                            if (!portBlacklist.Contains(portValInt))
-                            {
-                                NetworkPort = Math.Abs(portValInt);
-                            }
-
-                        }
-                    }
-                    if (configSettings.TryGetValue("NodeName", out string nodeNameVal))
-                    {
-                        NodeName = nodeNameVal;
-                    }
-                    if (configSettings.TryGetValue("pathKey", out string altKeyPath))
-                    {
-                        pathKey = altKeyPath;
-                    }
-
-                }
-            }
             try
             {
                 keyArrayPathAppended = Directory.GetFiles(pathKey);
@@ -101,38 +46,6 @@ namespace prototype_p2p
             {
                 Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
             }
-
-            /*
-            try
-            {   // Open the text file using a stream reader.
-               using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
-                {   
-                    String line = sr.ReadToEnd(); //Load the file contents as a string, and write the string to the console.
-                    char[] stringSeperator = new char[] { ';' }; //the text extracted from the file will be split on this character, more can be added if needed.
-                    string[] configSplit = line.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i<configSplit.Length; i++)
-                    {
-                        Console.Write(configSplit[i] + "=" + i);
-                    }
-                }
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("The file could not be read:"+"\n"+e.Message);
-            }
-            
-
-            string[] lines = { "First line", "Second line", "Third line" };
-
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(pathMessages, "WriteLines.txt")))  //code to create new data files.
-            {
-                foreach (string line in lines)
-                    outputFile.WriteLine(line);
-            }
-            */
-
-
-
 
             while (NetworkPort == 0)
             {
@@ -156,13 +69,11 @@ namespace prototype_p2p
                 }
             }
 
-
             if (NodeName == "Unknown")
             {
                 Console.Write("Enter Node name: ");
                 NodeName = Console.ReadLine();
             }
-
 
             //Eerst ProjectD.ReadChain() --> Als geen resultaat, dan SetupChain()
             ProjectD.ReadChain();
@@ -198,8 +109,6 @@ namespace prototype_p2p
             Console.WriteLine("9. Toggle loading from config");
            // Console.WriteLine("10. Delete current chain");
             Console.WriteLine("--------------------------------------");
-
-
 
             int instruction = 0;
             while (instruction != 4)
@@ -240,15 +149,13 @@ namespace prototype_p2p
                         Console.WriteLine("Enter the name of the receiver");
                         string receiverNameFor6 = Console.ReadLine();
 
-
                         Console.WriteLine("Enter the data you want encrypted: ");
                         string dataToBeEncrypted = Console.ReadLine();
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privateKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
                         string publicKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
-
-
+                    
                         string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
                         Console.WriteLine(encryptedData);
                         ProjectD.CreateMessage(new Message(NodeName, receiverNameFor6, encryptedData));
@@ -289,7 +196,6 @@ namespace prototype_p2p
                         Console.Write("Enter the ID of the public key of the sender: ");
                         string publicKeyPathDecrypt = ParseKeyID.ParseAndReturnVerifiedKeyPath();
 
-
                         DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
                         //DecryptAndVerifyString.DecryptMulti(encryptedDataFromChain, privateKeyPathDecrypt);
 
@@ -305,12 +211,8 @@ namespace prototype_p2p
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
 
-
                         Console.WriteLine("Enter the public key ID's for every recipient");
                         string[] recipientKeyPathsArr = ParseKeyID.BuildVerifiedKeyIdPathArray();
-
-
-
 
                         string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
                         Console.WriteLine(encData);
@@ -321,38 +223,9 @@ namespace prototype_p2p
                         break;
                     case 9:
 
-                        try
-                        {
-                            if (configSettings.TryGetValue("useConfigFile", out string useConfigVal))
-                            {
-                                if (useConfigVal.ToLower() == "true")
-                                {
-                                    configSettings["useConfigFile"] = "false";
-                                }
-                                else if (useConfigVal.ToLower() == "false")
-                                {
-                                    configSettings["useConfigFile"] = "true";
-                                }
-                            }
-                            using (StreamWriter file = new StreamWriter("Config.ini"))
-                            {
-                                file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it");
-                                foreach (var entry in configSettings)
-                                {
-                                    file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
-                                }
-                            }
-                            Console.WriteLine("Change will go in effect next application restart.");
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            Console.WriteLine("No access authorization!");
-                        }
+                        configData.ToggleAutoLoadConfigValues();
                         break;
                 }
-
-
-
 
 
                         Console.Write("Enter the number of the action you want to execute: ");
