@@ -16,10 +16,11 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
-        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8" };
+        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         public static string pathKey = @"..\\..\\Keys";
         public static string pathMessages = @"..\\..\\Messages";
-        public static string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
+        public static string[] keyArrayPathAppended;
+        //public static string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
 
 
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
@@ -29,12 +30,73 @@ namespace prototype_p2p
         static void Main(string[] args)
         {
             //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
-            Console.WriteLine("Keys directory exists:" + Directory.Exists(pathKey));
+            Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
-            //for (int i = 0; i < keyArrayPathAppended.Length; i++)
-            //{
-            //    Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
-            //}
+
+            Dictionary<string, string> configSettings = new Dictionary<string, string>();
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader("Config.ini"))            //this can be used to create a config file system to remember settings
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] keyvalue = line.Split('=');
+                        if (keyvalue.Length == 2)
+                        {
+                            configSettings.Add(keyvalue[0], keyvalue[1]);
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:" + "\n" + e.Message);
+            }
+            foreach (var pair in configSettings)
+            {
+                Console.WriteLine($"Setting:{pair.Key} Value:{pair.Value}");
+            }
+
+
+            if (configSettings.TryGetValue("useConfigFile", out string value))
+            {
+                if (value.ToLower() == "true")
+                {
+                    if (configSettings.TryGetValue("NetworkPort", out string portVal))
+                    {
+                        if (int.TryParse(portVal, out int portValInt))
+                        {
+                            if (!portBlacklist.Contains(portValInt))
+                            {
+                                NetworkPort = Math.Abs(portValInt);
+                            }
+
+                        }
+                    }
+                    if (configSettings.TryGetValue("NodeName", out string nodeNameVal))
+                    {
+                        NodeName = nodeNameVal;
+                    }
+                    if (configSettings.TryGetValue("pathKey", out string altKeyPath))
+                    {
+                        pathKey = altKeyPath;
+                    }
+
+                }
+            }
+            try
+            {
+                keyArrayPathAppended = Directory.GetFiles(pathKey);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.WriteLine("Keys directory not found!");
+            }
+            for (int i = 0; i < keyArrayPathAppended.Length; i++)
+            {
+                Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
+            }
 
             /*
             try
@@ -91,10 +153,11 @@ namespace prototype_p2p
             }
 
 
-
-            Console.Write("Enter Node name: ");
-            NodeName = Console.ReadLine();
-
+            if (NodeName == "Unknown")
+            {
+                Console.Write("Enter Node name: ");
+                NodeName = Console.ReadLine();
+            }
 
 
             //Eerst ProjectD.ReadChain() --> Als geen resultaat, dan SetupChain()
@@ -128,10 +191,10 @@ namespace prototype_p2p
             Console.WriteLine("6. Encrypt a message, encryption key ID's are listed under 5");
             Console.WriteLine("7. Decrypt a stored message");
             Console.WriteLine("8. Multi encryption method");
-           // Console.WriteLine("9. Toggle loading from config");
+            Console.WriteLine("9. Toggle loading from config");
             Console.WriteLine("--------------------------------------");
 
-            
+
 
             int instruction = 0;
             while (instruction != 4)
@@ -179,9 +242,9 @@ namespace prototype_p2p
                         string privateKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
                         string publicKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
-                         
-                        
-                        string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath); 
+
+
+                        string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
                         Console.WriteLine(encryptedData);
                         ProjectD.CreateMessage(new Message(NodeName, receiverNameFor6, encryptedData));
                         ProjectD.ProcessMessageQueue(NodeName);
@@ -204,7 +267,7 @@ namespace prototype_p2p
                                 else
                                 {
                                     blockNumber = Math.Abs(inputBlockNumber);
-                                }    
+                                }
                             }
                             else
                             {
@@ -212,7 +275,7 @@ namespace prototype_p2p
                             }
                         }
                         Console.WriteLine("Encrypted data:");
-                        
+
                         string encryptedDataFromChain = ProjectD.ChainList[blockNumber].MessageList[0].Data;
                         Console.WriteLine(encryptedDataFromChain);
 
@@ -251,35 +314,68 @@ namespace prototype_p2p
                         ProjectD.ProcessMessageQueue(NodeName);
                         ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
                         break;
+                    case 9:
 
-
+                        try
+                        {
+                            if (configSettings.TryGetValue("useConfigFile", out string useConfigVal))
+                            {
+                                if (useConfigVal.ToLower() == "true")
+                                {
+                                    configSettings["useConfigFile"] = "false";
+                                }
+                                else if (useConfigVal.ToLower() == "false")
+                                {
+                                    configSettings["useConfigFile"] = "true";
+                                }
+                            }
+                            using (StreamWriter file = new StreamWriter("Config.ini"))
+                            {
+                                file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it");
+                                foreach (var entry in configSettings)
+                                {
+                                    file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
+                                }
+                            }
+                            Console.WriteLine("Change will go in effect next application restart.");
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Console.WriteLine("No access authorization!");
+                        }
+                        break;
                 }
 
-                Console.Write("Enter the number of the action you want to execute: ");
-                string action = Console.ReadLine();
-                if (validActions.Contains(action))
-                {
-                    instruction = int.Parse(action);
+
+
+
+
+                        Console.Write("Enter the number of the action you want to execute: ");
+                        string action = Console.ReadLine();
+                        if (validActions.Contains(action))
+                        {
+                            instruction = int.Parse(action);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please pick a valid action!");
+                            instruction = 0;
+                        }
+                        using (StreamWriter file = File.CreateText(@"chain.json")) //placed it here as well to save the chain after every action
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            serializer.Serialize(file, ProjectD);
+                        }
                 }
-                else
-                {
-                    Console.WriteLine("Please pick a valid action!");
-                    instruction = 0;
-                }
-                using (StreamWriter file = File.CreateText(@"chain.json")) //placed it here as well to save the chain after every action
+
+                using (StreamWriter file = File.CreateText(@"chain.json"))
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Serialize(file, ProjectD);
                 }
-            }
 
-            using (StreamWriter file = File.CreateText(@"chain.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, ProjectD);
+                ClientInstance.Exit();
             }
-
-            ClientInstance.Exit();
         }
     }
-}
+
