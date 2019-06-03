@@ -22,6 +22,7 @@ namespace prototype_p2p
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
 
+
         static void Main(string[] args)
         {
             //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
@@ -33,6 +34,8 @@ namespace prototype_p2p
 
             ParseKeyID keyIDPaths = new ParseKeyID(pathKey);
             keyIDPaths.WriteAllLoadedKeyPaths();
+
+                      
 
             while (NetworkPort == 0)
             {
@@ -84,6 +87,8 @@ namespace prototype_p2p
                 Console.WriteLine($"Your node name is: {NodeName}");
             }
 
+            FlushBlock flushMsgAndSend = new FlushBlock(ProjectD, NodeName, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
+
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("1. Setup a connection with a server");
             Console.WriteLine("2. Add unencrypted data to chain");
@@ -112,9 +117,8 @@ namespace prototype_p2p
                         string receiverName = Console.ReadLine();
                         Console.WriteLine("Enter the data:");
                         string data = Console.ReadLine();
-                        ProjectD.CreateMessage(new Message(NodeName, receiverName, data));
-                        ProjectD.ProcessMessageQueue(NodeName);
-                        ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+
+                        flushMsgAndSend.Flush(receiverName, data);
                         break;
                     case 3:
                         Console.WriteLine("Chain");
@@ -145,9 +149,8 @@ namespace prototype_p2p
                     
                         string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
                         Console.WriteLine(encryptedData);
-                        ProjectD.CreateMessage(new Message(NodeName, receiverNameFor6, encryptedData));
-                        ProjectD.ProcessMessageQueue(NodeName);
-                        ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+
+                        flushMsgAndSend.Flush(receiverNameFor6, encryptedData);
 
                         break;
                     case 7:
@@ -208,9 +211,7 @@ namespace prototype_p2p
                         string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
                         Console.WriteLine(encData);
 
-                        ProjectD.CreateMessage(new Message(NodeName, receiverNamesForImprovedMultiEnc, encData));
-                        ProjectD.ProcessMessageQueue(NodeName);
-                        ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+                        flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
                         break;
                     case 9:
 
