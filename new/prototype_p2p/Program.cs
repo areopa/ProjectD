@@ -225,7 +225,7 @@ namespace prototype_p2p
                         break;
                 }
 
-
+                        ProjectD.SaveChainStateToDisk(ProjectD);
                         Console.Write("Enter the number of the action you want to execute: ");
                         string action = Console.ReadLine();
                         if (validActions.Contains(action))
@@ -237,7 +237,7 @@ namespace prototype_p2p
                             Console.WriteLine("Please pick a valid action!");
                             instruction = 0;
                         }
-                        ProjectD.SaveChainStateToDisk(ProjectD);
+                        
                 }
 
             ProjectD.SaveChainStateToDisk(ProjectD);
