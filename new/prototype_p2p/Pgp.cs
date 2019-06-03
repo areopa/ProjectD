@@ -11,17 +11,9 @@ namespace prototype_p2p
     class SignAndEncryptString
     {
 
-        /*
-          Useful code examples can be found at https://www.didisoft.com/net-openpgp/examples/openpgp-sign-and-encrypt-in-net/ 
-          
+        /* 
           Instructions on how to decrypt pgp messages through the command line can be found at:https://www.gnupg.org/gph/en/manual/x110.html 
           Use the "--ignore-mdc-error" parameter with console decryption if the decryption fails because the integrity is not protected.
-         
-          TODO: Make used public key a paremeter instead of a hardcoded path.
-          TODO: Make the secret key path dynamic to the path where the program is located.
-          TODO: Implement multiple recipient support
-          Possible idea: use a user editable config file to point to the key locations.
-          Possible idea: use keyrings instead of files for keys.
         */
         public static String StringEncrypter(string toBeEncryptedData, string secretKeyPath, string publicKeyPath)
         {
@@ -31,7 +23,6 @@ namespace prototype_p2p
 
             // create an instance of the library
             PGPLib pgp = new PGPLib();
-
 
             //Sign and encrypt
             //The keys used here are added to the project data, the password for both is "lol". The keys are testing purposes only.
@@ -83,7 +74,6 @@ namespace prototype_p2p
     }
     class EncryptFileMultipleRecipients
     {
-
 
         public void EncryptFileMultiRec(string[] recipientPublicKeyPaths, string inputFilePath, string outputPathName, string privateKeyfile)
         {
@@ -144,7 +134,6 @@ namespace prototype_p2p
                 FileInfo publicKeyInfo = new FileInfo(recipientPublicKeyPaths[i]);
                 recipientPublicKeyPathsStream[i] = publicKeyInfo.OpenRead();
             }
-
             
             Console.Write("Please enter the passphrase of the chosen private key: ");
             string privatePassWord = Console.ReadLine();
@@ -155,7 +144,6 @@ namespace prototype_p2p
 
             pgp.SignAndEncryptStream(streamString, filler, secKeyStream, privatePassWord, recipientPublicKeyPathsStream, encryptedOutputStream, true, true);
             string encryptedMultiRecipientString = Encoding.ASCII.GetString(encryptedOutputStream.ToArray());
-
 
 
             return encryptedMultiRecipientString;
@@ -203,7 +191,7 @@ namespace prototype_p2p
 
                 Console.WriteLine("Extracted message: " + plainTextExtracted);
             }
-            catch (PGPException e)
+            catch (Exception e)
             {
                 if (e is DidiSoft.Pgp.Exceptions.WrongPrivateKeyException)
                 {
@@ -225,6 +213,16 @@ namespace prototype_p2p
                 else if (e is DidiSoft.Pgp.Exceptions.KeyIsRevokedException)
                 {
                     Console.WriteLine("The public key you want to encrypt for appears to be revoked and cannot be used.");
+                    //Can be worked around by setting UseRevokedKeys to true
+                }
+                else if (e is DidiSoft.Pgp.Exceptions.NonPGPDataException)
+                {
+                    Console.WriteLine("The data you want to decrypt is not encrypted with PGP.");
+                    //Can be worked around by setting UseRevokedKeys to true
+                }
+                else if (e is IOException)
+                {
+                    Console.WriteLine("IO Exception has occured, decrypting of unencrypted data is not possible.");
                     //Can be worked around by setting UseRevokedKeys to true
                 }
                 else
