@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace prototype_p2p
 {
@@ -22,10 +24,10 @@ namespace prototype_p2p
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
 
-
+        [STAThread]
         static void Main(string[] args)
         {
-            //Console.WriteLine("Messages directory exists:" + Directory.Exists(@"Messages"));
+
             Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
@@ -35,7 +37,7 @@ namespace prototype_p2p
             ParseKeyID keyIDPaths = new ParseKeyID(pathKey);
             keyIDPaths.WriteAllLoadedKeyPaths();
 
-                      
+            
 
             while (NetworkPort == 0)
             {
@@ -115,8 +117,9 @@ namespace prototype_p2p
                     case 2:
                         Console.Write("Enter the name(s) of the intended recipient(s): ");
                         string receiverName = Console.ReadLine();
-                        Console.WriteLine("Enter the data:");
-                        string data = Console.ReadLine();
+                        //Console.WriteLine("Enter the data:");
+                        //string data = Console.ReadLine();
+                        string data = Prompt.ShowDialog("Enter the data", "Data entry");
 
                         flushMsgAndSend.Flush(receiverName, data);
                         break;
@@ -140,8 +143,9 @@ namespace prototype_p2p
                         Console.WriteLine("Enter the name of the receiver");
                         string receiverNameFor6 = Console.ReadLine();
 
-                        Console.WriteLine("Enter the data you want encrypted: ");
-                        string dataToBeEncrypted = Console.ReadLine();
+                        //Console.WriteLine("Enter the data you want encrypted: ");
+                        //string dataToBeEncrypted = Console.ReadLine();
+                        string dataToBeEncrypted = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privateKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
@@ -199,14 +203,16 @@ namespace prototype_p2p
                         Console.WriteLine("Enter the names of the designated recipients");
                         string receiverNamesForImprovedMultiEnc = Console.ReadLine();
 
-                        Console.WriteLine("Enter data you want to encrypt:");
-                        string inputData = Console.ReadLine();
+                        //Console.WriteLine("Enter data you want to encrypt:");
+                        //string inputData = Console.ReadLine();
 
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
                         string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
 
                         Console.WriteLine("Enter the public key ID's for every recipient");
                         string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArray();
+
+                        string inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
 
                         string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
                         Console.WriteLine(encData);

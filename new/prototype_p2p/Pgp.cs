@@ -189,7 +189,7 @@ namespace prototype_p2p
                     Console.WriteLine("This message is not digitally signed");
                 }
 
-                Console.WriteLine("Extracted message: " + plainTextExtracted);
+                Console.WriteLine("Extracted message: \n" + plainTextExtracted);
             }
             catch (Exception e)
             {
