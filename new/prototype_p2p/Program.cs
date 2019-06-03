@@ -18,7 +18,6 @@ namespace prototype_p2p
         public static string NodeName = "Unknown";
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         public static string pathKey = @"..\\..\\Keys";
-        public static string pathMessages = @"..\\..\\Messages";
 
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
