@@ -19,8 +19,6 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         public static string pathKey = @"..\\..\\Keys";
         public static string pathMessages = @"..\\..\\Messages";
-        public static string[] keyArrayPathAppended;
-        //public static string[] keyArrayPathAppended = Directory.GetFiles(pathKey);
 
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
@@ -34,18 +32,8 @@ namespace prototype_p2p
             ConfigFile configData = new ConfigFile(pathKey);
             configData.WriteAllValuesConsole();
 
-            try
-            {
-                keyArrayPathAppended = Directory.GetFiles(pathKey);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Console.WriteLine("Keys directory not found!");
-            }
-            for (int i = 0; i < keyArrayPathAppended.Length; i++)
-            {
-                Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
-            }
+            ParseKeyID keyIDPaths = new ParseKeyID(pathKey);
+            keyIDPaths.WriteAllLoadedKeyPaths();
 
             while (NetworkPort == 0)
             {
@@ -94,7 +82,7 @@ namespace prototype_p2p
             }
             if (NodeName != "Unkown")
             {
-                Console.WriteLine($"Your node name is {NodeName}");
+                Console.WriteLine($"Your node name is: {NodeName}");
             }
 
             Console.WriteLine("--------------------------------------");
@@ -152,9 +140,9 @@ namespace prototype_p2p
                         Console.WriteLine("Enter the data you want encrypted: ");
                         string dataToBeEncrypted = Console.ReadLine();
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privateKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                        string privateKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
-                        string publicKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
+                        string publicKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
                     
                         string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
                         Console.WriteLine(encryptedData);
@@ -192,12 +180,11 @@ namespace prototype_p2p
                         Console.WriteLine(encryptedDataFromChain);
 
                         Console.Write("Enter the ID of the private key you want to use to decrypt: ");
-                        string privateKeyPathDecrypt = ParseKeyID.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                        string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.Write("Enter the ID of the public key of the sender: ");
-                        string publicKeyPathDecrypt = ParseKeyID.ParseAndReturnVerifiedKeyPath();
+                        string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath();
 
                         DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
-                        //DecryptAndVerifyString.DecryptMulti(encryptedDataFromChain, privateKeyPathDecrypt);
 
                         break;
                     case 8:
@@ -209,10 +196,10 @@ namespace prototype_p2p
                         string inputData = Console.ReadLine();
 
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privKeyPath = ParseKeyID.ParseAndReturnVerifiedKeyPath();
+                        string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
 
                         Console.WriteLine("Enter the public key ID's for every recipient");
-                        string[] recipientKeyPathsArr = ParseKeyID.BuildVerifiedKeyIdPathArray();
+                        string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArray();
 
                         string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr);
                         Console.WriteLine(encData);
