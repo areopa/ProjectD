@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using WebSocketSharp;
@@ -14,18 +15,55 @@ namespace prototype_p2p
         bool Synchronized = false;
         WebSocketServer ServerInstance = null;
 
-        public static string GetLocalIPAddress()
+
+        public string GetLocalIPAddress()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            UnicastIPAddressInformation mostSuitableIp = null;
+
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            foreach (var network in networkInterfaces)
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                if (network.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                var properties = network.GetIPProperties();
+
+                if (properties.GatewayAddresses.Count == 0)
+                    continue;
+
+                foreach (var address in properties.UnicastAddresses)
                 {
-                    return ip.ToString();
+                    if (address.Address.AddressFamily != AddressFamily.InterNetwork)
+                        continue;
+
+                    if (IPAddress.IsLoopback(address.Address))
+                        continue;
+
+                    if (!address.IsDnsEligible)
+                    {
+                        if (mostSuitableIp == null)
+                            mostSuitableIp = address;
+                        continue;
+                    }
+
+                    // The best IP is the IP got from DHCP server
+                    if (address.PrefixOrigin != PrefixOrigin.Dhcp)
+                    {
+                        if (mostSuitableIp == null || !mostSuitableIp.IsDnsEligible)
+                            mostSuitableIp = address;
+                        continue;
+                    }
+
+                    return address.Address.ToString();
                 }
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
+
+            return mostSuitableIp != null 
+                ? mostSuitableIp.Address.ToString()
+                : "";
         }
+        
 
         public void Initialize()
         {
