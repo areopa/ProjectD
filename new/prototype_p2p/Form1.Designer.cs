@@ -57,7 +57,7 @@
             this.DisplayRecords.TabIndex = 0;
             this.DisplayRecords.Text = "Display records";
             this.DisplayRecords.UseVisualStyleBackColor = true;
-            this.DisplayRecords.Click += new System.EventHandler(this.CreateButton_Click);
+            this.DisplayRecords.Click += new System.EventHandler(this.DisplayChainFromGUI);
             // 
             // DisplayKeys
             // 
@@ -68,7 +68,7 @@
             this.DisplayKeys.TabIndex = 1;
             this.DisplayKeys.Text = "Decrypt";
             this.DisplayKeys.UseVisualStyleBackColor = true;
-            this.DisplayKeys.Click += new System.EventHandler(this.GetLinesButton_Click);
+            this.DisplayKeys.Click += new System.EventHandler(this.DecryptFromGUI);
             // 
             // GetSelectedTextButton
             // 
@@ -79,7 +79,7 @@
             this.GetSelectedTextButton.TabIndex = 2;
             this.GetSelectedTextButton.Text = "Display all known keys";
             this.GetSelectedTextButton.UseVisualStyleBackColor = true;
-            this.GetSelectedTextButton.Click += new System.EventHandler(this.GetSelectedTextButton_Click);
+            this.GetSelectedTextButton.Click += new System.EventHandler(this.DisplayAllKeysGUI);
             // 
             // Encrypt
             // 
@@ -90,7 +90,7 @@
             this.Encrypt.TabIndex = 3;
             this.Encrypt.Text = "Encrypt data";
             this.Encrypt.UseVisualStyleBackColor = true;
-            this.Encrypt.Click += new System.EventHandler(this.LoadRTFButton_Click);
+            this.Encrypt.Click += new System.EventHandler(this.EncryptfromGUI);
             // 
             // SelectionButton
             // 

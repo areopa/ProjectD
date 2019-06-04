@@ -27,51 +27,18 @@ namespace prototype_p2p
             this.flushMsgAndSend = flushMsgAndSend;
             this.ProjectD = ProjectD;
             InitializeComponent();
-            //dynamicRichTextBox = new RichTextBox();
-            //dynamicRichTextBox.Location = new Point(20, 20);
-            //dynamicRichTextBox.Width = 300;
-            //dynamicRichTextBox.Height = 200;
-            // Set background and foreground
-            //dynamicRichTextBox.BackColor = Color.White;
-            //dynamicRichTextBox.ForeColor = Color.Black;
-            //dynamicRichTextBox.Top = 80;
-            //dynamicRichTextBox.BorderStyle = BorderStyle.FixedSingle;
-
-            //dynamicRichTextBox.Name = "Input field";
-            //dynamicRichTextBox.Font = new Font("Georgia", 16);
-            //dynamicRichTextBox.Text = "I am Dynamic RichTextBox";
-            //int size = dynamicRichTextBox.TextLength;
-            
-            
-            
-            // accepts TAB key
-            //dynamicRichTextBox.AcceptsTab = true;
-            //dynamicRichTextBox.WordWrap = true;
-            //dynamicRichTextBox.ScrollBars = RichTextBoxScrollBars.Both;
-
-            //dynamicRichTextBox.ReadOnly = true;
-            //dynamicRichTextBox.MaxLength = 50;
-
-            //dynamicRichTextBox.ShortcutsEnabled = true;
-
-            //dynamicRichTextBox.EnableAutoDragDrop = true;
-
-
-
-            //Controls.Add(dynamicRichTextBox);
         }
 
-        // Create a RichTextBox object 
 
 
-        private void CreateButton_Click(object sender, EventArgs e)
+
+        private void DisplayChainFromGUI(object sender, EventArgs e)
         {
-            //Console.WriteLine("Chain");
-            //Console.WriteLine(JsonConvert.SerializeObject(ProjectD, Formatting.Indented));
+
             SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(ProjectD, Formatting.Indented), "Chain data", this);
         }
 
-        private void GetLinesButton_Click(object sender, EventArgs e)
+        private void DecryptFromGUI(object sender, EventArgs e)
         {
             if (ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.
             {
@@ -112,13 +79,13 @@ namespace prototype_p2p
             PrivateKeyDecrypt.Text = "";
         }
 
-        private void GetSelectedTextButton_Click(object sender, EventArgs e)
+        private void DisplayAllKeysGUI(object sender, EventArgs e)
         {
 
             SimpleReportViewer.ShowDialog(keyIDPaths.ReturnAllLoadedKeyPathsAsString(), "All known keys", this);
         }
 
-        private void LoadRTFButton_Click(object sender, EventArgs e)
+        private void EncryptfromGUI(object sender, EventArgs e)
         {
             string[] receiverNames = ReceiverNameTextBox.Lines;         
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
@@ -143,28 +110,7 @@ namespace prototype_p2p
 
         private void SelectionButton_Click(object sender, EventArgs e)
         {
-            dynamicRichTextBox.BackColor = Color.White;
-            dynamicRichTextBox.Clear();
 
-            dynamicRichTextBox.BulletIndent = 10;
-            dynamicRichTextBox.SelectionFont = new Font("Georgia", 16, FontStyle.Bold);
-            dynamicRichTextBox.SelectedText = "Mindcracker Network \n";
-            dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-            dynamicRichTextBox.SelectionBullet = true;
-            dynamicRichTextBox.SelectionColor = Color.DarkBlue;
-            dynamicRichTextBox.SelectedText = "C# Corner" + "\n";
-            dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-            dynamicRichTextBox.SelectionColor = Color.Orange;
-            dynamicRichTextBox.SelectedText = "VB.NET Heaven" + "\n";
-            dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-            dynamicRichTextBox.SelectionColor = Color.Green;
-            dynamicRichTextBox.SelectedText = ".Longhorn Corner" + "\n";
-            dynamicRichTextBox.SelectionColor = Color.Red;
-            dynamicRichTextBox.SelectedText = ".NET Heaven" + "\n";
-            dynamicRichTextBox.SelectionBullet = false;
-            dynamicRichTextBox.SelectionFont = new Font("Tahoma", 10);
-            dynamicRichTextBox.SelectionColor = Color.Black;
-            dynamicRichTextBox.SelectedText = "This is a list of Mindcracker Network websites.\n";
 
 
 
@@ -172,9 +118,7 @@ namespace prototype_p2p
 
         private void ZoomButton_Click(object sender, EventArgs e)
         {
-            dynamicRichTextBox.AutoWordSelection = true;
-            dynamicRichTextBox.RightMargin = 5;
-            dynamicRichTextBox.ZoomFactor = 3.0f;
+
         }
     }
 }
