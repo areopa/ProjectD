@@ -79,6 +79,8 @@ namespace prototype_p2p
             if (e.Data == "Handshake to server")
             {
                 Console.WriteLine(e.Data);
+                Console.WriteLine(Context.UserEndPoint.Address.ToString());
+                Console.WriteLine(Context.UserEndPoint.Port.ToString());
                 Send("Handshake to client");
             }
             else
