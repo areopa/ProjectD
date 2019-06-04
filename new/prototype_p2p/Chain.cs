@@ -85,6 +85,14 @@ namespace prototype_p2p
             block.AddHashcode();
             ChainList.Add(block);
         }
+        public void SaveChainStateToDisk(Chain ProjectD)
+        {
+            using (StreamWriter file = File.CreateText(@"chain.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, ProjectD);
+            }
+        }
 
         public bool CheckIntegrity()
         {
