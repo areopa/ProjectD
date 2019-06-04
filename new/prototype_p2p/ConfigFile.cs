@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace prototype_p2p
 {
@@ -98,7 +99,7 @@ namespace prototype_p2p
                 }
             }
         }
-        public void ToggleAutoLoadConfigValues()
+        public void ToggleAutoLoadConfigValues(bool gui = false)
         {
             try
             {
@@ -121,7 +122,14 @@ namespace prototype_p2p
                         file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
                     }
                 }
-                Console.WriteLine("Change will go in effect next application restart.");
+                if (!gui)
+                {
+                    Console.WriteLine("Change will go in effect next application restart.");
+                }
+                else
+                {
+                    MessageBox.Show("Change will go in effect next application restart: "+ "useConfigFile = "+configSettings["useConfigFile"]);
+                }
             }
             catch (UnauthorizedAccessException)
             {

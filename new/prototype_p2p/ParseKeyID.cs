@@ -11,11 +11,13 @@ namespace prototype_p2p
     public class ParseKeyID
     {
         public string[] keyArrayPathAppended;
+        public string[] KeyArrayNoPathAppended;
         public ParseKeyID(string keysPath)
         {
             try
             {
                 keyArrayPathAppended = Directory.GetFiles(keysPath);
+                KeyArrayNoPathAppended = Directory.GetFiles(keysPath).Select(p => Path.GetFileName(p)).ToArray();
             }
             catch (DirectoryNotFoundException)
             {
@@ -39,6 +41,16 @@ namespace prototype_p2p
             }
             return allKeyPaths;
         }
+        public string ReturnAllLoadedKeyPathsAsStringNoPathPrefixed()
+        {
+            string allKeyPaths = "";
+            for (int i = 0; i < KeyArrayNoPathAppended.Length; i++)
+            {
+                allKeyPaths = allKeyPaths + KeyArrayNoPathAppended[i] + " key ID:" + i + Environment.NewLine;
+            }
+            return allKeyPaths;
+        }
+
 
 
         public string ParseAndReturnVerifiedKeyPathGUI()
@@ -91,21 +103,12 @@ namespace prototype_p2p
                 }
                     else
                     {
-                      
-                        
                             MessageBox.Show("Entered ID:" + enteredKeyInt + " has no corresponding key, please enter the ID of an existing key!");
-                        
-
                     }
                 }
                 else
                 {
-                    
-                   
                         MessageBox.Show("Entered ID:" + enteredKey + " is not a number! The ID must be a number.");
-                        
-
-
                 }
 
 

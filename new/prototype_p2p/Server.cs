@@ -14,6 +14,8 @@ namespace prototype_p2p
     {
         bool Synchronized = false;
         WebSocketServer ServerInstance = null;
+        public string LocalIPAddress;
+        public string serverInitAt;
 
 
         public string GetLocalIPAddress()
@@ -67,10 +69,11 @@ namespace prototype_p2p
 
         public void Initialize()
         {
-            string LocalIPAddress = GetLocalIPAddress();
+            LocalIPAddress = GetLocalIPAddress();
             ServerInstance = new WebSocketServer($"ws://{LocalIPAddress}:{Program.NetworkPort}");
             ServerInstance.AddWebSocketService<Server>("/Chain");
             ServerInstance.Start();
+            serverInitAt = $"ws://{LocalIPAddress}:{Program.NetworkPort}";
             Console.WriteLine($"Server initialized at ws://{LocalIPAddress}:{Program.NetworkPort}");
         }
 

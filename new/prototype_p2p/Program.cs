@@ -112,7 +112,7 @@ namespace prototype_p2p
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form1 = new Form1(keyIDPaths, configData, flushMsgAndSend, ProjectD);
+            form1 = new Form1(keyIDPaths, configData, flushMsgAndSend, ProjectD, ClientInstance, ServerInstance);
             Application.Run(form1);
 
             int instruction = 0;

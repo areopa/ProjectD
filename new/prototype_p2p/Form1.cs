@@ -12,21 +12,26 @@ namespace prototype_p2p
 {
     public partial class Form1 : Form
     {
-        RichTextBox dynamicRichTextBox;
-        RichTextBox dynamicRichTextBox2;
-        RichTextBox dynamicRichTextBox3;
         ParseKeyID keyIDPaths;
         ConfigFile configData;
         FlushBlock flushMsgAndSend;
+        Client ClientInstance;
         Chain ProjectD;
+        Server ServerInstance;
 
-        public Form1(ParseKeyID keyIDPaths, ConfigFile configData, FlushBlock flushMsgAndSend, Chain ProjectD)
+        public Form1(ParseKeyID keyIDPaths, ConfigFile configData, FlushBlock flushMsgAndSend, Chain ProjectD, Client clientInstance, Server ServerInstance)
         {
             this.keyIDPaths = keyIDPaths;
             this.configData = configData;
             this.flushMsgAndSend = flushMsgAndSend;
             this.ProjectD = ProjectD;
+            this.ClientInstance = clientInstance;
+            this.ServerInstance = ServerInstance;
             InitializeComponent();
+           // richTextBoxKeyPaths.ReadOnly = false;
+            richTextBoxKeyPaths.Text = keyIDPaths.ReturnAllLoadedKeyPathsAsStringNoPathPrefixed();
+            // richTextBoxKeyPaths.ReadOnly = true;
+            ServerInitAt.Text = ServerInstance.serverInitAt;
         }
 
 
@@ -108,17 +113,18 @@ namespace prototype_p2p
             PrivateKeyIdTextBox.Text = "";
         }
 
-        private void SelectionButton_Click(object sender, EventArgs e)
+        private void ToggleLoadConfigSettings(object sender, EventArgs e)
         {
 
-
+            configData.ToggleAutoLoadConfigValues(true);
 
 
         }
 
-        private void ZoomButton_Click(object sender, EventArgs e)
+        private void ConnectServer(object sender, EventArgs e)
         {
-
+            string serverURL = ServerUrlTextBox.Text;
+            ClientInstance.Handshake($"{serverURL}/Chain");
         }
     }
 }

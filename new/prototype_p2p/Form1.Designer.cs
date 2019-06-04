@@ -32,8 +32,8 @@
             this.DisplayKeys = new System.Windows.Forms.Button();
             this.GetSelectedTextButton = new System.Windows.Forms.Button();
             this.Encrypt = new System.Windows.Forms.Button();
-            this.SelectionButton = new System.Windows.Forms.Button();
-            this.ZoomButton = new System.Windows.Forms.Button();
+            this.ToggleConfigLoad = new System.Windows.Forms.Button();
+            this.ConnectServerButton = new System.Windows.Forms.Button();
             this.labeltextDisplay = new System.Windows.Forms.Label();
             this.ReceiverNameTextBox = new System.Windows.Forms.TextBox();
             this.ReceiverKeyIdTextBox = new System.Windows.Forms.TextBox();
@@ -47,11 +47,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.PrivateKeyDecrypt = new System.Windows.Forms.TextBox();
             this.PublicKeyVerify = new System.Windows.Forms.TextBox();
+            this.richTextBoxKeyPaths = new System.Windows.Forms.RichTextBox();
+            this.ServerUrlTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ServerInitAt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // DisplayRecords
             // 
-            this.DisplayRecords.Location = new System.Drawing.Point(820, 98);
+            this.DisplayRecords.Location = new System.Drawing.Point(802, 587);
             this.DisplayRecords.Name = "DisplayRecords";
             this.DisplayRecords.Size = new System.Drawing.Size(115, 35);
             this.DisplayRecords.TabIndex = 0;
@@ -62,7 +67,7 @@
             // DisplayKeys
             // 
             this.DisplayKeys.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.DisplayKeys.Location = new System.Drawing.Point(820, 44);
+            this.DisplayKeys.Location = new System.Drawing.Point(499, 423);
             this.DisplayKeys.Name = "DisplayKeys";
             this.DisplayKeys.Size = new System.Drawing.Size(115, 35);
             this.DisplayKeys.TabIndex = 1;
@@ -79,12 +84,13 @@
             this.GetSelectedTextButton.TabIndex = 2;
             this.GetSelectedTextButton.Text = "Display all known keys";
             this.GetSelectedTextButton.UseVisualStyleBackColor = true;
+            this.GetSelectedTextButton.Visible = false;
             this.GetSelectedTextButton.Click += new System.EventHandler(this.DisplayAllKeysGUI);
             // 
             // Encrypt
             // 
             this.Encrypt.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.Encrypt.Location = new System.Drawing.Point(820, 214);
+            this.Encrypt.Location = new System.Drawing.Point(40, 423);
             this.Encrypt.Name = "Encrypt";
             this.Encrypt.Size = new System.Drawing.Size(115, 35);
             this.Encrypt.TabIndex = 3;
@@ -92,27 +98,25 @@
             this.Encrypt.UseVisualStyleBackColor = true;
             this.Encrypt.Click += new System.EventHandler(this.EncryptfromGUI);
             // 
-            // SelectionButton
+            // ToggleConfigLoad
             // 
-            this.SelectionButton.Location = new System.Drawing.Point(820, 270);
-            this.SelectionButton.Name = "SelectionButton";
-            this.SelectionButton.Size = new System.Drawing.Size(115, 35);
-            this.SelectionButton.TabIndex = 4;
-            this.SelectionButton.Text = "Selection ";
-            this.SelectionButton.UseVisualStyleBackColor = true;
-            this.SelectionButton.Visible = false;
-            this.SelectionButton.Click += new System.EventHandler(this.SelectionButton_Click);
+            this.ToggleConfigLoad.Location = new System.Drawing.Point(802, 521);
+            this.ToggleConfigLoad.Name = "ToggleConfigLoad";
+            this.ToggleConfigLoad.Size = new System.Drawing.Size(115, 35);
+            this.ToggleConfigLoad.TabIndex = 4;
+            this.ToggleConfigLoad.Text = "Toggle loading from config file";
+            this.ToggleConfigLoad.UseVisualStyleBackColor = true;
+            this.ToggleConfigLoad.Click += new System.EventHandler(this.ToggleLoadConfigSettings);
             // 
-            // ZoomButton
+            // ConnectServerButton
             // 
-            this.ZoomButton.Location = new System.Drawing.Point(820, 327);
-            this.ZoomButton.Name = "ZoomButton";
-            this.ZoomButton.Size = new System.Drawing.Size(115, 35);
-            this.ZoomButton.TabIndex = 5;
-            this.ZoomButton.Text = "Zoom";
-            this.ZoomButton.UseVisualStyleBackColor = true;
-            this.ZoomButton.Visible = false;
-            this.ZoomButton.Click += new System.EventHandler(this.ZoomButton_Click);
+            this.ConnectServerButton.Location = new System.Drawing.Point(40, 587);
+            this.ConnectServerButton.Name = "ConnectServerButton";
+            this.ConnectServerButton.Size = new System.Drawing.Size(115, 35);
+            this.ConnectServerButton.TabIndex = 5;
+            this.ConnectServerButton.Text = "Setup a connection with a server";
+            this.ConnectServerButton.UseVisualStyleBackColor = true;
+            this.ConnectServerButton.Click += new System.EventHandler(this.ConnectServer);
             // 
             // labeltextDisplay
             // 
@@ -187,7 +191,7 @@
             // 
             // BlockNumberDecrypt
             // 
-            this.BlockNumberDecrypt.Location = new System.Drawing.Point(528, 113);
+            this.BlockNumberDecrypt.Location = new System.Drawing.Point(499, 114);
             this.BlockNumberDecrypt.Name = "BlockNumberDecrypt";
             this.BlockNumberDecrypt.Size = new System.Drawing.Size(100, 20);
             this.BlockNumberDecrypt.TabIndex = 14;
@@ -214,23 +218,73 @@
             // 
             // PrivateKeyDecrypt
             // 
-            this.PrivateKeyDecrypt.Location = new System.Drawing.Point(528, 229);
+            this.PrivateKeyDecrypt.Location = new System.Drawing.Point(499, 230);
             this.PrivateKeyDecrypt.Name = "PrivateKeyDecrypt";
             this.PrivateKeyDecrypt.Size = new System.Drawing.Size(100, 20);
             this.PrivateKeyDecrypt.TabIndex = 17;
             // 
             // PublicKeyVerify
             // 
-            this.PublicKeyVerify.Location = new System.Drawing.Point(528, 342);
+            this.PublicKeyVerify.Location = new System.Drawing.Point(499, 342);
             this.PublicKeyVerify.Name = "PublicKeyVerify";
             this.PublicKeyVerify.Size = new System.Drawing.Size(100, 20);
             this.PublicKeyVerify.TabIndex = 18;
+            // 
+            // richTextBoxKeyPaths
+            // 
+            this.richTextBoxKeyPaths.DetectUrls = false;
+            this.richTextBoxKeyPaths.Location = new System.Drawing.Point(966, 79);
+            this.richTextBoxKeyPaths.Name = "richTextBoxKeyPaths";
+            this.richTextBoxKeyPaths.ReadOnly = true;
+            this.richTextBoxKeyPaths.Size = new System.Drawing.Size(268, 533);
+            this.richTextBoxKeyPaths.TabIndex = 19;
+            this.richTextBoxKeyPaths.Text = "";
+            // 
+            // ServerUrlTextBox
+            // 
+            this.ServerUrlTextBox.Location = new System.Drawing.Point(40, 551);
+            this.ServerUrlTextBox.Name = "ServerUrlTextBox";
+            this.ServerUrlTextBox.Size = new System.Drawing.Size(436, 20);
+            this.ServerUrlTextBox.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label7.Location = new System.Drawing.Point(37, 521);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(171, 17);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Enter Server Url and port ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label8.Location = new System.Drawing.Point(37, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(132, 17);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Server initialized at:";
+            // 
+            // ServerInitAt
+            // 
+            this.ServerInitAt.Location = new System.Drawing.Point(40, 29);
+            this.ServerInitAt.Name = "ServerInitAt";
+            this.ServerInitAt.ReadOnly = true;
+            this.ServerInitAt.Size = new System.Drawing.Size(436, 20);
+            this.ServerInitAt.TabIndex = 23;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 506);
+            this.ClientSize = new System.Drawing.Size(1246, 668);
+            this.Controls.Add(this.ServerInitAt);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.ServerUrlTextBox);
+            this.Controls.Add(this.richTextBoxKeyPaths);
             this.Controls.Add(this.PublicKeyVerify);
             this.Controls.Add(this.PrivateKeyDecrypt);
             this.Controls.Add(this.label6);
@@ -244,8 +298,8 @@
             this.Controls.Add(this.ReceiverKeyIdTextBox);
             this.Controls.Add(this.ReceiverNameTextBox);
             this.Controls.Add(this.labeltextDisplay);
-            this.Controls.Add(this.ZoomButton);
-            this.Controls.Add(this.SelectionButton);
+            this.Controls.Add(this.ConnectServerButton);
+            this.Controls.Add(this.ToggleConfigLoad);
             this.Controls.Add(this.Encrypt);
             this.Controls.Add(this.GetSelectedTextButton);
             this.Controls.Add(this.DisplayKeys);
@@ -263,8 +317,8 @@
         private System.Windows.Forms.Button DisplayKeys;
         private System.Windows.Forms.Button GetSelectedTextButton;
         private System.Windows.Forms.Button Encrypt;
-        private System.Windows.Forms.Button SelectionButton;
-        private System.Windows.Forms.Button ZoomButton;
+        private System.Windows.Forms.Button ToggleConfigLoad;
+        private System.Windows.Forms.Button ConnectServerButton;
         private System.Windows.Forms.Label labeltextDisplay;
         private System.Windows.Forms.TextBox ReceiverNameTextBox;
         private System.Windows.Forms.TextBox ReceiverKeyIdTextBox;
@@ -278,6 +332,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox PrivateKeyDecrypt;
         private System.Windows.Forms.TextBox PublicKeyVerify;
+        private System.Windows.Forms.RichTextBox richTextBoxKeyPaths;
+        private System.Windows.Forms.TextBox ServerUrlTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox ServerInitAt;
     }
 }
 
