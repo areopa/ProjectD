@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace prototype_p2p
 {
-    class FlushBlock
+    public class FlushBlock
     {
         Chain ProjectD;
         Client ClientInstance;

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace prototype_p2p
 {
-     class ConfigFile
+     public class ConfigFile
     {
 
         public Dictionary<string, string> configSettings;
