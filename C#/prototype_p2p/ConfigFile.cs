@@ -31,7 +31,7 @@ namespace prototype_p2p
                 File.WriteAllText("Config.ini", "//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty\n" +
                     "useConfigFile=false\n" +
                     "NetworkPort=\n" +
-                    "NodeName=\n" +
+                    "NodeName=Unknown\n" +
                     "pathKey="+Program.pathKey);
             }
         }
@@ -130,6 +130,33 @@ namespace prototype_p2p
                 {
                     MessageBox.Show("Change will go in effect next application restart: "+ "useConfigFile = "+configSettings["useConfigFile"]);
                 }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("No access authorization!");
+            }
+        }
+        public void SaveCurrentPortAndNameToConfigValues(string nameToSet, int portToSet)
+        {
+            try
+            {
+                if (configSettings.TryGetValue("NodeName", out string nodeName))
+                {
+                        configSettings["NodeName"] = nameToSet;
+                }
+                if (configSettings.TryGetValue("NetworkPort", out string networkPort))
+                {
+                    configSettings["NetworkPort"] = portToSet.ToString();
+                }
+                using (StreamWriter file = new StreamWriter("Config.ini"))
+                {
+                    file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty");
+                    foreach (var entry in configSettings)
+                    {
+                        file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
+                    }
+                }
+                MessageBox.Show("Settings saved: " + "NodeName = " + configSettings["NodeName"] + " NetworkPort = " + configSettings["NetworkPort"]);
             }
             catch (UnauthorizedAccessException)
             {

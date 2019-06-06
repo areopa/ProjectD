@@ -16,6 +16,7 @@ namespace prototype_p2p
         ConfigFile configData;
         Client ClientInstance;
         Server ServerInstance;
+        int chainCount;
 
         public Form1(ParseKeyID keyIDPaths, ConfigFile configData, Client clientInstance, Server ServerInstance)
         {
@@ -24,13 +25,29 @@ namespace prototype_p2p
             this.ClientInstance = clientInstance;
             this.ServerInstance = ServerInstance;
             InitializeComponent();
-           // richTextBoxKeyPaths.ReadOnly = false;
             richTextBoxKeyPaths.Text = keyIDPaths.ReturnAllLoadedKeyPathsAsStringNoPathPrefixed();
-            // richTextBoxKeyPaths.ReadOnly = true;
             ServerInitAt.Text = ServerInstance.serverInitAt;
+            UpdatecomboBoxBlockDecryptNumberDropDown();
+            chainCount = Program.ProjectD.ChainList.Count;
+            this.comboBoxBlockDecryptNumber.DropDown +=
+                new System.EventHandler(comboBoxBlockDecryptNumber_DropDown);
         }
 
-
+        private void comboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
+        {
+            if (chainCount != Program.ProjectD.ChainList.Count)
+            {
+                UpdatecomboBoxBlockDecryptNumberDropDown();
+            }
+        }
+        private void UpdatecomboBoxBlockDecryptNumberDropDown()
+        {
+            comboBoxBlockDecryptNumber.Items.Clear();
+            for (int i=1; i < Program.ProjectD.ChainList.Count; i++)
+            {
+                comboBoxBlockDecryptNumber.Items.Add(i);
+            }
+        }
 
 
         private void DisplayChainFromGUI(object sender, EventArgs e)
@@ -46,7 +63,7 @@ namespace prototype_p2p
                 string blockNumber;
                 int blockNumerInt;
                 {
-                    blockNumber = BlockNumberDecrypt.Text;
+                    blockNumber = comboBoxBlockDecryptNumber.Text;
                     if (int.TryParse(blockNumber, out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
                     {
 
@@ -75,7 +92,7 @@ namespace prototype_p2p
             {
                 MessageBox.Show("There are no blocks to decrypt!");
             }
-            BlockNumberDecrypt.Text = "";
+            comboBoxBlockDecryptNumber.Text = "Select block number";
             PublicKeyVerify.Text = "";
             PrivateKeyDecrypt.Text = "";
         }
@@ -121,6 +138,11 @@ namespace prototype_p2p
         {
             string serverURL = ServerUrlTextBox.Text;
             ClientInstance.Handshake($"{serverURL}/Chain");
+        }
+
+        private void SaveNameAndPortToConfig_Click(object sender, EventArgs e)
+        {
+            configData.SaveCurrentPortAndNameToConfigValues(Program.NodeName, Program.NetworkPort);
         }
     }
 }
