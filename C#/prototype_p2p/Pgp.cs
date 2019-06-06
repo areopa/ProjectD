@@ -68,7 +68,7 @@ namespace prototype_p2p
                 }
                 else
                 {
-                    throw new NotImplementedException("Error 555: Something unexpected went wrong, contact support and explain your actions in detail and chronological order.");
+                    throw new ApplicationException("Error 555: Something unexpected went wrong, contact support and explain your actions in detail and chronological order.");
                 }
             }
         }
@@ -221,6 +221,7 @@ namespace prototype_p2p
                         MessageBox.Show("This message is not digitally signed");
                 }
 
+
                 if (!gui)
                 {
                     Console.WriteLine("Extracted message: \n" + plainTextExtracted);
@@ -251,7 +252,18 @@ namespace prototype_p2p
                     {
                         MessageBox.Show("The entered passphrase is incorrect, please try again.");
                     }
-
+                }
+                else if (e is DidiSoft.Pgp.Exceptions.WrongPublicKeyException)
+                {
+                    Console.WriteLine("The chosen public key is either not a public key or not suited to verify this message.");
+                    if (!gui)
+                    {
+                        Decrypt(encryptedMessage, secretKeyPath, publicKeyPath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The chosen public key is either not a public key or not suited to verify this message.");
+                    }
                 }
                 else if (e is DidiSoft.Pgp.Exceptions.KeyIsExpiredException)
                 {
