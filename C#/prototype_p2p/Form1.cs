@@ -40,7 +40,7 @@ namespace prototype_p2p
         private void DisplayChainFromGUI(object sender, EventArgs e)
         {
 
-            SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(ProjectD, Formatting.Indented), "Chain data", this);
+            SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(Program.ProjectD, Formatting.Indented), "Chain data", this);
         }
 
         private void DecryptFromGUI(object sender, EventArgs e)
