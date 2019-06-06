@@ -138,7 +138,6 @@ namespace prototype_p2p
             {
                 checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
             }
-            ReceiverKeyIdTextBox.Text = "";
             PrivateKeyIdTextBox.Text = "";
         }
 
