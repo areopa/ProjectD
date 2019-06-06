@@ -14,17 +14,13 @@ namespace prototype_p2p
     {
         ParseKeyID keyIDPaths;
         ConfigFile configData;
-        FlushBlock flushMsgAndSend;
         Client ClientInstance;
-        Chain ProjectD;
         Server ServerInstance;
 
-        public Form1(ParseKeyID keyIDPaths, ConfigFile configData, FlushBlock flushMsgAndSend, Chain ProjectD, Client clientInstance, Server ServerInstance)
+        public Form1(ParseKeyID keyIDPaths, ConfigFile configData, Client clientInstance, Server ServerInstance)
         {
             this.keyIDPaths = keyIDPaths;
             this.configData = configData;
-            this.flushMsgAndSend = flushMsgAndSend;
-            this.ProjectD = ProjectD;
             this.ClientInstance = clientInstance;
             this.ServerInstance = ServerInstance;
             InitializeComponent();
@@ -45,7 +41,7 @@ namespace prototype_p2p
 
         private void DecryptFromGUI(object sender, EventArgs e)
         {
-            if (ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.
+            if (Program.ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.
             {
                 string blockNumber;
                 int blockNumerInt;
@@ -54,14 +50,14 @@ namespace prototype_p2p
                     if (int.TryParse(blockNumber, out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
                     {
 
-                        if (inputBlockNumber >= ProjectD.ChainList.Count)
+                        if (inputBlockNumber >= Program.ProjectD.ChainList.Count)
                         {
                             MessageBox.Show("The block number you enter must correspond to an existing block. Try again.");
                         }
                         else
                         {
                             blockNumerInt = Math.Abs(inputBlockNumber);
-                            string encryptedDataFromChain = ProjectD.ChainList[blockNumerInt].MessageList[0].Data;
+                            string encryptedDataFromChain = Program.ProjectD.ChainList[blockNumerInt].MessageList[0].Data;
                             string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PrivateKeyDecrypt.Text);
                             string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PublicKeyVerify.Text);
                             DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt,true);
@@ -106,8 +102,8 @@ namespace prototype_p2p
             string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr, true);
             Console.WriteLine(encData);
 
-            flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
-            ProjectD.SaveChainStateToDisk(ProjectD);
+            Program.flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
+            Program.ProjectD.SaveChainStateToDisk(Program.ProjectD);
             ReceiverNameTextBox.Text = "";
             ReceiverKeyIdTextBox.Text = "";
             PrivateKeyIdTextBox.Text = "";

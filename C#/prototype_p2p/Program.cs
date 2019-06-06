@@ -21,6 +21,8 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         public static string pathKey = @"..\\..\\Keys";
         public static Form1 form1;
+        public static FlushBlock flushMsgAndSend;
+
 
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 }; //The blacklist can be implemented with a user editable config file in the future
@@ -92,7 +94,7 @@ namespace prototype_p2p
                 Console.WriteLine($"Your node name is: {NodeName}");
             }
 
-            FlushBlock flushMsgAndSend = new FlushBlock(ProjectD, NodeName, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
+            flushMsgAndSend = new FlushBlock(NodeName, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
 
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("1. Setup a connection with a server");
@@ -112,7 +114,7 @@ namespace prototype_p2p
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form1 = new Form1(keyIDPaths, configData, flushMsgAndSend, ProjectD, ClientInstance, ServerInstance);
+            form1 = new Form1(keyIDPaths, configData, ClientInstance, ServerInstance);
             Application.Run(form1);
 
             int instruction = 0;

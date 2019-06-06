@@ -9,20 +9,19 @@ namespace prototype_p2p
 {
     public class FlushBlock
     {
-        Chain ProjectD;
+
         Client ClientInstance;
         string NodeName;
-        public FlushBlock(Chain projectD, string nodeName, Client clientInstance)
-        {
-            this.ProjectD = projectD;
+        public FlushBlock(string nodeName, Client clientInstance)
+        { 
             this.NodeName = nodeName;
             this.ClientInstance = clientInstance;
         }
         public void Flush(string receiverName, string data)
         {
-            ProjectD.CreateMessage(new Message(NodeName, receiverName, data));
-            ProjectD.ProcessMessageQueue(NodeName);
-            ClientInstance.SendToAll(JsonConvert.SerializeObject(ProjectD));
+            Program.ProjectD.CreateMessage(new Message(NodeName, receiverName, data));
+            Program.ProjectD.ProcessMessageQueue(NodeName);
+            ClientInstance.SendToAll(JsonConvert.SerializeObject(Program.ProjectD));
         }
     }
 }
