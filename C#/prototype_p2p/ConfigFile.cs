@@ -36,6 +36,7 @@ namespace prototype_p2p
             }
         }
 
+        //populates the public configsettings dictionary in this class
         private Dictionary<string,string> LoadConfigFileData()
         {
             try
@@ -70,6 +71,8 @@ namespace prototype_p2p
                 Console.WriteLine($"Setting:{pair.Key} Value:{pair.Value}");
             }
         }
+
+        //checks if the values entered in the config file are valid and loads them
         private void LoadConfigValues()
         {
             if (configSettings.TryGetValue("useConfigFile", out string value))

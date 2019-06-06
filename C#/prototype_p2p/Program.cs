@@ -101,9 +101,8 @@ namespace prototype_p2p
             Console.WriteLine("3. Display records");
             Console.WriteLine("4. Exit the program");
             Console.WriteLine("5. List all keys in the keys directory");
-            Console.WriteLine("6. Encrypt a message, encryption key ID's are listed under 5");
             Console.WriteLine("7. Decrypt a stored message");
-            Console.WriteLine("8. Multi encryption method");
+            Console.WriteLine("8. Encrypt a message, multiple recipients supported, encryption key ID's are listed under 5");
             Console.WriteLine("9. Toggle loading from config");
            // Console.WriteLine("10. Delete current chain");
             Console.WriteLine("--------------------------------------");
@@ -147,24 +146,6 @@ namespace prototype_p2p
                         //    Console.WriteLine(keyArray[i] + " key ID:" + i);
                         //}
                         keyIDPaths.WriteAllLoadedKeyPaths();
-                        break;
-                    case 6:
-                        Console.WriteLine("Enter the name of the receiver");
-                        string receiverNameFor6 = Console.ReadLine();
-
-                        //Console.WriteLine("Enter the data you want encrypted: ");
-                        //string dataToBeEncrypted = Console.ReadLine();
-                        string dataToBeEncrypted = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
-                        Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privateKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
-                        Console.WriteLine("Enter the ID of the public key you want to encrypt for");
-                        string publicKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
-                    
-                        string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
-                        Console.WriteLine(encryptedData);
-
-                        flushMsgAndSend.Flush(receiverNameFor6, encryptedData);
-
                         break;
                     case 7:
                         if (ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.

@@ -25,21 +25,32 @@ namespace prototype_p2p
             this.ClientInstance = clientInstance;
             this.ServerInstance = ServerInstance;
             InitializeComponent();
+
+            //loads the available keys in the key display box
             richTextBoxKeyPaths.Text = keyIDPaths.ReturnAllLoadedKeyPathsAsStringNoPathPrefixed();
             ServerInitAt.Text = ServerInstance.serverInitAt;
+
+            //called once to initialize the dropdown list
             UpdatecomboBoxBlockDecryptNumberDropDown();
+
+            //implemented to prevent reloading the blocknumber dropdown when no new blocks have been added
             chainCount = Program.ProjectD.ChainList.Count;
-            for(int i=0; i < keyIDPaths.KeyArrayNoPathAppended.Length; i++)
+
+            //loads all keys into the checkbox list
+            for (int i=0; i < keyIDPaths.KeyArrayNoPathAppended.Length; i++) 
             {
                 checkedListBoxPublicKeysToEncryptFor.Items.Add(keyIDPaths.KeyArrayNoPathAppended[i], false);
             }
-            //List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
+
+
+            //Updates the available block numbers to decrypt on dropdown
             this.comboBoxBlockDecryptNumber.DropDown +=
                 new System.EventHandler(comboBoxBlockDecryptNumber_DropDown);
         }
 
         private void comboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
         {
+            //if the blocknumber count changed it updates the dropdown
             if (chainCount != Program.ProjectD.ChainList.Count)
             {
                 UpdatecomboBoxBlockDecryptNumberDropDown();
@@ -57,7 +68,7 @@ namespace prototype_p2p
 
         private void DisplayChainFromGUI(object sender, EventArgs e)
         {
-
+            //opens a popup window displaying the entire chain 
             SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(Program.ProjectD, Formatting.Indented), "Chain data", this);
         }
 
@@ -97,27 +108,34 @@ namespace prototype_p2p
             {
                 MessageBox.Show("There are no blocks to decrypt!");
             }
+
+            //resets the input boxes to display their default text again after completing the task
             comboBoxBlockDecryptNumber.Text = "Select block number";
             PublicKeyVerify.Text = "";
             PrivateKeyDecrypt.Text = "";
         }
 
+        //not currently used
         private void DisplayAllKeysGUI(object sender, EventArgs e)
         {
-
+            
             SimpleReportViewer.ShowDialog(keyIDPaths.ReturnAllLoadedKeyPathsAsString(), "All known keys", this);
         }
 
         private void EncryptfromGUI(object sender, EventArgs e)
         {
-            string[] receiverNames = ReceiverNameTextBox.Lines;         
+            string[] receiverNames = ReceiverNameTextBox.Lines; //not currently used        
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
 
 
             string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PrivateKeyIdTextBox.Text);
 
+
+            //loads all checked keys into a list
             List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
-            //string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArrayGUI(ReceiverKeyIdTextBox.Text);
+
+
+            //creates the path array with all the selected keys
             int cnt = 0;
             string[] recipientKeyPathsArr = new string[items.Count];
             foreach (string keyPath in items)
@@ -134,6 +152,8 @@ namespace prototype_p2p
 
             Program.flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
             Program.ProjectD.SaveChainStateToDisk(Program.ProjectD);
+
+            //clears all checkex boxes
             foreach (int i in checkedListBoxPublicKeysToEncryptFor.CheckedIndices)
             {
                 checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
@@ -153,10 +173,12 @@ namespace prototype_p2p
         {
             string serverURL = ServerUrlTextBox.Text;
             ClientInstance.Handshake($"{serverURL}/Chain");
+            //TODO: add window popup with handshake
         }
 
         private void SaveNameAndPortToConfig_Click(object sender, EventArgs e)
         {
+            //saves the entered name and port to the config file
             configData.SaveCurrentPortAndNameToConfigValues(Program.NodeName, Program.NetworkPort);
         }
     }
