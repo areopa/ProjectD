@@ -29,6 +29,11 @@ namespace prototype_p2p
             ServerInitAt.Text = ServerInstance.serverInitAt;
             UpdatecomboBoxBlockDecryptNumberDropDown();
             chainCount = Program.ProjectD.ChainList.Count;
+            for(int i=0; i < keyIDPaths.KeyArrayNoPathAppended.Length; i++)
+            {
+                checkedListBoxPublicKeysToEncryptFor.Items.Add(keyIDPaths.KeyArrayNoPathAppended[i], false);
+            }
+            //List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
             this.comboBoxBlockDecryptNumber.DropDown +=
                 new System.EventHandler(comboBoxBlockDecryptNumber_DropDown);
         }
@@ -111,8 +116,16 @@ namespace prototype_p2p
 
             string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PrivateKeyIdTextBox.Text);
 
-
-            string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArrayGUI(ReceiverKeyIdTextBox.Text);
+            List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
+            //string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArrayGUI(ReceiverKeyIdTextBox.Text);
+            int cnt = 0;
+            string[] recipientKeyPathsArr = new string[items.Count];
+            foreach (string keyPath in items)
+            {
+                recipientKeyPathsArr[cnt] = (Program.pathKey + "\\" + keyPath);
+                cnt++;
+            }
+            
 
             string inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
 
@@ -121,7 +134,10 @@ namespace prototype_p2p
 
             Program.flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
             Program.ProjectD.SaveChainStateToDisk(Program.ProjectD);
-            ReceiverNameTextBox.Text = "";
+            foreach (int i in checkedListBoxPublicKeysToEncryptFor.CheckedIndices)
+            {
+                checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
+            }
             ReceiverKeyIdTextBox.Text = "";
             PrivateKeyIdTextBox.Text = "";
         }

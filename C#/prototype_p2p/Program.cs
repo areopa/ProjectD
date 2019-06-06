@@ -32,7 +32,6 @@ namespace prototype_p2p
         {
 
 
-
             Console.WriteLine("Default Keys directory exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
@@ -157,9 +156,9 @@ namespace prototype_p2p
                         //string dataToBeEncrypted = Console.ReadLine();
                         string dataToBeEncrypted = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privateKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                        string privateKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                         Console.WriteLine("Enter the ID of the public key you want to encrypt for");
-                        string publicKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI();
+                        string publicKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
                     
                         string encryptedData = SignAndEncryptString.StringEncrypter(dataToBeEncrypted, privateKeyPath, publicKeyPath);
                         Console.WriteLine(encryptedData);
@@ -197,9 +196,9 @@ namespace prototype_p2p
                             Console.WriteLine(encryptedDataFromChain);
 
                             Console.Write("Enter the ID of the private key you want to use to decrypt: ");
-                            string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
+                            string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath(); //the user looks up the private and public key ÏD's with the option 5 menu and then chooses the encryption keys with the ID"s linked to the keys.
                             Console.Write("Enter the ID of the public key of the sender: ");
-                            string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI();
+                            string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPath();
 
                             DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt);
                         }
@@ -217,7 +216,7 @@ namespace prototype_p2p
                         //string inputData = Console.ReadLine();
 
                         Console.WriteLine("Enter the ID of the private key you want to sign with");
-                        string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI();
+                        string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPath();
 
                         Console.WriteLine("Enter the public key ID's for every recipient");
                         string[] recipientKeyPathsArr = keyIDPaths.BuildVerifiedKeyIdPathArray();

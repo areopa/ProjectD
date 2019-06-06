@@ -35,12 +35,10 @@
             this.ConnectServerButton = new System.Windows.Forms.Button();
             this.labeltextDisplay = new System.Windows.Forms.Label();
             this.ReceiverNameTextBox = new System.Windows.Forms.TextBox();
-            this.ReceiverKeyIdTextBox = new System.Windows.Forms.TextBox();
             this.PrivateKeyIdTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.PrivateKeyDecrypt = new System.Windows.Forms.TextBox();
@@ -51,7 +49,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.ServerInitAt = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxPublicKeysToEncryptFor = new System.Windows.Forms.CheckedListBox();
             this.comboBoxBlockDecryptNumber = new System.Windows.Forms.ComboBox();
             this.SaveNameAndPortToConfig = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -69,7 +67,7 @@
             // DisplayKeys
             // 
             this.DisplayKeys.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.DisplayKeys.Location = new System.Drawing.Point(20, 460);
+            this.DisplayKeys.Location = new System.Drawing.Point(866, 621);
             this.DisplayKeys.Name = "DisplayKeys";
             this.DisplayKeys.Size = new System.Drawing.Size(115, 35);
             this.DisplayKeys.TabIndex = 1;
@@ -80,7 +78,7 @@
             // Encrypt
             // 
             this.Encrypt.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.Encrypt.Location = new System.Drawing.Point(20, 245);
+            this.Encrypt.Location = new System.Drawing.Point(20, 472);
             this.Encrypt.Name = "Encrypt";
             this.Encrypt.Size = new System.Drawing.Size(115, 35);
             this.Encrypt.TabIndex = 3;
@@ -126,17 +124,9 @@
             this.ReceiverNameTextBox.Size = new System.Drawing.Size(200, 20);
             this.ReceiverNameTextBox.TabIndex = 7;
             // 
-            // ReceiverKeyIdTextBox
-            // 
-            this.ReceiverKeyIdTextBox.Location = new System.Drawing.Point(20, 160);
-            this.ReceiverKeyIdTextBox.Name = "ReceiverKeyIdTextBox";
-            this.ReceiverKeyIdTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.ReceiverKeyIdTextBox.Size = new System.Drawing.Size(150, 20);
-            this.ReceiverKeyIdTextBox.TabIndex = 8;
-            // 
             // PrivateKeyIdTextBox
             // 
-            this.PrivateKeyIdTextBox.Location = new System.Drawing.Point(20, 215);
+            this.PrivateKeyIdTextBox.Location = new System.Drawing.Point(20, 435);
             this.PrivateKeyIdTextBox.MaxLength = 4;
             this.PrivateKeyIdTextBox.Name = "PrivateKeyIdTextBox";
             this.PrivateKeyIdTextBox.Size = new System.Drawing.Size(100, 20);
@@ -148,15 +138,15 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label1.Location = new System.Drawing.Point(20, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(231, 17);
+            this.label1.Size = new System.Drawing.Size(219, 17);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Enter public key ID(s) to encrypt for";
+            this.label1.Text = "Select public key(s) to encrypt for";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label2.Location = new System.Drawing.Point(20, 195);
+            this.label2.Location = new System.Drawing.Point(17, 404);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(206, 17);
             this.label2.TabIndex = 11;
@@ -166,27 +156,17 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(20, 300);
+            this.label3.Location = new System.Drawing.Point(862, 460);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(198, 17);
             this.label3.TabIndex = 12;
             this.label3.Text = "Enter block number to decrypt";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(20, 140);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(382, 17);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Seperate multiple entries with a comma(,) or a semi colon(;)";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(20, 355);
+            this.label5.Location = new System.Drawing.Point(863, 513);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(227, 17);
             this.label5.TabIndex = 15;
@@ -196,7 +176,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label6.Location = new System.Drawing.Point(20, 410);
+            this.label6.Location = new System.Drawing.Point(862, 559);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(243, 17);
             this.label6.TabIndex = 16;
@@ -204,14 +184,14 @@
             // 
             // PrivateKeyDecrypt
             // 
-            this.PrivateKeyDecrypt.Location = new System.Drawing.Point(20, 375);
+            this.PrivateKeyDecrypt.Location = new System.Drawing.Point(866, 533);
             this.PrivateKeyDecrypt.Name = "PrivateKeyDecrypt";
             this.PrivateKeyDecrypt.Size = new System.Drawing.Size(100, 20);
             this.PrivateKeyDecrypt.TabIndex = 17;
             // 
             // PublicKeyVerify
             // 
-            this.PublicKeyVerify.Location = new System.Drawing.Point(20, 430);
+            this.PublicKeyVerify.Location = new System.Drawing.Point(865, 585);
             this.PublicKeyVerify.Name = "PublicKeyVerify";
             this.PublicKeyVerify.Size = new System.Drawing.Size(100, 20);
             this.PublicKeyVerify.TabIndex = 18;
@@ -275,18 +255,19 @@
             this.label9.TabIndex = 24;
             this.label9.Text = "Available keys";
             // 
-            // checkedListBox1
+            // checkedListBoxPublicKeysToEncryptFor
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(865, 108);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
-            this.checkedListBox1.TabIndex = 25;
+            this.checkedListBoxPublicKeysToEncryptFor.FormattingEnabled = true;
+            this.checkedListBoxPublicKeysToEncryptFor.HorizontalScrollbar = true;
+            this.checkedListBoxPublicKeysToEncryptFor.Location = new System.Drawing.Point(20, 140);
+            this.checkedListBoxPublicKeysToEncryptFor.Name = "checkedListBoxPublicKeysToEncryptFor";
+            this.checkedListBoxPublicKeysToEncryptFor.Size = new System.Drawing.Size(225, 244);
+            this.checkedListBoxPublicKeysToEncryptFor.TabIndex = 25;
             // 
             // comboBoxBlockDecryptNumber
             // 
             this.comboBoxBlockDecryptNumber.FormattingEnabled = true;
-            this.comboBoxBlockDecryptNumber.Location = new System.Drawing.Point(20, 320);
+            this.comboBoxBlockDecryptNumber.Location = new System.Drawing.Point(865, 480);
             this.comboBoxBlockDecryptNumber.Name = "comboBoxBlockDecryptNumber";
             this.comboBoxBlockDecryptNumber.Size = new System.Drawing.Size(121, 21);
             this.comboBoxBlockDecryptNumber.TabIndex = 26;
@@ -309,7 +290,7 @@
             this.ClientSize = new System.Drawing.Size(1246, 668);
             this.Controls.Add(this.SaveNameAndPortToConfig);
             this.Controls.Add(this.comboBoxBlockDecryptNumber);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.checkedListBoxPublicKeysToEncryptFor);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ServerInitAt);
             this.Controls.Add(this.label8);
@@ -320,12 +301,10 @@
             this.Controls.Add(this.PrivateKeyDecrypt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PrivateKeyIdTextBox);
-            this.Controls.Add(this.ReceiverKeyIdTextBox);
             this.Controls.Add(this.ReceiverNameTextBox);
             this.Controls.Add(this.labeltextDisplay);
             this.Controls.Add(this.ConnectServerButton);
@@ -349,12 +328,10 @@
         private System.Windows.Forms.Button ConnectServerButton;
         private System.Windows.Forms.Label labeltextDisplay;
         private System.Windows.Forms.TextBox ReceiverNameTextBox;
-        private System.Windows.Forms.TextBox ReceiverKeyIdTextBox;
         private System.Windows.Forms.TextBox PrivateKeyIdTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox PrivateKeyDecrypt;
@@ -365,7 +342,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox ServerInitAt;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPublicKeysToEncryptFor;
         private System.Windows.Forms.ComboBox comboBoxBlockDecryptNumber;
         private System.Windows.Forms.Button SaveNameAndPortToConfig;
     }

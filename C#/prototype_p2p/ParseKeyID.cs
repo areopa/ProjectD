@@ -53,7 +53,8 @@ namespace prototype_p2p
 
 
 
-        public string ParseAndReturnVerifiedKeyPathGUI()
+
+        public string ParseAndReturnVerifiedKeyPath()
         {
             int keyIdInt = -1;
             bool keyValid = false;
