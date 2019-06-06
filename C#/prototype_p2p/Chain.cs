@@ -22,7 +22,9 @@ namespace prototype_p2p
         {
             try
             {
-                using (StreamReader sr = new StreamReader(@"chain.json"))//this points to Debug\chain.json currently because that's where the .exe is located. @ is for relative path
+                        //public static string pathKey = @"..\\..\\Keys";
+
+                using (StreamReader sr = new StreamReader(@"..\\..\\chain/chain.json"))//this points to Debug\chain.json currently because that's where the .exe is located. @ is for relative path
                 {
                     string json = sr.ReadToEnd();
                     Console.WriteLine("Reading from previous state...");
@@ -87,7 +89,7 @@ namespace prototype_p2p
         }
         public void SaveChainStateToDisk(Chain ProjectD)
         {
-            using (StreamWriter file = File.CreateText(@"chain.json"))
+            using (StreamWriter file = File.CreateText(@"..\\..\\chain/chain.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, ProjectD);
