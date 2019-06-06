@@ -170,6 +170,7 @@ namespace prototype_p2p
     {
         public static void Decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath, bool gui = false)
         {
+            string plainTextExtracted;
             string privatePassWord;
             if (!gui)
             {
@@ -193,7 +194,8 @@ namespace prototype_p2p
                              new FileInfo(secretKeyPath), //secret key path
                              privatePassWord, //this is the password of the secret key
                              new FileInfo(publicKeyPath),
-                             out string plainTextExtracted);
+                             out string plainTextExtract);
+                plainTextExtracted = plainTextExtract;
 
                 // print the results
                 if (signatureCheck == SignatureCheckResult.SignatureVerified)
@@ -255,10 +257,10 @@ namespace prototype_p2p
                 }
                 else if (e is DidiSoft.Pgp.Exceptions.WrongPublicKeyException)
                 {
-                    Console.WriteLine("The chosen public key is either not a public key or not suited to verify this message.");
+                    
                     if (!gui)
                     {
-                        Decrypt(encryptedMessage, secretKeyPath, publicKeyPath);
+                        Console.WriteLine("The chosen public key is either not a public key or not suited to verify this message.");
                     }
                     else
                     {
