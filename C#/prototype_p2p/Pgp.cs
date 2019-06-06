@@ -68,7 +68,7 @@ namespace prototype_p2p
                 }
                 else
                 {
-                    throw new ApplicationException("Error 555: Something unexpected went wrong, contact support and explain your actions in detail and chronological order.");
+                    throw new NotImplementedException("Error 555: Something unexpected went wrong, contact support and explain your actions in detail and chronological order.");
                 }
             }
         }
