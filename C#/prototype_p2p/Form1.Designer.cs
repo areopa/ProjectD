@@ -305,7 +305,7 @@
             this.Controls.Add(this.DisplayKeys);
             this.Controls.Add(this.DisplayRecords);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Blockchain";
             this.ResumeLayout(false);
             this.PerformLayout();
 
