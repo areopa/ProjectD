@@ -9,7 +9,7 @@ namespace prototype_p2p
 {
     public static class Prompt
     {
-        public static string ShowDialog(string text, string caption)
+        public static string ShowDialog(string text, string caption, bool acceptsReturn = true, bool acceptsTab = true, bool multiline = true)
         {
             Form prompt = new Form()
             {
@@ -21,9 +21,9 @@ namespace prototype_p2p
             };
             Label textLabel = new Label() { Left = 50, Top = 20, Text = text, Width = 400 };
             TextBox textBox = new TextBox() { Left = 50, Top = 70, Width = 400, Height = 300 };
-            textBox.AcceptsReturn = true;
-            textBox.AcceptsTab = true;
-            textBox.Multiline = true;
+            textBox.AcceptsReturn = acceptsReturn;
+            textBox.AcceptsTab = acceptsTab;
+            textBox.Multiline = multiline;
             textBox.ScrollBars = ScrollBars.Vertical;
             Button confirmation = new Button() { Text = "Ok", Left = 50, Width = 100, Top = 40, DialogResult = DialogResult.OK };
             confirmation.Click += (sender, e) => { prompt.Close(); };

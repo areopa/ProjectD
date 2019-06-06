@@ -151,7 +151,7 @@ namespace prototype_p2p
             }
             else
             {
-                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry");
+                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry",false,false,false);
             }
 
             MemoryStream encryptedOutputStream = new MemoryStream();
@@ -179,7 +179,7 @@ namespace prototype_p2p
             }
             else
             {
-                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry");
+                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry",false,false,false);
             }
 
 
