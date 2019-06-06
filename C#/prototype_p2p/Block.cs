@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
 
+
 namespace prototype_p2p
 {
     public class Block
