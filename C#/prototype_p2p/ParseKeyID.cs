@@ -21,14 +21,14 @@ namespace prototype_p2p
          * no path appended format example: "examplekey_private.asc"
          * path appended format example: "..\\..\\Keys\Private\examplekey_private.asc"
         */
-        public ParseKeyID(string keysPath)
+        public ParseKeyID(string keysPathPrivate, string keysPathPublic)
         {
             try
             {
-                privateKeyArrayPathAppended = Directory.GetFiles((keysPath + "\\Private"));
-                publicKeyArrayPathAppended = Directory.GetFiles((keysPath + "\\Public"));
-                publicKeyArrayNoPathAppended = Directory.GetFiles((keysPath + "\\Public")).Select(p => Path.GetFileName(p)).ToArray();
-                privateKeyArrayNoPathAppended = Directory.GetFiles((keysPath + "\\Private")).Select(p => Path.GetFileName(p)).ToArray();
+                privateKeyArrayPathAppended = Directory.GetFiles(keysPathPrivate);
+                publicKeyArrayPathAppended = Directory.GetFiles(keysPathPublic);
+                publicKeyArrayNoPathAppended = Directory.GetFiles(keysPathPublic).Select(p => Path.GetFileName(p)).ToArray();
+                privateKeyArrayNoPathAppended = Directory.GetFiles(keysPathPrivate).Select(p => Path.GetFileName(p)).ToArray();
             }
             catch (DirectoryNotFoundException)
             {

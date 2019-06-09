@@ -32,7 +32,6 @@ namespace prototype_p2p
                     "useConfigFile=false\n" +
                     "NetworkPort=\n" +
                     "NodeName=Unknown\n" +
-                    "pathKey=" + Program.pathKey + "\n" +
                     "pathKeyPrivate=" + Program.pathKeyPrivate + "\n" +
                     "pathKeyPublic=" + Program.pathKeyPublic);
             }
@@ -101,10 +100,6 @@ namespace prototype_p2p
                     if (configSettings.TryGetValue("NodeName", out string nodeNameVal))
                     {
                         Program.NodeName = nodeNameVal;
-                    }
-                    if (configSettings.TryGetValue("pathKey", out string altKeyPath))
-                    {
-                        Program.pathKey = altKeyPath;
                     }
                     if (configSettings.TryGetValue("pathKeyPublic", out string altPublicKeyPath))
                     {

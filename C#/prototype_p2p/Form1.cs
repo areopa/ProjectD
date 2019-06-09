@@ -156,7 +156,7 @@ namespace prototype_p2p
             string[] recipientKeyPathsArr = new string[items.Count];
             foreach (string keyPath in items)
             {
-                recipientKeyPathsArr[cnt] = (Program.pathKey + "\\" + keyPath);
+                recipientKeyPathsArr[cnt] = (Program.pathKeyPublic + "\\" + keyPath);
                 cnt++;
             }
             

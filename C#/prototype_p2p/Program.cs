@@ -21,7 +21,6 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "7", "8", "9", "10" };
         public static string pathKeyPrivate = @"..\\..\\Keys\\Private";
         public static string pathKeyPublic = @"..\\..\\Keys\\Public";
-        public static string pathKey = @"..\\..\\Keys";
         public static Form1 form1;
         public static FlushBlock flushMsgAndSend;
 
@@ -34,13 +33,12 @@ namespace prototype_p2p
         {
             Console.WriteLine("Public Keys directory exists:" + Directory.Exists(pathKeyPublic));
             Console.WriteLine("Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
-            Console.WriteLine("Default Keys directory for CLI exists:" + Directory.Exists(pathKey));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
             ConfigFile configData = new ConfigFile();
             configData.WriteAllValuesConsole();
 
-            ParseKeyID keyIDPaths = new ParseKeyID(pathKey);
+            ParseKeyID keyIDPaths = new ParseKeyID(pathKeyPrivate, pathKeyPublic);
             keyIDPaths.WriteLoadedKeyPaths();
 
             
