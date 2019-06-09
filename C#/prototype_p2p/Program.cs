@@ -18,7 +18,7 @@ namespace prototype_p2p
         public static Client ClientInstance = new Client();
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
-        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         public static string pathKey = @"..\\..\\Keys";
         public static Form1 form1;
         public static FlushBlock flushMsgAndSend;
@@ -104,7 +104,7 @@ namespace prototype_p2p
             Console.WriteLine("7. Decrypt a stored message");
             Console.WriteLine("8. Encrypt a message, multiple recipients supported, encryption key ID's are listed under 5");
             Console.WriteLine("9. Toggle loading from config");
-           // Console.WriteLine("10. Delete current chain");
+            Console.WriteLine("10. List active connections");
             Console.WriteLine("--------------------------------------");
 
 
@@ -212,6 +212,10 @@ namespace prototype_p2p
                     case 9:
 
                         configData.ToggleAutoLoadConfigValues();
+                        break;
+                    case (10):
+
+                        ClientInstance.PingAll();
                         break;
                 }
 

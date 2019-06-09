@@ -10,6 +10,30 @@ namespace prototype_p2p
     {
         IDictionary<string, WebSocket> socketDictionary = new Dictionary<string, WebSocket>();
 
+        public string PingAll()
+        {
+            string result = null;
+
+            if (socketDictionary != null)
+            {
+                foreach (var item in socketDictionary)
+                {
+                    WebSocket socket = new WebSocket(item.Key);
+
+                    if (socket.IsAlive)
+                    {
+                        Console.WriteLine(item.Key + " : connection alive");
+                    }
+                    else
+                    {
+                        Console.WriteLine(item.Key + " : connection broken");
+                    }
+                }
+            }
+            return result;
+
+        }
+
         public void Handshake(string url)
         {
             if (!socketDictionary.ContainsKey(url))
@@ -42,6 +66,7 @@ namespace prototype_p2p
                 socketDictionary.Add(url, socket);
             }
         }
+
 
         public void SendToOne(string url, string data)
         {

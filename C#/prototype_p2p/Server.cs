@@ -86,6 +86,11 @@ namespace prototype_p2p
                 Console.WriteLine(Context.UserEndPoint.Port.ToString());
                 Send("Handshake to client");
             }
+            if (e.IsPing)
+            {
+                Console.WriteLine("You've just been pinged MOFO");
+                Send("Connection live");
+            }
             else
             {
                 Console.WriteLine("Creating new chain from server");
