@@ -21,7 +21,7 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "7", "8", "9", "10" };
         public static string pathKeyPrivate = @"..\\..\\Keys\\Private";
         public static string pathKeyPublic = @"..\\..\\Keys\\Public";
-        public static Form1 form1;
+        public static FormGenericGUI genericGUIForm;
         public static FlushBlock flushMsgAndSend;
 
 
@@ -112,8 +112,8 @@ namespace prototype_p2p
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            form1 = new Form1(keyIDPaths, configData, ClientInstance, ServerInstance);
-            Application.Run(form1);
+            genericGUIForm = new FormGenericGUI(keyIDPaths, configData, ClientInstance, ServerInstance);
+            Application.Run(genericGUIForm);
 
             int instruction = 0;
             while (instruction != 4)

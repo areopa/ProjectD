@@ -1,6 +1,6 @@
 ﻿namespace prototype_p2p
 {
-    partial class Form1
+    partial class FormGenericGUI
     {
         /// <summary>
         /// Required designer variable.

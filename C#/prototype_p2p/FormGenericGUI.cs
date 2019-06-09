@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace prototype_p2p
 {
-    public partial class Form1 : Form
+    public partial class FormGenericGUI : Form
     {
         ParseKeyID keyIDPaths;
         ConfigFile configData;
@@ -18,7 +18,7 @@ namespace prototype_p2p
         Server ServerInstance;
         int chainCount;
 
-        public Form1(ParseKeyID keyIDPaths, ConfigFile configData, Client clientInstance, Server ServerInstance)
+        public FormGenericGUI(ParseKeyID keyIDPaths, ConfigFile configData, Client clientInstance, Server ServerInstance)
         {
             this.keyIDPaths = keyIDPaths;
             this.configData = configData;

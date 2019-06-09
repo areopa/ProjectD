@@ -73,11 +73,11 @@
     </Compile>
     <Compile Include="FlushBlock.cs" />
     <Compile Include="ConfigFile.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormGenericGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormGenericGUI.Designer.cs">
+      <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="ParseKeyID.cs" />
     <Compile Include="Pgp.cs" />
@@ -96,8 +96,8 @@
     <None Include="Properties\Settings.settings" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormGenericGUI.resx">
+      <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="SimpleReportVIewer.resx">

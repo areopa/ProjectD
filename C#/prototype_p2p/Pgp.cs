@@ -118,7 +118,7 @@ namespace prototype_p2p
                 }
                 else
                 {
-                    SimpleReportViewer.ShowDialog(plainTextExtracted, "Decrypted data", Program.form1);
+                    SimpleReportViewer.ShowDialog(plainTextExtracted, "Decrypted data", Program.genericGUIForm);
                 }
             }
             catch (Exception e)
