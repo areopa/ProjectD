@@ -13,9 +13,9 @@ namespace prototype_p2p
 
         public Dictionary<string, string> configSettings;
         public bool IsInitialized;
-        public ConfigFile(string keysPath)
+        public ConfigFile()
         {
-            InitConfigFile(keysPath);
+            InitConfigFile();
             configSettings = LoadConfigFileData();
             LoadConfigValues();
             IsInitialized = true;
@@ -23,17 +23,25 @@ namespace prototype_p2p
         }
         // public static Dictionary<string, string> configSettings = new Dictionary<string, string>();
 
-        private void InitConfigFile(string keysPath)
+        private void InitConfigFile(bool reset = false)
         {
-            if (!File.Exists("Config.ini"))
+            if (!File.Exists("Config.ini") || reset)
             {
                 Console.WriteLine("Generating default Config.ini");
                 File.WriteAllText("Config.ini", "//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty\n" +
                     "useConfigFile=false\n" +
                     "NetworkPort=\n" +
                     "NodeName=Unknown\n" +
-                    "pathKey="+Program.pathKey);
+                    "pathKey=" + Program.pathKey + "\n" +
+                    "pathKeyPrivate=" + Program.pathKeyPrivate + "\n" +
+                    "pathKeyPublic=" + Program.pathKeyPublic);
             }
+        }
+
+        public void ResetConfigFileValues()
+        {
+            InitConfigFile(true);
+            MessageBox.Show("Config file settings successfully reset to default");
         }
 
         //populates the public configsettings dictionary in this class
@@ -42,7 +50,7 @@ namespace prototype_p2p
             try
             {
                 Dictionary<string, string> configSettings = new Dictionary<string, string>();
-                // Open the text file using a stream reader.
+                // Open the config file using a stream reader.
                 using (StreamReader sr = new StreamReader("Config.ini"))            
                 {
                     string line;
@@ -98,6 +106,15 @@ namespace prototype_p2p
                     {
                         Program.pathKey = altKeyPath;
                     }
+                    if (configSettings.TryGetValue("pathKeyPublic", out string altPublicKeyPath))
+                    {
+                        Program.pathKeyPublic = altPublicKeyPath;
+                    }
+                    if (configSettings.TryGetValue("pathKeyPrivate", out string altPrivateKeyPath))
+                    {
+                        Program.pathKeyPrivate = altPrivateKeyPath;
+                    }
+
 
                 }
             }
@@ -134,11 +151,19 @@ namespace prototype_p2p
                     MessageBox.Show("Change will go in effect next application restart: "+ "useConfigFile = "+configSettings["useConfigFile"]);
                 }
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception e)
             {
-                Console.WriteLine("No access authorization!");
+                if (e is UnauthorizedAccessException)
+                {
+                    Console.WriteLine("No access authorization!");
+                }
+                else
+                {
+                    MessageBox.Show("Exception occured: "+e);
+                }
             }
         }
+
         public void SaveCurrentPortAndNameToConfigValues(string nameToSet, int portToSet)
         {
             try
@@ -161,9 +186,16 @@ namespace prototype_p2p
                 }
                 MessageBox.Show("Settings saved: " + "NodeName = " + configSettings["NodeName"] + " NetworkPort = " + configSettings["NetworkPort"]);
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception e)
             {
-                Console.WriteLine("No access authorization!");
+                if (e is UnauthorizedAccessException)
+                {
+                    Console.WriteLine("No access authorization!");
+                }
+                else
+                {
+                    MessageBox.Show("Exception occured: " + e);
+                }
             }
         }
 

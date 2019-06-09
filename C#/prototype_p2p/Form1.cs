@@ -26,36 +26,43 @@ namespace prototype_p2p
             this.ServerInstance = ServerInstance;
             InitializeComponent();
 
-            //loads the available keys in the key display box
-            richTextBoxKeyPaths.Text = keyIDPaths.ReturnAllLoadedKeyPathsAsStringNoPathPrefixed();
+            // Loads the available keys in the key display box
+            richTextBoxPublicKeyPaths.Text = keyIDPaths.ReturnLoadedKeyPathsAsStringNoPathPrefixed(false);
+            richTextBoxPrivateKeyPaths.Text = keyIDPaths.ReturnLoadedKeyPathsAsStringNoPathPrefixed(true);
             ServerInitAt.Text = ServerInstance.serverInitAt;
 
-            //called once to initialize the dropdown list
-            UpdatecomboBoxBlockDecryptNumberDropDown();
-
-            //implemented to prevent reloading the blocknumber dropdown when no new blocks have been added
+            // Implemented to prevent reloading the blocknumber dropdown when no new blocks have been added
             chainCount = Program.ProjectD.ChainList.Count;
 
-            //loads all keys into the checkbox list
-            for (int i=0; i < keyIDPaths.KeyArrayNoPathAppended.Length; i++) 
+            // Loads all keys into the checkbox list
+            for (int i=0; i < keyIDPaths.publicKeyArrayNoPathAppended.Length; i++) 
             {
-                checkedListBoxPublicKeysToEncryptFor.Items.Add(keyIDPaths.KeyArrayNoPathAppended[i], false);
+                checkedListBoxPublicKeysToEncryptFor.Items.Add(keyIDPaths.publicKeyArrayNoPathAppended[i], false);
             }
 
+            // Called once to initialize the chain blocknumber decrypt dropdown list
+            UpdatecomboBoxBlockDecryptNumberDropDown();
 
-            //Updates the available block numbers to decrypt on dropdown
+            // Called once to initialize the key selector dropdown lists
+            UpdatecomboBoxesDropDownKeySelectors();
+
+            // Updates the available block numbers to decrypt on dropdown event
             this.comboBoxBlockDecryptNumber.DropDown +=
-                new System.EventHandler(comboBoxBlockDecryptNumber_DropDown);
+                new System.EventHandler(EventComboBoxBlockDecryptNumber_DropDown);
         }
 
-        private void comboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
+
+        // Called on the dropdown event of the block number selector
+        private void EventComboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
         {
-            //if the blocknumber count changed it updates the dropdown
+            // If the blocknumber count changed it updates the dropdown
             if (chainCount != Program.ProjectD.ChainList.Count)
             {
                 UpdatecomboBoxBlockDecryptNumberDropDown();
             }
         }
+
+        // Used to build the dropdown list for the block number selector
         private void UpdatecomboBoxBlockDecryptNumberDropDown()
         {
             comboBoxBlockDecryptNumber.Items.Clear();
@@ -65,22 +72,39 @@ namespace prototype_p2p
             }
         }
 
+        // Used to build the dropdown list for the dropdown key selectors
+        private void UpdatecomboBoxesDropDownKeySelectors()
+        {
+            comboBoxPrivateKeyEncryptDropDown.Items.Clear();
+            comboBoxPrivateKeyDecryptDropDown.Items.Clear();
+            comboBoxPublicKeyDecryptDropDown.Items.Clear();
+            for (int i = 0; i < keyIDPaths.privateKeyArrayNoPathAppended.Length; i++)
+            {
+                comboBoxPrivateKeyEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+                comboBoxPrivateKeyDecryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+            }
+            for (int i = 0; i < keyIDPaths.publicKeyArrayNoPathAppended.Length; i++)
+            {
+                comboBoxPublicKeyDecryptDropDown.Items.Add(keyIDPaths.publicKeyArrayNoPathAppended[i]);
+            }
+        }
+
 
         private void DisplayChainFromGUI(object sender, EventArgs e)
         {
-            //opens a popup window displaying the entire chain 
+            // Opens a popup window displaying the entire chain 
             SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(Program.ProjectD, Formatting.Indented), "Chain data", this);
         }
 
         private void DecryptFromGUI(object sender, EventArgs e)
         {
-            if (Program.ProjectD.ChainList.Count > 1) //1 and not 0 because the genesis block counts as one.
+            if (Program.ProjectD.ChainList.Count > 1) // 1 and not 0 because the genesis block counts as one.
             {
                 string blockNumber;
                 int blockNumerInt;
                 {
                     blockNumber = comboBoxBlockDecryptNumber.Text;
-                    if (int.TryParse(blockNumber, out int inputBlockNumber)) //checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
+                    if (int.TryParse(blockNumber, out int inputBlockNumber)) // Checks if the given input is a string. If not the user is told to enter a number. No more crashes because you accidently pressed enter.
                     {
 
                         if (inputBlockNumber >= Program.ProjectD.ChainList.Count)
@@ -91,8 +115,8 @@ namespace prototype_p2p
                         {
                             blockNumerInt = Math.Abs(inputBlockNumber);
                             string encryptedDataFromChain = Program.ProjectD.ChainList[blockNumerInt].MessageList[0].Data;
-                            string privateKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PrivateKeyDecrypt.Text);
-                            string publicKeyPathDecrypt = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PublicKeyVerify.Text);
+                            string privateKeyPathDecrypt = (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyDecryptDropDown.Text);
+                            string publicKeyPathDecrypt = (Program.pathKeyPublic + "\\" + comboBoxPublicKeyDecryptDropDown.Text);
                             DecryptAndVerifyString.Decrypt(encryptedDataFromChain, privateKeyPathDecrypt, publicKeyPathDecrypt,true);
                         }
                     }
@@ -109,18 +133,10 @@ namespace prototype_p2p
                 MessageBox.Show("There are no blocks to decrypt!");
             }
 
-            //resets the input boxes to display their default text again after completing the task
+            // Resets the input boxes to display their default text again after completing the task
             comboBoxBlockDecryptNumber.Text = "Select block number";
-            PublicKeyVerify.Text = "";
-            PrivateKeyDecrypt.Text = "";
         }
 
-        //not currently used
-        private void DisplayAllKeysGUI(object sender, EventArgs e)
-        {
-            
-            SimpleReportViewer.ShowDialog(keyIDPaths.ReturnAllLoadedKeyPathsAsString(), "All known keys", this);
-        }
 
         private void EncryptfromGUI(object sender, EventArgs e)
         {
@@ -128,7 +144,7 @@ namespace prototype_p2p
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
 
 
-            string privKeyPath = keyIDPaths.ParseAndReturnVerifiedKeyPathGUI(PrivateKeyIdTextBox.Text);
+            string privKeyPath = (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyEncryptDropDown.Text);
 
 
             //loads all checked keys into a list
@@ -158,7 +174,6 @@ namespace prototype_p2p
             {
                 checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
             }
-            PrivateKeyIdTextBox.Text = "";
         }
 
         private void ToggleLoadConfigSettings(object sender, EventArgs e)
@@ -180,6 +195,11 @@ namespace prototype_p2p
         {
             //saves the entered name and port to the config file
             configData.SaveCurrentPortAndNameToConfigValues(Program.NodeName, Program.NetworkPort);
+        }
+
+        private void ButtonResetConfigFileValues_Click(object sender, EventArgs e)
+        {
+            configData.ResetConfigFileValues();
         }
     }
 }

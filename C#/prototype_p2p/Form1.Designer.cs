@@ -35,15 +35,12 @@
             this.ConnectServerButton = new System.Windows.Forms.Button();
             this.labeltextDisplay = new System.Windows.Forms.Label();
             this.ReceiverNameTextBox = new System.Windows.Forms.TextBox();
-            this.PrivateKeyIdTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.PrivateKeyDecrypt = new System.Windows.Forms.TextBox();
-            this.PublicKeyVerify = new System.Windows.Forms.TextBox();
-            this.richTextBoxKeyPaths = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxPublicKeyPaths = new System.Windows.Forms.RichTextBox();
             this.ServerUrlTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -52,6 +49,12 @@
             this.checkedListBoxPublicKeysToEncryptFor = new System.Windows.Forms.CheckedListBox();
             this.comboBoxBlockDecryptNumber = new System.Windows.Forms.ComboBox();
             this.SaveNameAndPortToConfig = new System.Windows.Forms.Button();
+            this.richTextBoxPrivateKeyPaths = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxPrivateKeyEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.comboBoxPrivateKeyDecryptDropDown = new System.Windows.Forms.ComboBox();
+            this.comboBoxPublicKeyDecryptDropDown = new System.Windows.Forms.ComboBox();
+            this.buttonResetConfigFileValues = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DisplayRecords
@@ -60,7 +63,7 @@
             this.DisplayRecords.Name = "DisplayRecords";
             this.DisplayRecords.Size = new System.Drawing.Size(115, 35);
             this.DisplayRecords.TabIndex = 0;
-            this.DisplayRecords.Text = "Display records";
+            this.DisplayRecords.Text = "Display chain data";
             this.DisplayRecords.UseVisualStyleBackColor = true;
             this.DisplayRecords.Click += new System.EventHandler(this.DisplayChainFromGUI);
             // 
@@ -124,14 +127,6 @@
             this.ReceiverNameTextBox.Size = new System.Drawing.Size(200, 20);
             this.ReceiverNameTextBox.TabIndex = 7;
             // 
-            // PrivateKeyIdTextBox
-            // 
-            this.PrivateKeyIdTextBox.Location = new System.Drawing.Point(20, 435);
-            this.PrivateKeyIdTextBox.MaxLength = 4;
-            this.PrivateKeyIdTextBox.Name = "PrivateKeyIdTextBox";
-            this.PrivateKeyIdTextBox.Size = new System.Drawing.Size(100, 20);
-            this.PrivateKeyIdTextBox.TabIndex = 9;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -148,9 +143,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.Location = new System.Drawing.Point(17, 404);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(206, 17);
+            this.label2.Size = new System.Drawing.Size(194, 17);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Enter private key ID to sign with";
+            this.label2.Text = "Select private key to sign with";
             // 
             // label3
             // 
@@ -168,9 +163,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label5.Location = new System.Drawing.Point(863, 513);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 17);
+            this.label5.Size = new System.Drawing.Size(215, 17);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Enter private key ID to decrypt with";
+            this.label5.Text = "Select private key to decrypt with";
             // 
             // label6
             // 
@@ -178,33 +173,19 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label6.Location = new System.Drawing.Point(862, 559);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(243, 17);
+            this.label6.Size = new System.Drawing.Size(259, 17);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Enter public key ID to verify signature";
+            this.label6.Text = "Select public key to verify signature with";
             // 
-            // PrivateKeyDecrypt
+            // richTextBoxPublicKeyPaths
             // 
-            this.PrivateKeyDecrypt.Location = new System.Drawing.Point(866, 533);
-            this.PrivateKeyDecrypt.Name = "PrivateKeyDecrypt";
-            this.PrivateKeyDecrypt.Size = new System.Drawing.Size(100, 20);
-            this.PrivateKeyDecrypt.TabIndex = 17;
-            // 
-            // PublicKeyVerify
-            // 
-            this.PublicKeyVerify.Location = new System.Drawing.Point(865, 585);
-            this.PublicKeyVerify.Name = "PublicKeyVerify";
-            this.PublicKeyVerify.Size = new System.Drawing.Size(100, 20);
-            this.PublicKeyVerify.TabIndex = 18;
-            // 
-            // richTextBoxKeyPaths
-            // 
-            this.richTextBoxKeyPaths.DetectUrls = false;
-            this.richTextBoxKeyPaths.Location = new System.Drawing.Point(500, 30);
-            this.richTextBoxKeyPaths.Name = "richTextBoxKeyPaths";
-            this.richTextBoxKeyPaths.ReadOnly = true;
-            this.richTextBoxKeyPaths.Size = new System.Drawing.Size(250, 500);
-            this.richTextBoxKeyPaths.TabIndex = 19;
-            this.richTextBoxKeyPaths.Text = "";
+            this.richTextBoxPublicKeyPaths.DetectUrls = false;
+            this.richTextBoxPublicKeyPaths.Location = new System.Drawing.Point(500, 30);
+            this.richTextBoxPublicKeyPaths.Name = "richTextBoxPublicKeyPaths";
+            this.richTextBoxPublicKeyPaths.ReadOnly = true;
+            this.richTextBoxPublicKeyPaths.Size = new System.Drawing.Size(250, 425);
+            this.richTextBoxPublicKeyPaths.TabIndex = 19;
+            this.richTextBoxPublicKeyPaths.Text = "";
             // 
             // ServerUrlTextBox
             // 
@@ -251,9 +232,9 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label9.Location = new System.Drawing.Point(500, 10);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 17);
+            this.label9.Size = new System.Drawing.Size(139, 17);
             this.label9.TabIndex = 24;
-            this.label9.Text = "Available keys";
+            this.label9.Text = "Available public keys";
             // 
             // checkedListBoxPublicKeysToEncryptFor
             // 
@@ -271,7 +252,6 @@
             this.comboBoxBlockDecryptNumber.Name = "comboBoxBlockDecryptNumber";
             this.comboBoxBlockDecryptNumber.Size = new System.Drawing.Size(121, 21);
             this.comboBoxBlockDecryptNumber.TabIndex = 26;
-            this.comboBoxBlockDecryptNumber.Text = "Select block number to decrypt";
             // 
             // SaveNameAndPortToConfig
             // 
@@ -283,11 +263,74 @@
             this.SaveNameAndPortToConfig.UseVisualStyleBackColor = true;
             this.SaveNameAndPortToConfig.Click += new System.EventHandler(this.SaveNameAndPortToConfig_Click);
             // 
+            // richTextBoxPrivateKeyPaths
+            // 
+            this.richTextBoxPrivateKeyPaths.DetectUrls = false;
+            this.richTextBoxPrivateKeyPaths.Location = new System.Drawing.Point(810, 30);
+            this.richTextBoxPrivateKeyPaths.Name = "richTextBoxPrivateKeyPaths";
+            this.richTextBoxPrivateKeyPaths.ReadOnly = true;
+            this.richTextBoxPrivateKeyPaths.Size = new System.Drawing.Size(250, 187);
+            this.richTextBoxPrivateKeyPaths.TabIndex = 28;
+            this.richTextBoxPrivateKeyPaths.Text = "";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label4.Location = new System.Drawing.Point(807, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(145, 17);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Available private keys";
+            // 
+            // comboBoxPrivateKeyEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyEncryptDropDown.Location = new System.Drawing.Point(20, 434);
+            this.comboBoxPrivateKeyEncryptDropDown.Name = "comboBoxPrivateKeyEncryptDropDown";
+            this.comboBoxPrivateKeyEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyEncryptDropDown.TabIndex = 30;
+            // 
+            // comboBoxPrivateKeyDecryptDropDown
+            // 
+            this.comboBoxPrivateKeyDecryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyDecryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyDecryptDropDown.Location = new System.Drawing.Point(866, 536);
+            this.comboBoxPrivateKeyDecryptDropDown.Name = "comboBoxPrivateKeyDecryptDropDown";
+            this.comboBoxPrivateKeyDecryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyDecryptDropDown.TabIndex = 31;
+            // 
+            // comboBoxPublicKeyDecryptDropDown
+            // 
+            this.comboBoxPublicKeyDecryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPublicKeyDecryptDropDown.FormattingEnabled = true;
+            this.comboBoxPublicKeyDecryptDropDown.Location = new System.Drawing.Point(866, 590);
+            this.comboBoxPublicKeyDecryptDropDown.Name = "comboBoxPublicKeyDecryptDropDown";
+            this.comboBoxPublicKeyDecryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPublicKeyDecryptDropDown.TabIndex = 32;
+            // 
+            // buttonResetConfigFileValues
+            // 
+            this.buttonResetConfigFileValues.Location = new System.Drawing.Point(500, 591);
+            this.buttonResetConfigFileValues.Name = "buttonResetConfigFileValues";
+            this.buttonResetConfigFileValues.Size = new System.Drawing.Size(115, 35);
+            this.buttonResetConfigFileValues.TabIndex = 33;
+            this.buttonResetConfigFileValues.Text = "Reset config file";
+            this.buttonResetConfigFileValues.UseVisualStyleBackColor = true;
+            this.buttonResetConfigFileValues.Click += new System.EventHandler(this.ButtonResetConfigFileValues_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 668);
+            this.Controls.Add(this.buttonResetConfigFileValues);
+            this.Controls.Add(this.comboBoxPublicKeyDecryptDropDown);
+            this.Controls.Add(this.comboBoxPrivateKeyDecryptDropDown);
+            this.Controls.Add(this.comboBoxPrivateKeyEncryptDropDown);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.richTextBoxPrivateKeyPaths);
             this.Controls.Add(this.SaveNameAndPortToConfig);
             this.Controls.Add(this.comboBoxBlockDecryptNumber);
             this.Controls.Add(this.checkedListBoxPublicKeysToEncryptFor);
@@ -296,15 +339,12 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.ServerUrlTextBox);
-            this.Controls.Add(this.richTextBoxKeyPaths);
-            this.Controls.Add(this.PublicKeyVerify);
-            this.Controls.Add(this.PrivateKeyDecrypt);
+            this.Controls.Add(this.richTextBoxPublicKeyPaths);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.PrivateKeyIdTextBox);
             this.Controls.Add(this.ReceiverNameTextBox);
             this.Controls.Add(this.labeltextDisplay);
             this.Controls.Add(this.ConnectServerButton);
@@ -328,15 +368,12 @@
         private System.Windows.Forms.Button ConnectServerButton;
         private System.Windows.Forms.Label labeltextDisplay;
         private System.Windows.Forms.TextBox ReceiverNameTextBox;
-        private System.Windows.Forms.TextBox PrivateKeyIdTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox PrivateKeyDecrypt;
-        private System.Windows.Forms.TextBox PublicKeyVerify;
-        private System.Windows.Forms.RichTextBox richTextBoxKeyPaths;
+        private System.Windows.Forms.RichTextBox richTextBoxPublicKeyPaths;
         private System.Windows.Forms.TextBox ServerUrlTextBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -345,6 +382,12 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxPublicKeysToEncryptFor;
         private System.Windows.Forms.ComboBox comboBoxBlockDecryptNumber;
         private System.Windows.Forms.Button SaveNameAndPortToConfig;
+        private System.Windows.Forms.RichTextBox richTextBoxPrivateKeyPaths;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyEncryptDropDown;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyDecryptDropDown;
+        private System.Windows.Forms.ComboBox comboBoxPublicKeyDecryptDropDown;
+        private System.Windows.Forms.Button buttonResetConfigFileValues;
     }
 }
 

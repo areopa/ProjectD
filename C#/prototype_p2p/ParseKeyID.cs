@@ -10,61 +10,81 @@ namespace prototype_p2p
 {
     public class ParseKeyID
     {
-        public string[] keyArrayPathAppended;
-        public string[] KeyArrayNoPathAppended;
+        public string[] privateKeyArrayPathAppended;
+        public string[] publicKeyArrayPathAppended;
+        public string[] publicKeyArrayNoPathAppended;
+        public string[] privateKeyArrayNoPathAppended;
+
+        char[] strSeperatorKeyInput = new char[] { ';', ',', ' ' };
+
+        /* Constructor that builds arrays containing the keyfile paths
+         * no path appended format example: "examplekey_private.asc"
+         * path appended format example: "..\\..\\Keys\Private\examplekey_private.asc"
+        */
         public ParseKeyID(string keysPath)
         {
             try
             {
-                keyArrayPathAppended = Directory.GetFiles(keysPath);
-                KeyArrayNoPathAppended = Directory.GetFiles(keysPath).Select(p => Path.GetFileName(p)).ToArray();
+                privateKeyArrayPathAppended = Directory.GetFiles((keysPath + "\\Private"));
+                publicKeyArrayPathAppended = Directory.GetFiles((keysPath + "\\Public"));
+                publicKeyArrayNoPathAppended = Directory.GetFiles((keysPath + "\\Public")).Select(p => Path.GetFileName(p)).ToArray();
+                privateKeyArrayNoPathAppended = Directory.GetFiles((keysPath + "\\Private")).Select(p => Path.GetFileName(p)).ToArray();
             }
             catch (DirectoryNotFoundException)
             {
                 Console.WriteLine("Keys directory not found!");
+                MessageBox.Show("Keys directory not found!");
             }
         }
 
-        public void WriteAllLoadedKeyPaths()
+        // Only used for the CLI, not used in the GUI.
+        public void WriteLoadedKeyPaths(bool publicKeyPaths = true, bool privateKeyPaths = true)
         {
-            for (int i = 0; i<keyArrayPathAppended.Length; i++)
+            if (privateKeyPaths)
             {
-                Console.WriteLine(keyArrayPathAppended[i] + " key ID:" + i);
+                for (int i = 0; i < privateKeyArrayPathAppended.Length; i++)
+                {
+                    Console.WriteLine(privateKeyArrayPathAppended[i] + " key ID:" + i);
+                }
+            }
+            if (publicKeyPaths)
+            {
+                for (int i = 0; i < publicKeyArrayPathAppended.Length; i++)
+                {
+                    Console.WriteLine(publicKeyArrayPathAppended[i] + " key ID:" + i);
+                }
             }
         }
-        public string ReturnAllLoadedKeyPathsAsString()
+
+
+        // Only used by the GUI, used to populate the available key boxes.
+        public string ReturnLoadedKeyPathsAsStringNoPathPrefixed(bool privateKeys = false)
         {
-            string allKeyPaths="";
-            for (int i = 0; i < keyArrayPathAppended.Length; i++)
+            string[] keyArray = !privateKeys ? publicKeyArrayNoPathAppended : privateKeyArrayNoPathAppended;
+
+            string keyPaths = "";
+            for (int i = 0; i < keyArray.Length; i++)
             {
-                allKeyPaths = allKeyPaths + keyArrayPathAppended[i] + " key ID:" + i+Environment.NewLine;
+                keyPaths = keyPaths + keyArray[i] + Environment.NewLine;
             }
-            return allKeyPaths;
-        }
-        public string ReturnAllLoadedKeyPathsAsStringNoPathPrefixed()
-        {
-            string allKeyPaths = "";
-            for (int i = 0; i < KeyArrayNoPathAppended.Length; i++)
-            {
-                allKeyPaths = allKeyPaths + KeyArrayNoPathAppended[i] + " key ID:" + i + Environment.NewLine;
-            }
-            return allKeyPaths;
+            return keyPaths;
         }
 
 
 
-
-        public string ParseAndReturnVerifiedKeyPath()
+        // Only used by CLI
+        public string ParseAndReturnVerifiedKeyPath(bool publicKey = false)
         {
             int keyIdInt = -1;
             bool keyValid = false;
+            string[] keyArraytoCheck = publicKey ? publicKeyArrayPathAppended : privateKeyArrayPathAppended;
             while (!keyValid) //checks if the entered key ID is an int and if it is a valid ID number.
             {
                 string enteredKey = Console.ReadLine();
                 if (int.TryParse(enteredKey, out int enteredKeyInt)) //checks if int
                 {
                     enteredKeyInt = Math.Abs(enteredKeyInt); //prevent negative ID's
-                    if (enteredKeyInt < keyArrayPathAppended.Length) //checks if ID is in range
+                    if (enteredKeyInt < keyArraytoCheck.Length) //checks if ID is in range
                     {
                         keyIdInt = enteredKeyInt;
                         keyValid = true;
@@ -84,67 +104,44 @@ namespace prototype_p2p
             }
             if (keyValid)
             {
-                return keyArrayPathAppended[keyIdInt];
+                return keyArraytoCheck[keyIdInt];
             }
             throw new NotImplementedException();
         }
 
-        public string ParseAndReturnVerifiedKeyPathGUI(string enteredKey)
-        {
-            int keyIdInt;
 
-                 
-                if (int.TryParse(enteredKey, out int enteredKeyInt)) //checks if int
-                {
-                    enteredKeyInt = Math.Abs(enteredKeyInt); //prevent negative ID's
-                    if (enteredKeyInt < keyArrayPathAppended.Length) //checks if ID is in range
-                    {
-                        keyIdInt = enteredKeyInt;
-                        return keyArrayPathAppended[keyIdInt];
-                }
-                    else
-                    {
-                            MessageBox.Show("Entered ID:" + enteredKeyInt + " has no corresponding key, please enter the ID of an existing key!");
-                    }
-                }
-                else
-                {
-                        MessageBox.Show("Entered ID:" + enteredKey + " is not a number! The ID must be a number.");
-                }
-
-
-
-
-
-            throw new ArgumentOutOfRangeException();
-        }
+        // Only used by CLI
         public string[] BuildVerifiedKeyIdPathArray()
         {
 
-
+            // Used as the while loop exit condition
             bool keyValid = false;
             bool inputIsIntAndInRange = true;
-            while (!keyValid) //checks if the entered key ID is an int and if it is a valid ID number.
+            // Checks if the entered key ID is an int and if it is a valid ID number.
+            while (!keyValid) 
             {
 
-                Console.WriteLine("ID's need to seperated using a comma(,) or a semicolon(;).");
+                Console.WriteLine("ID's need to seperated using a comma(,) a semicolon(;) or a space.");
                 string recipientKeyIds = Console.ReadLine();
-                if (recipientKeyIds == "" || recipientKeyIds == "," || recipientKeyIds == ";")
+
+                // If the user enters a comma(",") a space(" ") a semicolon(";") or nothing("") the writeline and readline to get key ID's are repeated.
+                if (recipientKeyIds == "" || recipientKeyIds == "," || recipientKeyIds == " " || recipientKeyIds == ";")
                 {
                     Console.WriteLine("You didn't input anything!");
+
+                    // Restarts the while loop
                     continue;
                 }
 
-                char[] strSeperatorKeyInput = new char[] { ';', ',' };
+                // Splits the ID's entered by the user, characters on which the string is split are defined by the class wide char array strSeperatorKeyInput
                 string[] recipientKeySplit = recipientKeyIds.Split(strSeperatorKeyInput, StringSplitOptions.RemoveEmptyEntries);
-
                 int[] keyIds = new int[recipientKeySplit.Length];
                 for (int i = 0; i < recipientKeySplit.Length; i++)
                 {
                     if (int.TryParse(recipientKeySplit[i], out int intValid))
                     {
                         intValid = Math.Abs(intValid);
-                        if (intValid < keyArrayPathAppended.Length)
+                        if (intValid < publicKeyArrayPathAppended.Length)
                         {
                             keyIds[i] = intValid;
                         }
@@ -152,6 +149,7 @@ namespace prototype_p2p
                         {
                             Console.WriteLine("ID's must correspond to an existing key, try again.");
                             inputIsIntAndInRange = false;
+                            // Exits the for loop 
                             break;
                         }
                     }
@@ -162,6 +160,9 @@ namespace prototype_p2p
                         break;
                     }
                 }
+
+                // Restarts the while loop if the user entered anything other than an int or if the user entered an int ID that does not have a corresponding key
+                // Implemented because using continue in the for loop would skip a for loop iteration instead of restarting the while loop
                 if (!inputIsIntAndInRange)
                 {
                     continue;
@@ -170,66 +171,16 @@ namespace prototype_p2p
 
                 for (int j = 0; j < keyIds.Length; j++)
                 {
-                    recipientKeyPathsArr[j] = keyArrayPathAppended[keyIds[j]];
+                    recipientKeyPathsArr[j] = publicKeyArrayPathAppended[keyIds[j]];
                 }
+
+                // Ends the while loop
                 keyValid = true;
                 return recipientKeyPathsArr;
             }
             throw new NotImplementedException();
         }
-            public string[] BuildVerifiedKeyIdPathArrayGUI(string recipientKeyIds)
-            {
 
-                    char[] strSeperatorKeyInput = new char[] { ';', ',' };
-                    string[] recipientKeySplit = recipientKeyIds.Split(strSeperatorKeyInput, StringSplitOptions.RemoveEmptyEntries);
-
-                    int[] keyIds = new int[recipientKeySplit.Length];
-                    for (int i = 0; i < recipientKeySplit.Length; i++)
-                    {
-                        if (int.TryParse(recipientKeySplit[i], out int intValid))
-                        {
-                            intValid = Math.Abs(intValid);
-                            if (intValid < keyArrayPathAppended.Length)
-                            {
-                                keyIds[i] = intValid;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    MessageBox.Show("Entered ID:" + intValid + " has no corresponding key, please enter the ID of an existing key!");
-                                    throw new NotImplementedException();
-                                }
-                                catch (NotImplementedException)
-                                {
-
-                                }
-                            }   
-                        }
-                        else
-                        {
-                            try
-                            {
-                                MessageBox.Show("Entered ID:" + recipientKeySplit[i] + " is not a number! The ID must be a number.");
-                                throw new NotImplementedException();
-                            }
-                            catch (NotImplementedException)
-                            {
-
-                            }
-                    
-                        }
-                    }
-                    string[] recipientKeyPathsArr = new string[keyIds.Length];
-
-                    for (int j = 0; j < keyIds.Length; j++)
-                    {
-                        recipientKeyPathsArr[j] = keyArrayPathAppended[keyIds[j]];
-                    }
-                    return recipientKeyPathsArr;
-                
-
-            }
         }
     }
     
