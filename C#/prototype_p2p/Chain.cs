@@ -17,6 +17,17 @@ namespace prototype_p2p
         {
 
         }
+
+        public string ReadChainPretty()
+        {
+
+            string result = "";
+            foreach(Block block in ChainList)
+            {
+                result += block.readBlockPretty() + "\r\n";
+            }
+            return result;
+        }
        
         public void ReadChain()
         {

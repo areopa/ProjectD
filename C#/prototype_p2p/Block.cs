@@ -41,5 +41,17 @@ namespace prototype_p2p
         {
             this.Hashcode = this.ComputeHashcode();
         }
+
+        public string readBlockPretty()
+        {
+            string result = "";
+            result += "Blocknumber: " + Number;
+            result += " (Time: " + TimeCode + ")\r\n";
+            foreach(Message message in MessageList)
+            {
+                result += message.readMessagePretty() + "\r\n";
+            }
+            return result;
+        }
     }
 }

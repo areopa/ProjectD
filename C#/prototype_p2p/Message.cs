@@ -18,5 +18,12 @@ namespace prototype_p2p
             Receiver = receiver;
             Data = data;
         }
+
+        public string readMessagePretty()
+        {
+            string result = "";
+            result += "Sender: " + Sender + "\r\nReceiver(s): " + Receiver;
+            return result;
+        }
     }
 }

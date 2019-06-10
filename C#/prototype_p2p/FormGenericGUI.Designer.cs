@@ -58,15 +58,16 @@
             this.label10 = new System.Windows.Forms.Label();
             this.richTextBoxConnections = new System.Windows.Forms.RichTextBox();
             this.connectionUpdateButton = new System.Windows.Forms.Button();
+            this.displayChainVisual = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DisplayRecords
             // 
-            this.DisplayRecords.Location = new System.Drawing.Point(500, 550);
+            this.DisplayRecords.Location = new System.Drawing.Point(635, 495);
             this.DisplayRecords.Name = "DisplayRecords";
             this.DisplayRecords.Size = new System.Drawing.Size(115, 35);
             this.DisplayRecords.TabIndex = 0;
-            this.DisplayRecords.Text = "Display chain data";
+            this.DisplayRecords.Text = "Display chain data (full)";
             this.DisplayRecords.UseVisualStyleBackColor = true;
             this.DisplayRecords.Click += new System.EventHandler(this.DisplayChainFromGUI);
             // 
@@ -353,11 +354,22 @@
             this.connectionUpdateButton.UseVisualStyleBackColor = true;
             this.connectionUpdateButton.Click += new System.EventHandler(this.connectionUpdateButton_Click);
             // 
+            // displayChainVisual
+            // 
+            this.displayChainVisual.Location = new System.Drawing.Point(500, 495);
+            this.displayChainVisual.Name = "displayChainVisual";
+            this.displayChainVisual.Size = new System.Drawing.Size(115, 35);
+            this.displayChainVisual.TabIndex = 37;
+            this.displayChainVisual.Text = "Display chain data (pretty)";
+            this.displayChainVisual.UseVisualStyleBackColor = true;
+            this.displayChainVisual.Click += new System.EventHandler(this.displayChainVisual_Click);
+            // 
             // FormGenericGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 668);
+            this.Controls.Add(this.displayChainVisual);
             this.Controls.Add(this.connectionUpdateButton);
             this.Controls.Add(this.richTextBoxConnections);
             this.Controls.Add(this.label10);
@@ -427,6 +439,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.RichTextBox richTextBoxConnections;
         private System.Windows.Forms.Button connectionUpdateButton;
+        private System.Windows.Forms.Button displayChainVisual;
     }
 }
 

@@ -99,6 +99,12 @@ namespace prototype_p2p
             SimpleReportViewer.ShowDialog(JsonConvert.SerializeObject(Program.ProjectD, Formatting.Indented), "Chain data", this);
         }
 
+        private void displayChainVisual_Click(object sender, EventArgs e)
+        {
+            //Opens a popup window displaying the chain in pretty format
+            SimpleReportViewer.ShowDialog(Program.ProjectD.ReadChainPretty(), "Chain data (pretty)", this);
+        }
+
         private void DecryptFromGUI(object sender, EventArgs e)
         {
             if (Program.ProjectD.ChainList.Count > 1) // 1 and not 0 because the genesis block counts as one.
@@ -214,27 +220,33 @@ namespace prototype_p2p
 
             if (Client.socketDictionary != null)
             {
-                message = "Connecties: \n";
+                
                 foreach (var item in Client.socketDictionary)
                 {
+                    if(message.Equals("No connections"))
+                    {
+                        message = "";
+                    }    
                     WebSocket socket = new WebSocket(item.Key);
 
                     if (socket.IsAlive)
                     {
-                        message = message + item.Key + " : connection alive \n";
+                        message = message + item.Key + " : connection alive \r\n";
                     }
                     else
                     {
-                        message = message + item.Key + " : connection broken \n";
+                        message = message + item.Key + " : connection broken \r\n";
                     }
                 }
             }
 
-            MessageBox.Show(message);
+           
             richTextBoxConnections.Text = message;
             
 
 
         }
+
+       
     }
 }
