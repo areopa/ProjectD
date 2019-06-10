@@ -86,7 +86,7 @@ namespace prototype_p2p
                 Console.WriteLine(Context.UserEndPoint.Address.ToString());
                 //Console.WriteLine(Context.UserEndPoint.Port.ToString());
                 Send("Handshake to client");
-                MessageBox.Show(Context.UserEndPoint.Address.ToString() + " is connected to you!");
+                Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(Context.UserEndPoint.Address.ToString() + " is connected to you!"+Environment.NewLine);
             }
             if (e.IsPing)
             {
