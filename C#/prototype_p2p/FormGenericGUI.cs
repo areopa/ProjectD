@@ -247,6 +247,23 @@ namespace prototype_p2p
 
         }
 
-       
+        private void FormGenericGUI_Load(object sender, EventArgs e)
+        {
+            timer1.Start();
+            label12.Text = DateTime.Now.ToLongDateString();
+            label13.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label13.Text = DateTime.Now.ToLongTimeString();
+            timer1.Start();
+        }
     }
 }
