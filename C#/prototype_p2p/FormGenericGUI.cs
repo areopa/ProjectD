@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using System.Windows.Forms;
+using WebSocketSharp;
+
 
 namespace prototype_p2p
 {
@@ -51,6 +53,7 @@ namespace prototype_p2p
                 new System.EventHandler(EventComboBoxBlockDecryptNumber_DropDown);
         }
 
+        
 
         // Called on the dropdown event of the block number selector
         private void EventComboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
@@ -200,6 +203,38 @@ namespace prototype_p2p
         private void ButtonResetConfigFileValues_Click(object sender, EventArgs e)
         {
             configData.ResetConfigFileValues();
+        }
+
+        private void connectionUpdateButton_Click(object sender, EventArgs e)
+        {
+            
+           
+
+            string message = "No connections";
+
+            if (Client.socketDictionary != null)
+            {
+                message = "Connecties: \n";
+                foreach (var item in Client.socketDictionary)
+                {
+                    WebSocket socket = new WebSocket(item.Key);
+
+                    if (socket.IsAlive)
+                    {
+                        message = message + item.Key + " : connection alive \n";
+                    }
+                    else
+                    {
+                        message = message + item.Key + " : connection broken \n";
+                    }
+                }
+            }
+
+            MessageBox.Show(message);
+            richTextBoxConnections.Text = message;
+            
+
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace prototype_p2p
 {
     public class Client
     {
-        IDictionary<string, WebSocket> socketDictionary = new Dictionary<string, WebSocket>();
+        public static IDictionary<string, WebSocket> socketDictionary = new Dictionary<string, WebSocket>();
 
         public string PingAll()
         {

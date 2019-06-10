@@ -55,6 +55,9 @@
             this.comboBoxPrivateKeyDecryptDropDown = new System.Windows.Forms.ComboBox();
             this.comboBoxPublicKeyDecryptDropDown = new System.Windows.Forms.ComboBox();
             this.buttonResetConfigFileValues = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.richTextBoxConnections = new System.Windows.Forms.RichTextBox();
+            this.connectionUpdateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DisplayRecords
@@ -269,7 +272,7 @@
             this.richTextBoxPrivateKeyPaths.Location = new System.Drawing.Point(810, 30);
             this.richTextBoxPrivateKeyPaths.Name = "richTextBoxPrivateKeyPaths";
             this.richTextBoxPrivateKeyPaths.ReadOnly = true;
-            this.richTextBoxPrivateKeyPaths.Size = new System.Drawing.Size(250, 187);
+            this.richTextBoxPrivateKeyPaths.Size = new System.Drawing.Size(250, 107);
             this.richTextBoxPrivateKeyPaths.TabIndex = 28;
             this.richTextBoxPrivateKeyPaths.Text = "";
             // 
@@ -320,11 +323,44 @@
             this.buttonResetConfigFileValues.UseVisualStyleBackColor = true;
             this.buttonResetConfigFileValues.Click += new System.EventHandler(this.ButtonResetConfigFileValues_Click);
             // 
-            // Form1
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label10.Location = new System.Drawing.Point(807, 169);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(86, 17);
+            this.label10.TabIndex = 34;
+            this.label10.Text = "Connections";
+            // 
+            // richTextBoxConnections
+            // 
+            this.richTextBoxConnections.DetectUrls = false;
+            this.richTextBoxConnections.Location = new System.Drawing.Point(810, 197);
+            this.richTextBoxConnections.Name = "richTextBoxConnections";
+            this.richTextBoxConnections.ReadOnly = true;
+            this.richTextBoxConnections.Size = new System.Drawing.Size(391, 187);
+            this.richTextBoxConnections.TabIndex = 35;
+            this.richTextBoxConnections.Text = "";
+            // 
+            // connectionUpdateButton
+            // 
+            this.connectionUpdateButton.Location = new System.Drawing.Point(810, 404);
+            this.connectionUpdateButton.Name = "connectionUpdateButton";
+            this.connectionUpdateButton.Size = new System.Drawing.Size(115, 35);
+            this.connectionUpdateButton.TabIndex = 36;
+            this.connectionUpdateButton.Text = "Update connections";
+            this.connectionUpdateButton.UseVisualStyleBackColor = true;
+            this.connectionUpdateButton.Click += new System.EventHandler(this.connectionUpdateButton_Click);
+            // 
+            // FormGenericGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1246, 668);
+            this.Controls.Add(this.connectionUpdateButton);
+            this.Controls.Add(this.richTextBoxConnections);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.buttonResetConfigFileValues);
             this.Controls.Add(this.comboBoxPublicKeyDecryptDropDown);
             this.Controls.Add(this.comboBoxPrivateKeyDecryptDropDown);
@@ -352,7 +388,7 @@
             this.Controls.Add(this.Encrypt);
             this.Controls.Add(this.DisplayKeys);
             this.Controls.Add(this.DisplayRecords);
-            this.Name = "Form1";
+            this.Name = "FormGenericGUI";
             this.Text = "Blockchain";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -388,6 +424,9 @@
         private System.Windows.Forms.ComboBox comboBoxPrivateKeyDecryptDropDown;
         private System.Windows.Forms.ComboBox comboBoxPublicKeyDecryptDropDown;
         private System.Windows.Forms.Button buttonResetConfigFileValues;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.RichTextBox richTextBoxConnections;
+        private System.Windows.Forms.Button connectionUpdateButton;
     }
 }
 

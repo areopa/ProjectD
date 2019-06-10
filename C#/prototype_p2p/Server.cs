@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -83,17 +84,19 @@ namespace prototype_p2p
             {
                 Console.WriteLine(e.Data);
                 Console.WriteLine(Context.UserEndPoint.Address.ToString());
-                Console.WriteLine(Context.UserEndPoint.Port.ToString());
+                //Console.WriteLine(Context.UserEndPoint.Port.ToString());
                 Send("Handshake to client");
+                MessageBox.Show(Context.UserEndPoint.Address.ToString() + " is connected to you!");
             }
             if (e.IsPing)
             {
-                Console.WriteLine("You've just been pinged MOFO");
+                Console.WriteLine("You've just been pinged");
                 Send("Connection live");
             }
             else
             {
                 Console.WriteLine("Creating new chain from server");
+                //TODO: Onderstaande regel geefterrors bij verbinden.
                 Chain newChain = JsonConvert.DeserializeObject<Chain>(e.Data);
 
                 if (newChain.CheckIntegrity() && newChain.ChainList.Count > Program.ProjectD.ChainList.Count)
