@@ -213,21 +213,21 @@ namespace prototype_p2p
 
         private void connectionUpdateButton_Click(object sender, EventArgs e)
         {
-            
-           
 
-            string message = "No connections";
+            string message = "";
 
             if (Client.socketDictionary != null)
             {
-                
+
                 foreach (var item in Client.socketDictionary)
                 {
-                    if(message.Equals("No connections"))
+                    if (message.Equals("No connections"))
                     {
                         message = "";
-                    }    
+                    }
+
                     WebSocket socket = new WebSocket(item.Key);
+                    socket.Connect();
 
                     if (socket.IsAlive)
                     {
@@ -239,8 +239,12 @@ namespace prototype_p2p
                     }
                 }
             }
+            else
+            {
+                message = "no connections";
+            }
 
-           
+
             richTextBoxConnections.Text = message;
             
 

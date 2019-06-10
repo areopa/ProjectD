@@ -19,7 +19,7 @@ namespace prototype_p2p
                 foreach (var item in socketDictionary)
                 {
                     WebSocket socket = new WebSocket(item.Key);
-
+                    socket.Connect();
                     if (socket.IsAlive)
                     {
                         Console.WriteLine(item.Key + " : connection alive");
