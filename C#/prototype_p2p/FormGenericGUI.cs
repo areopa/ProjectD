@@ -32,6 +32,8 @@ namespace prototype_p2p
             richTextBoxPublicKeyPaths.Text = keyIDPaths.ReturnLoadedKeyPathsAsStringNoPathPrefixed(false);
             richTextBoxPrivateKeyPaths.Text = keyIDPaths.ReturnLoadedKeyPathsAsStringNoPathPrefixed(true);
             ServerInitAt.Text = ServerInstance.serverInitAt;
+            textBoxCurrentActiveRole.Text = Program.currentRole;
+            textBoxNodeName.Text = Program.NodeName;
 
             // Implemented to prevent reloading the blocknumber dropdown when no new blocks have been added
             chainCount = Program.ProjectD.ChainList.Count;
@@ -273,6 +275,11 @@ namespace prototype_p2p
         private void button1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(System.IO.Directory.GetParent(Program.pathKeyPublic).FullName);
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

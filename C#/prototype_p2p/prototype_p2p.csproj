@@ -68,6 +68,12 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="Chain.cs" />
+    <Compile Include="BootConfigurator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BootConfigurator.Designer.cs">
+      <DependentUpon>BootConfigurator.cs</DependentUpon>
+    </Compile>
     <Compile Include="SimpleReportVIewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     <None Include="Properties\Settings.settings" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BootConfigurator.resx">
+      <DependentUpon>BootConfigurator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormGenericGUI.resx">
       <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </EmbeddedResource>

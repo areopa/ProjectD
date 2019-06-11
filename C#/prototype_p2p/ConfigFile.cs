@@ -28,12 +28,13 @@ namespace prototype_p2p
             if (!File.Exists("Config.ini") || reset)
             {
                 Console.WriteLine("Generating default Config.ini");
-                File.WriteAllText("Config.ini", "//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty\n" +
+                File.WriteAllText("Config.ini", "To disable a particular config setting place 2 equals (=) signs on that line or leave the space after the \"=\" blank\n" +
                     "useConfigFile=false\n" +
                     "NetworkPort=\n" +
-                    "NodeName=Unknown\n" +
+                    "NodeName=\n" +
                     "pathKeyPrivate=" + Program.pathKeyPrivate + "\n" +
-                    "pathKeyPublic=" + Program.pathKeyPublic);
+                    "pathKeyPublic=" + Program.pathKeyPublic + "\n" +
+                    "currentRole=\n");
             }
         }
 
@@ -66,7 +67,7 @@ namespace prototype_p2p
             }
             catch (IOException e)
             {
-                Console.WriteLine("The file could not be read:" + "\n" + e.Message);
+                Console.WriteLine("The file could not be read:" + Environment.NewLine + e.Message);
             }
             throw new ApplicationException("Something went wrong with loading the config file data");
         }

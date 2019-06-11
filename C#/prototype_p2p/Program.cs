@@ -19,25 +19,31 @@ namespace prototype_p2p
         public static Chain ProjectD = new Chain();
         public static string NodeName = "Unknown";
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "7", "8", "9", "10" };
+        public static readonly List<string> existingRoles = new List<string> { "Politie", "OM", "Gemeente", "Reclassering" };
+        public static string currentRole = "s";
         public static string pathKeyPrivate = @"..\\..\\Keys\\Private";
         public static string pathKeyPublic = @"..\\..\\Keys\\Public";
         public static FormGenericGUI genericGUIForm;
         public static FlushBlock flushMsgAndSend;
+        
 
 
         //restricting usage of most commonly used ports 25:SMTP 80:HTTP 443:HTTPS 20,21:FTP 23:telnet 143:IMAP 3389:RDP 22:SSH 53:DNS 67,68:DHCP 110:POP3
         public static readonly List<int> portBlacklist = new List<int> { 0, 20, 21, 22, 23, 25, 53, 67, 68, 80, 110, 143, 443, 3389 };
 
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine("Default Public Keys directory exists:" + Directory.Exists(pathKeyPublic));
             Console.WriteLine("Default Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
-            
+
 
             ConfigFile configData = new ConfigFile();
             configData.WriteAllValuesConsole();
+
             if (!Directory.Exists(pathKeyPublic))
             {
                 pathKeyPublic = @"Keys\\Public";
@@ -52,7 +58,9 @@ namespace prototype_p2p
             ParseKeyID keyIDPaths = new ParseKeyID(pathKeyPrivate, pathKeyPublic);
             keyIDPaths.WriteLoadedKeyPaths();
 
-            
+            BootConfigurator bootConfigurator = new BootConfigurator();
+            Application.Run(bootConfigurator);
+
 
             while (NetworkPort == 0)
             {
@@ -76,7 +84,7 @@ namespace prototype_p2p
                 }
             }
 
-            if (NodeName == "Unknown")
+            if (NodeName == "Unknown" || NodeName == "")
             {
                 Console.Write("Enter Node name: ");
                 NodeName = Console.ReadLine();
@@ -88,11 +96,6 @@ namespace prototype_p2p
             {
                 ProjectD.SetupChain();
             }
-
-            //    if (args.Length >= 1)
-            //       NetworkPort = int.Parse(args[0]);
-            //    if (args.Length >= 2)
-            //        NodeName = args[1];
 
             if (NetworkPort > 0)
             {
@@ -106,6 +109,13 @@ namespace prototype_p2p
 
             flushMsgAndSend = new FlushBlock(NodeName, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
 
+
+
+            genericGUIForm = new FormGenericGUI(keyIDPaths, configData, ClientInstance, ServerInstance);
+
+            Console.WriteLine(currentRole);
+            Application.Run(genericGUIForm);
+
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("1. Setup a connection with a server");
             Console.WriteLine("2. Add unencrypted data to chain");
@@ -117,14 +127,6 @@ namespace prototype_p2p
             Console.WriteLine("9. Toggle loading from config");
             Console.WriteLine("10. List active connections");
             Console.WriteLine("--------------------------------------");
-
-
-
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            genericGUIForm = new FormGenericGUI(keyIDPaths, configData, ClientInstance, ServerInstance);
-            Application.Run(genericGUIForm);
 
             int instruction = 0;
             while (instruction != 4)
