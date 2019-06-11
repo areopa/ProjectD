@@ -32,7 +32,7 @@ namespace prototype_p2p
         static void Main(string[] args)
         {
             Console.WriteLine("Default Public Keys directory exists:" + Directory.Exists(pathKeyPublic));
-            Console.WriteLine(" Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
+            Console.WriteLine("Default Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
             ConfigFile configData = new ConfigFile();
