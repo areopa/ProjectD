@@ -65,19 +65,36 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_Open_Keys_Folder = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.textBoxNodeName = new System.Windows.Forms.TextBox();
             this.textBoxCurrentActiveRole = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_Open_Config_File = new System.Windows.Forms.Button();
+            this.Data_Invoer_Reclassering_Button = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox1.SuspendLayout();
+            this.Reclassering = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.OM = new System.Windows.Forms.TabPage();
+            this.Gemeente = new System.Windows.Forms.TabPage();
+            this.Politie = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Politie_Button = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBoxPrivateKeyOMEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.Data_Invoer_OM_Button = new System.Windows.Forms.Button();
+            this.Data_Invoer_Gemeente_Button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.Reclassering.SuspendLayout();
+            this.OM.SuspendLayout();
+            this.Gemeente.SuspendLayout();
+            this.Politie.SuspendLayout();
             this.SuspendLayout();
             // 
             // DisplayRecords
@@ -431,15 +448,15 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button1
+            // button_Open_Keys_Folder
             // 
-            this.button1.Location = new System.Drawing.Point(400, 427);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 35);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Open keys folder";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_Open_Keys_Folder.Location = new System.Drawing.Point(400, 427);
+            this.button_Open_Keys_Folder.Name = "button_Open_Keys_Folder";
+            this.button_Open_Keys_Folder.Size = new System.Drawing.Size(115, 35);
+            this.button_Open_Keys_Folder.TabIndex = 42;
+            this.button_Open_Keys_Folder.Text = "Open keys folder";
+            this.button_Open_Keys_Folder.UseVisualStyleBackColor = true;
+            this.button_Open_Keys_Folder.Click += new System.EventHandler(this.button_Open_Keys_Folder_Click);
             // 
             // label14
             // 
@@ -480,65 +497,215 @@
             this.textBoxCurrentActiveRole.Size = new System.Drawing.Size(146, 20);
             this.textBoxCurrentActiveRole.TabIndex = 46;
             // 
-            // button2
+            // button_Open_Config_File
             // 
-            this.button2.Location = new System.Drawing.Point(279, 427);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 35);
-            this.button2.TabIndex = 47;
-            this.button2.Text = "Open config file";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button_Open_Config_File.Location = new System.Drawing.Point(279, 427);
+            this.button_Open_Config_File.Name = "button_Open_Config_File";
+            this.button_Open_Config_File.Size = new System.Drawing.Size(115, 35);
+            this.button_Open_Config_File.TabIndex = 47;
+            this.button_Open_Config_File.Text = "Open config file";
+            this.button_Open_Config_File.UseVisualStyleBackColor = true;
+            this.button_Open_Config_File.Click += new System.EventHandler(this.button_Open_Config_File_Click);
             // 
-            // button3
+            // Data_Invoer_Reclassering_Button
             // 
-            this.button3.Location = new System.Drawing.Point(6, 28);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(115, 35);
-            this.button3.TabIndex = 49;
-            this.button3.Text = "Data invoer";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Location = new System.Drawing.Point(36, 684);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(573, 206);
-            this.groupBox1.TabIndex = 50;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Reclassering";
+            this.Data_Invoer_Reclassering_Button.Location = new System.Drawing.Point(22, 48);
+            this.Data_Invoer_Reclassering_Button.Name = "Data_Invoer_Reclassering_Button";
+            this.Data_Invoer_Reclassering_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Reclassering_Button.TabIndex = 49;
+            this.Data_Invoer_Reclassering_Button.Text = "Data invoer";
+            this.Data_Invoer_Reclassering_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Reclassering_Button.Click += new System.EventHandler(this.Data_Invoer_Reclassering_Button_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(703, 684);
+            this.tabControl1.Controls.Add(this.Reclassering);
+            this.tabControl1.Controls.Add(this.OM);
+            this.tabControl1.Controls.Add(this.Gemeente);
+            this.tabControl1.Controls.Add(this.Politie);
+            this.tabControl1.Location = new System.Drawing.Point(20, 584);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(200, 100);
+            this.tabControl1.Size = new System.Drawing.Size(664, 206);
             this.tabControl1.TabIndex = 50;
             // 
-            // tabPage1
+            // Reclassering
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(192, 74);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.Reclassering.Controls.Add(this.label17);
+            this.Reclassering.Controls.Add(this.label16);
+            this.Reclassering.Controls.Add(this.comboBoxPrivateKeyReclasseringEncryptDropDown);
+            this.Reclassering.Controls.Add(this.Data_Invoer_Reclassering_Button);
+            this.Reclassering.Location = new System.Drawing.Point(4, 22);
+            this.Reclassering.Name = "Reclassering";
+            this.Reclassering.Padding = new System.Windows.Forms.Padding(3);
+            this.Reclassering.Size = new System.Drawing.Size(656, 180);
+            this.Reclassering.TabIndex = 0;
+            this.Reclassering.Text = "Reclassering";
+            this.Reclassering.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // label16
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 74);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label16.Location = new System.Drawing.Point(19, 101);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(194, 17);
+            this.label16.TabIndex = 51;
+            this.label16.Text = "Select private key to sign with";
+            // 
+            // comboBoxPrivateKeyReclasseringEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.Location = new System.Drawing.Point(22, 121);
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.Name = "comboBoxPrivateKeyReclasseringEncryptDropDown";
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyReclasseringEncryptDropDown.TabIndex = 50;
+            // 
+            // OM
+            // 
+            this.OM.Controls.Add(this.Data_Invoer_OM_Button);
+            this.OM.Controls.Add(this.comboBoxPrivateKeyOMEncryptDropDown);
+            this.OM.Controls.Add(this.label20);
+            this.OM.Location = new System.Drawing.Point(4, 22);
+            this.OM.Name = "OM";
+            this.OM.Padding = new System.Windows.Forms.Padding(3);
+            this.OM.Size = new System.Drawing.Size(656, 180);
+            this.OM.TabIndex = 1;
+            this.OM.Text = "OM";
+            this.OM.UseVisualStyleBackColor = true;
+            // 
+            // Gemeente
+            // 
+            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_Button);
+            this.Gemeente.Controls.Add(this.comboBoxPrivateKeyGemeenteEncryptDropDown);
+            this.Gemeente.Controls.Add(this.label21);
+            this.Gemeente.Location = new System.Drawing.Point(4, 22);
+            this.Gemeente.Name = "Gemeente";
+            this.Gemeente.Size = new System.Drawing.Size(656, 180);
+            this.Gemeente.TabIndex = 2;
+            this.Gemeente.Text = "Gemeente";
+            this.Gemeente.UseVisualStyleBackColor = true;
+            // 
+            // Politie
+            // 
+            this.Politie.Controls.Add(this.label19);
+            this.Politie.Controls.Add(this.comboBoxPrivateKeyPolitieEncryptDropDown);
+            this.Politie.Controls.Add(this.label18);
+            this.Politie.Controls.Add(this.Data_Invoer_Politie_Button);
+            this.Politie.Location = new System.Drawing.Point(4, 22);
+            this.Politie.Name = "Politie";
+            this.Politie.Size = new System.Drawing.Size(656, 180);
+            this.Politie.TabIndex = 3;
+            this.Politie.Text = "Politie";
+            this.Politie.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label17.Location = new System.Drawing.Point(19, 28);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(169, 17);
+            this.label17.TabIndex = 52;
+            this.label17.Text = "ZSM, Radicalen, Detentie";
+            // 
+            // Data_Invoer_Politie_Button
+            // 
+            this.Data_Invoer_Politie_Button.Location = new System.Drawing.Point(21, 50);
+            this.Data_Invoer_Politie_Button.Name = "Data_Invoer_Politie_Button";
+            this.Data_Invoer_Politie_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Politie_Button.TabIndex = 50;
+            this.Data_Invoer_Politie_Button.Text = "Data invoer";
+            this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Politie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Button_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label18.Location = new System.Drawing.Point(18, 30);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(108, 17);
+            this.label18.TabIndex = 53;
+            this.label18.Text = "ZSM, Radicalen";
+            // 
+            // comboBoxPrivateKeyPolitieEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Location = new System.Drawing.Point(21, 136);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Name = "comboBoxPrivateKeyPolitieEncryptDropDown";
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.TabIndex = 54;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label19.Location = new System.Drawing.Point(18, 116);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(194, 17);
+            this.label19.TabIndex = 55;
+            this.label19.Text = "Select private key to sign with";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label20.Location = new System.Drawing.Point(18, 115);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(194, 17);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Select private key to sign with";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label21.Location = new System.Drawing.Point(27, 114);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(194, 17);
+            this.label21.TabIndex = 52;
+            this.label21.Text = "Select private key to sign with";
+            // 
+            // comboBoxPrivateKeyOMEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyOMEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyOMEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyOMEncryptDropDown.Location = new System.Drawing.Point(21, 135);
+            this.comboBoxPrivateKeyOMEncryptDropDown.Name = "comboBoxPrivateKeyOMEncryptDropDown";
+            this.comboBoxPrivateKeyOMEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyOMEncryptDropDown.TabIndex = 53;
+            // 
+            // comboBoxPrivateKeyGemeenteEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Location = new System.Drawing.Point(30, 134);
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Name = "comboBoxPrivateKeyGemeenteEncryptDropDown";
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.TabIndex = 53;
+            // 
+            // Data_Invoer_OM_Button
+            // 
+            this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(21, 43);
+            this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
+            this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_OM_Button.TabIndex = 54;
+            this.Data_Invoer_OM_Button.Text = "Data invoer";
+            this.Data_Invoer_OM_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_OM_Button.Click += new System.EventHandler(this.Data_Invoer_OM_Button_Click);
+            // 
+            // Data_Invoer_Gemeente_Button
+            // 
+            this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(36, 39);
+            this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
+            this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_Button.TabIndex = 54;
+            this.Data_Invoer_Gemeente_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Button_Click);
             // 
             // FormGenericGUI
             // 
@@ -546,13 +713,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1444, 922);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button_Open_Config_File);
             this.Controls.Add(this.textBoxCurrentActiveRole);
             this.Controls.Add(this.textBoxNodeName);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_Open_Keys_Folder);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.richTextBoxStatusUpdates);
@@ -591,8 +757,15 @@
             this.Name = "FormGenericGUI";
             this.Text = "Blockchain";
             this.Load += new System.EventHandler(this.FormGenericGUI_Load);
-            this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.Reclassering.ResumeLayout(false);
+            this.Reclassering.PerformLayout();
+            this.OM.ResumeLayout(false);
+            this.OM.PerformLayout();
+            this.Gemeente.ResumeLayout(false);
+            this.Gemeente.PerformLayout();
+            this.Politie.ResumeLayout(false);
+            this.Politie.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -636,17 +809,31 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_Open_Keys_Folder;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBoxNodeName;
         private System.Windows.Forms.TextBox textBoxCurrentActiveRole;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button_Open_Config_File;
+        private System.Windows.Forms.Button Data_Invoer_Reclassering_Button;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage OM;
+        private System.Windows.Forms.TabPage Reclassering;
+        private System.Windows.Forms.TabPage Gemeente;
+        private System.Windows.Forms.TabPage Politie;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyReclasseringEncryptDropDown;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyOMEncryptDropDown;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyGemeenteEncryptDropDown;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBoxPrivateKeyPolitieEncryptDropDown;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button Data_Invoer_Politie_Button;
+        private System.Windows.Forms.Button Data_Invoer_OM_Button;
+        private System.Windows.Forms.Button Data_Invoer_Gemeente_Button;
     }
 }
 

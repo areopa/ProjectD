@@ -74,6 +74,24 @@
     <Compile Include="BootConfigurator.Designer.cs">
       <DependentUpon>BootConfigurator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gemeente_DataEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry.Designer.cs">
+      <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Politie_DataEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Politie_DataEntry.Designer.cs">
+      <DependentUpon>Politie_DataEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OM_DataEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OM_DataEntry.Designer.cs">
+      <DependentUpon>OM_DataEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reclassering_DataEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +133,15 @@
       <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Gemeente_DataEntry.resx">
+      <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Politie_DataEntry.resx">
+      <DependentUpon>Politie_DataEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OM_DataEntry.resx">
+      <DependentUpon>OM_DataEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reclassering_DataEntry.resx">
       <DependentUpon>Reclassering_DataEntry.cs</DependentUpon>
     </EmbeddedResource>

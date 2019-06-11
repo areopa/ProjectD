@@ -57,9 +57,22 @@ namespace prototype_p2p
             richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Gemeente"] + Environment.NewLine);
             richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Reclassering"] + Environment.NewLine);
             richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Politie"] + Environment.NewLine);
+            TabInit(); // Removes all tabs that do not match the current role
         }
 
         
+        private void TabInit()
+        {
+            foreach(TabPage tabRole in tabControl1.TabPages)
+            {
+                //if(tabRole.Text)
+                if (tabRole.Text != Program.currentRole)
+                    tabControl1.TabPages.Remove(tabRole);
+
+
+            }
+        }
+
 
         // Called on the dropdown event of the block number selector
         private void EventComboBoxBlockDecryptNumber_DropDown(object sender, System.EventArgs e)
@@ -87,10 +100,19 @@ namespace prototype_p2p
             comboBoxPrivateKeyEncryptDropDown.Items.Clear();
             comboBoxPrivateKeyDecryptDropDown.Items.Clear();
             comboBoxPublicKeyDecryptDropDown.Items.Clear();
+            comboBoxPrivateKeyReclasseringEncryptDropDown.Items.Clear();
+            comboBoxPrivateKeyPolitieEncryptDropDown.Items.Clear();
+            comboBoxPrivateKeyOMEncryptDropDown.Items.Clear();
+            comboBoxPrivateKeyGemeenteEncryptDropDown.Items.Clear();
+
             for (int i = 0; i < keyIDPaths.privateKeyArrayNoPathAppended.Length; i++)
             {
                 comboBoxPrivateKeyEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
                 comboBoxPrivateKeyDecryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+                comboBoxPrivateKeyReclasseringEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+                comboBoxPrivateKeyPolitieEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+                comboBoxPrivateKeyOMEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
+                comboBoxPrivateKeyGemeenteEncryptDropDown.Items.Add(keyIDPaths.privateKeyArrayNoPathAppended[i]);
             }
             for (int i = 0; i < keyIDPaths.publicKeyArrayNoPathAppended.Length; i++)
             {
@@ -149,13 +171,14 @@ namespace prototype_p2p
             }
         }
 
-        private void EncryptionCaller(string[] recipientKeyPathsArr = null)
+        private void EncryptionCaller(string[] recipientKeyPathsArr = null, string inputData = "", string privKeyPath = "")
         {
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
 
-
-            string privKeyPath = (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyEncryptDropDown.Text);
-
+            if (privKeyPath == "")
+            {
+                privKeyPath = (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyEncryptDropDown.Text);
+            }
 
             //loads all checked keys into a list
             List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
@@ -172,8 +195,10 @@ namespace prototype_p2p
                 }
             }
 
-
-            string inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
+            if (inputData == "")
+            {
+                inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
+            }
 
             string encData = EncryptFileMultipleRecipients.MultiRecipientStringEncrypter(inputData, privKeyPath, recipientKeyPathsArr, true);
             Console.WriteLine(encData);
@@ -281,7 +306,7 @@ namespace prototype_p2p
             timer1.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Open_Keys_Folder_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(System.IO.Directory.GetParent(Program.pathKeyPublic).FullName);
         }
@@ -291,37 +316,174 @@ namespace prototype_p2p
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button_Open_Config_File_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"Config.ini");
         }
 
         public void Reclassering_DataEntry()
         {
-            string dataToRetrieve = "";
-            Reclassering_DataEntry testDialog = new Reclassering_DataEntry();
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                // Read the contents of testDialog's TextBox.
-                dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
-                dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
-                dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
-                dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
-                dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
-                richTextBoxStatusUpdates.AppendText(dataToRetrieve);
+                string dataToRetrieve = "";
+                Reclassering_DataEntry testDialog = new Reclassering_DataEntry();
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (testDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
+                    dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
+                    dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                    string[] recipient_Role_Paths = new string[4];
+                    int cnt = 0;
 
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        recipient_Role_Paths[cnt] = pair.Value;
+                        cnt++;
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                }
+                testDialog.Dispose();
             }
-            else
+            catch(Exception e)
             {
-                
+                if(e is System.IO.DirectoryNotFoundException)
+                {
+                    MessageBox.Show("You didn't select a private key!");
+                }
             }
-            testDialog.Dispose();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Data_Invoer_Reclassering_Button_Click(object sender, EventArgs e)
         {
             Reclassering_DataEntry();
+        }
+
+        public void OM_DataEntry()
+        {
+            try
+            {
+                string dataToRetrieve = "";
+                OM_DataEntry testDialog = new OM_DataEntry();
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (testDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
+                    dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
+                    dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                    string[] recipient_Role_Paths = new string[4];
+                    int cnt = 0;
+
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        recipient_Role_Paths[cnt] = pair.Value;
+                        cnt++;
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                }
+                testDialog.Dispose();
+            }
+            catch (Exception e)
+            {
+                if (e is System.IO.DirectoryNotFoundException)
+                {
+                    MessageBox.Show("You didn't select a private key!");
+                }
+            }
+        }
+        private void Data_Invoer_OM_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void Gemeente_DataEntry()
+        {
+            try
+            {
+                string dataToRetrieve = "";
+                Gemeente_DataEntry testDialog = new Gemeente_DataEntry();
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (testDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
+                    dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
+                    dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                    string[] recipient_Role_Paths = new string[4];
+                    int cnt = 0;
+
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        recipient_Role_Paths[cnt] = pair.Value;
+                        cnt++;
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                }
+                testDialog.Dispose();
+            }
+            catch (Exception e)
+            {
+                if (e is System.IO.DirectoryNotFoundException)
+                {
+                    MessageBox.Show("You didn't select a private key!");
+                }
+            }
+        }
+
+        private void Data_Invoer_Gemeente_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void Politie_DataEntry()
+        {
+            try
+            {
+                string dataToRetrieve = "";
+                Politie_DataEntry testDialog = new Politie_DataEntry();
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (testDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
+                    dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
+                    dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                    string[] recipient_Role_Paths = new string[4];
+                    int cnt = 0;
+
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        recipient_Role_Paths[cnt] = pair.Value;
+                        cnt++;
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                }
+                testDialog.Dispose();
+            }
+            catch (Exception e)
+            {
+                if (e is System.IO.DirectoryNotFoundException)
+                {
+                    MessageBox.Show("You didn't select a private key!");
+                }
+            }
+        }
+
+        private void Data_Invoer_Politie_Button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
