@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace prototype_p2p
 {
-    public partial class Reclassering_ZSM : Form
+    public partial class Reclassering_DataEntry : Form
     {
-        public Reclassering_ZSM()
+        public Reclassering_DataEntry()
         {
             InitializeComponent();
         }

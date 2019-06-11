@@ -74,11 +74,11 @@
     <Compile Include="BootConfigurator.Designer.cs">
       <DependentUpon>BootConfigurator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reclassering_ZSM.cs">
+    <Compile Include="Reclassering_DataEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reclassering_ZSM.Designer.cs">
-      <DependentUpon>Reclassering_ZSM.cs</DependentUpon>
+    <Compile Include="Reclassering_DataEntry.Designer.cs">
+      <DependentUpon>Reclassering_DataEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="SimpleReportVIewer.cs">
       <SubType>Form</SubType>
@@ -115,6 +115,9 @@
       <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Reclassering_DataEntry.resx">
+      <DependentUpon>Reclassering_DataEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SimpleReportVIewer.resx">
       <DependentUpon>SimpleReportVIewer.cs</DependentUpon>
     </EmbeddedResource>

@@ -295,5 +295,33 @@ namespace prototype_p2p
         {
             System.Diagnostics.Process.Start(@"Config.ini");
         }
+
+        public void Reclassering_DataEntry()
+        {
+            string dataToRetrieve = "";
+            Reclassering_DataEntry testDialog = new Reclassering_DataEntry();
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                // Read the contents of testDialog's TextBox.
+                dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
+                dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
+                dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
+                dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
+                dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                richTextBoxStatusUpdates.AppendText(dataToRetrieve);
+
+            }
+            else
+            {
+                
+            }
+            testDialog.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Reclassering_DataEntry();
+        }
     }
 }
