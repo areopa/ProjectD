@@ -149,10 +149,8 @@ namespace prototype_p2p
             }
         }
 
-
-        private void EncryptfromGUI(object sender, EventArgs e)
+        private void EncryptionCaller(string[] recipientKeyPathsArr = null)
         {
-    
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
 
 
@@ -162,16 +160,18 @@ namespace prototype_p2p
             //loads all checked keys into a list
             List<string> items = checkedListBoxPublicKeysToEncryptFor.CheckedItems.Cast<string>().ToList();
 
-
-            //creates the path array with all the selected keys
-            int cnt = 0;
-            string[] recipientKeyPathsArr = new string[items.Count];
-            foreach (string keyPath in items)
+            if (recipientKeyPathsArr == null)
             {
-                recipientKeyPathsArr[cnt] = (Program.pathKeyPublic + "\\" + keyPath);
-                cnt++;
+                //creates the path array with all the selected keys
+                int cnt = 0;
+                recipientKeyPathsArr = new string[items.Count];
+                foreach (string keyPath in items)
+                {
+                    recipientKeyPathsArr[cnt] = (Program.pathKeyPublic + "\\" + keyPath);
+                    cnt++;
+                }
             }
-            
+
 
             string inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
 
@@ -186,6 +186,14 @@ namespace prototype_p2p
             {
                 checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
             }
+
+        }
+
+
+        private void EncryptfromGUI(object sender, EventArgs e)
+        {
+
+            EncryptionCaller();
         }
 
         private void ToggleLoadConfigSettings(object sender, EventArgs e)
