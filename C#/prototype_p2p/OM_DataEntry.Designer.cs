@@ -1,6 +1,6 @@
 ﻿namespace prototype_p2p
 {
-    partial class Reclassering_DataEntry
+    partial class OM_DataEntry
     {
         /// <summary>
         /// Required designer variable.

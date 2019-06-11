@@ -1,6 +1,6 @@
 ﻿namespace prototype_p2p
 {
-    partial class Reclassering_DataEntry
+    partial class Gemeente_DataEntry
     {
         /// <summary>
         /// Required designer variable.

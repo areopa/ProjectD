@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace prototype_p2p
 {
-    public partial class Reclassering_DataEntry : Form
+    public partial class OM_DataEntry : Form
     {
-        public Reclassering_DataEntry()
+        public OM_DataEntry()
         {
             InitializeComponent();
         }
