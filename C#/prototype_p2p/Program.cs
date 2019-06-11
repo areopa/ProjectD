@@ -60,7 +60,7 @@ namespace prototype_p2p
 
             BootConfigurator bootConfigurator = new BootConfigurator();
 
-            if (!existingRoles.Contains(currentRole) && !bootConfigurator.ValidatePortNumberEntry(NetworkPort.ToString()) && NodeName == "" && NodeName == "Unknown")
+            if (!existingRoles.Contains(currentRole) || !bootConfigurator.ValidatePortNumberEntry(NetworkPort.ToString()) || NodeName == "" || NodeName == "Unknown")
             {
                 Application.Run(bootConfigurator);
             }

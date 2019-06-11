@@ -74,6 +74,12 @@
     <Compile Include="BootConfigurator.Designer.cs">
       <DependentUpon>BootConfigurator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reclassering_ZSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reclassering_ZSM.Designer.cs">
+      <DependentUpon>Reclassering_ZSM.cs</DependentUpon>
+    </Compile>
     <Compile Include="SimpleReportVIewer.cs">
       <SubType>Form</SubType>
     </Compile>

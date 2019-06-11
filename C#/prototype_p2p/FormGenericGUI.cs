@@ -53,6 +53,10 @@ namespace prototype_p2p
             // Updates the available block numbers to decrypt on dropdown event
             this.comboBoxBlockDecryptNumber.DropDown +=
                 new System.EventHandler(EventComboBoxBlockDecryptNumber_DropDown);
+            richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["OM"]+Environment.NewLine);
+            richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Gemeente"] + Environment.NewLine);
+            richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Reclassering"] + Environment.NewLine);
+            richTextBoxStatusUpdates.AppendText(keyIDPaths.roleKeyPaths["Politie"] + Environment.NewLine);
         }
 
         
@@ -148,7 +152,7 @@ namespace prototype_p2p
 
         private void EncryptfromGUI(object sender, EventArgs e)
         {
-            string[] receiverNames = ReceiverNameTextBox.Lines; //not currently used        
+    
             string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
 
 
@@ -277,6 +281,11 @@ namespace prototype_p2p
         private void label14_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonOpenConfigFile_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"Config.ini");
         }
     }
 }

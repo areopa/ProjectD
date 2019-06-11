@@ -12,9 +12,9 @@ namespace prototype_p2p
     class EncryptFileMultipleRecipients
     {
 
-        public static String MultiRecipientStringEncrypter(string toBeEncryptedData, string secretKeyPath, string[] recipientPublicKeyPaths, bool gui = false)
+        public static String MultiRecipientStringEncrypter(string toBeEncryptedData, string secretKeyPath, string[] recipientPublicKeyPaths, bool gui = false, string privatePassWord = "")
         {
-            string privatePassWord;
+            
 
             FileInfo secKeyPathInfo = new FileInfo(secretKeyPath);
             FileStream secKeyStream = secKeyPathInfo.OpenRead();
@@ -32,14 +32,17 @@ namespace prototype_p2p
             }
 
 
-            if (!gui)
+            if (privatePassWord == "")
             {
-                Console.Write("Please enter the passphrase of the chosen private key: ");
-                privatePassWord = Console.ReadLine();
-            }
-            else
-            {
-                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry",false,false,false);
+                if (!gui)
+                {
+                    Console.Write("Please enter the passphrase of the chosen private key: ");
+                    privatePassWord = Console.ReadLine();
+                }
+                else
+                {
+                    privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry", false, false, false);
+                }
             }
 
             MemoryStream encryptedOutputStream = new MemoryStream();
@@ -56,18 +59,21 @@ namespace prototype_p2p
 
     class DecryptAndVerifyString
     {
-        public static void Decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath, bool gui = false)
+        public static void Decrypt(string encryptedMessage, string secretKeyPath, string publicKeyPath, bool gui = false, string privatePassWord = "")
         {
             string plainTextExtracted;
-            string privatePassWord;
-            if (!gui)
+
+            if (privatePassWord == "")
             {
-                Console.Write("Please enter the passphrase of the chosen private key: ");
-                privatePassWord = Console.ReadLine();
-            }
-            else
-            {
-                privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry",false,false,false);
+                if (!gui)
+                {
+                    Console.Write("Please enter the passphrase of the chosen private key: ");
+                    privatePassWord = Console.ReadLine();
+                }
+                else
+                {
+                    privatePassWord = Prompt.ShowDialog("Enter the password of the chosen secret key", "Password entry", false, false, false);
+                }
             }
 
 

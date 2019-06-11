@@ -14,6 +14,7 @@ namespace prototype_p2p
         public string[] publicKeyArrayPathAppended;
         public string[] publicKeyArrayNoPathAppended;
         public string[] privateKeyArrayNoPathAppended;
+        public Dictionary<string, string> roleKeyPaths = new Dictionary<string, string>();
 
         char[] strSeperatorKeyInput = new char[] { ';', ',', ' ' };
 
@@ -29,12 +30,21 @@ namespace prototype_p2p
                 publicKeyArrayPathAppended = Directory.GetFiles(keysPathPublic);
                 publicKeyArrayNoPathAppended = Directory.GetFiles(keysPathPublic).Select(p => Path.GetFileName(p)).ToArray();
                 privateKeyArrayNoPathAppended = Directory.GetFiles(keysPathPrivate).Select(p => Path.GetFileName(p)).ToArray();
+                LoadRolePublicKeyPaths();
             }
             catch (DirectoryNotFoundException)
             {
                 Console.WriteLine("Keys directory not found!");
                 MessageBox.Show("Keys directory not found!");
             }
+        }
+
+        public void LoadRolePublicKeyPaths()
+        {
+            roleKeyPaths.Add(Program.existingRoles.ElementAt(0), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(0))[0]);
+            roleKeyPaths.Add(Program.existingRoles.ElementAt(1), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(1))[0]);
+            roleKeyPaths.Add(Program.existingRoles.ElementAt(2), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(2))[0]);
+            roleKeyPaths.Add(Program.existingRoles.ElementAt(3), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(3))[0]);
         }
 
         // Only used for the CLI, not used in the GUI.
