@@ -287,5 +287,10 @@ namespace prototype_p2p
         {
             System.Diagnostics.Process.Start(@"Config.ini");
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"Config.ini");
+        }
     }
 }

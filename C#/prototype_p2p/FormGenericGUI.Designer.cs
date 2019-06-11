@@ -70,6 +70,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.textBoxNodeName = new System.Windows.Forms.TextBox();
             this.textBoxCurrentActiveRole = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DisplayRecords
@@ -274,7 +275,7 @@
             this.SaveNameAndPortToConfig.Name = "SaveNameAndPortToConfig";
             this.SaveNameAndPortToConfig.Size = new System.Drawing.Size(115, 35);
             this.SaveNameAndPortToConfig.TabIndex = 27;
-            this.SaveNameAndPortToConfig.Text = "Save current port and name to config";
+            this.SaveNameAndPortToConfig.Text = "Save current settings";
             this.SaveNameAndPortToConfig.UseVisualStyleBackColor = true;
             this.SaveNameAndPortToConfig.Click += new System.EventHandler(this.SaveName_PortAndRoleToConfig_Click);
             // 
@@ -327,7 +328,7 @@
             // 
             // buttonResetConfigFileValues
             // 
-            this.buttonResetConfigFileValues.Location = new System.Drawing.Point(279, 427);
+            this.buttonResetConfigFileValues.Location = new System.Drawing.Point(400, 468);
             this.buttonResetConfigFileValues.Name = "buttonResetConfigFileValues";
             this.buttonResetConfigFileValues.Size = new System.Drawing.Size(115, 35);
             this.buttonResetConfigFileValues.TabIndex = 33;
@@ -472,11 +473,22 @@
             this.textBoxCurrentActiveRole.Size = new System.Drawing.Size(146, 20);
             this.textBoxCurrentActiveRole.TabIndex = 46;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(279, 427);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(115, 35);
+            this.button2.TabIndex = 47;
+            this.button2.Text = "Open config file";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormGenericGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1444, 557);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.textBoxCurrentActiveRole);
             this.Controls.Add(this.textBoxNodeName);
             this.Controls.Add(this.label15);
@@ -568,6 +580,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBoxNodeName;
         private System.Windows.Forms.TextBox textBoxCurrentActiveRole;
+        private System.Windows.Forms.Button button2;
     }
 }
 
