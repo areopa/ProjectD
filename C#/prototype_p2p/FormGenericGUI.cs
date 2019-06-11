@@ -283,11 +283,6 @@ namespace prototype_p2p
 
         }
 
-        private void buttonOpenConfigFile_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(@"Config.ini");
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"Config.ini");
