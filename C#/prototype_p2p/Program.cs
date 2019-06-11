@@ -31,12 +31,22 @@ namespace prototype_p2p
         [STAThread]
         static void Main(string[] args)
         {
-            Console.WriteLine("Public Keys directory exists:" + Directory.Exists(pathKeyPublic));
-            Console.WriteLine("Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
+            Console.WriteLine("Default Public Keys directory exists:" + Directory.Exists(pathKeyPublic));
+            Console.WriteLine(" Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
             ConfigFile configData = new ConfigFile();
             configData.WriteAllValuesConsole();
+            if (!Directory.Exists(pathKeyPublic))
+            {
+                pathKeyPublic = @"Keys\\Public";
+                Directory.CreateDirectory(pathKeyPublic);
+            }
+            if (!Directory.Exists(pathKeyPrivate))
+            {
+                pathKeyPrivate = @"Keys\\Private";
+                Directory.CreateDirectory(pathKeyPrivate);
+            }
 
             ParseKeyID keyIDPaths = new ParseKeyID(pathKeyPrivate, pathKeyPublic);
             keyIDPaths.WriteLoadedKeyPaths();
