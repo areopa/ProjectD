@@ -18,6 +18,16 @@ namespace prototype_p2p
             UpdatecomboBoxeDropDownRoleSelector();
             textBoxNodeNameEntry.Text = Program.NodeName;
             textBoxPortNumberEntry.Text = Program.NetworkPort.ToString();
+
+
+        }
+
+        private void CheckIfRedundant()
+        {
+            if (Program.existingRoles.Contains(Program.currentRole) && ValidatePortNumberEntry(Program.NetworkPort.ToString()) && Program.NodeName != "" && Program.NodeName != "Unknown")
+            {
+                this.Close();
+            }
         }
 
         private void UpdatecomboBoxeDropDownRoleSelector()
@@ -27,6 +37,7 @@ namespace prototype_p2p
             {
                 comboBoxRoleSelectorDropDown.Items.Add(role);
             }
+            comboBoxRoleSelectorDropDown.Text = Program.currentRole;
         }
 
         private bool ValidateNodeNameEntry()
@@ -34,9 +45,9 @@ namespace prototype_p2p
             return (textBoxNodeNameEntry.Text != "" && textBoxNodeNameEntry.Text != "Unknown" && textBoxNodeNameEntry.Text.Length > 1);
         }
 
-        private bool ValidatePortNumberEntry()
+        public bool ValidatePortNumberEntry(string portToValidate)
         {
-                if (int.TryParse(textBoxPortNumberEntry.Text, out int port) && textBoxPortNumberEntry.Text.Length > 0)
+                if (int.TryParse(portToValidate, out int port) && portToValidate.Length > 0)
                 {
                     port = Math.Abs(port);
                     if (!Program.portBlacklist.Contains(port)) //checks if the entered port is on the blacklist
@@ -59,7 +70,7 @@ namespace prototype_p2p
         private void buttonFinishDataEntry_Click(object sender, EventArgs e)
         {
             
-            if (ValidatePortNumberEntry() && ValidateNodeNameEntry() && comboBoxRoleSelectorDropDown.Text.Length > 1)
+            if (ValidatePortNumberEntry(textBoxPortNumberEntry.Text) && ValidateNodeNameEntry() && comboBoxRoleSelectorDropDown.Text.Length > 1)
             {
                 Program.currentRole = comboBoxRoleSelectorDropDown.Text;
                 Program.NodeName = textBoxNodeNameEntry.Text;

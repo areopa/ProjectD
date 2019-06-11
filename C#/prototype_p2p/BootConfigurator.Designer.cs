@@ -40,7 +40,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 46);
+            this.label1.Location = new System.Drawing.Point(31, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 13);
             this.label1.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.comboBoxRoleSelectorDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRoleSelectorDropDown.FormattingEnabled = true;
-            this.comboBoxRoleSelectorDropDown.Location = new System.Drawing.Point(34, 62);
+            this.comboBoxRoleSelectorDropDown.Location = new System.Drawing.Point(34, 57);
             this.comboBoxRoleSelectorDropDown.Name = "comboBoxRoleSelectorDropDown";
             this.comboBoxRoleSelectorDropDown.Size = new System.Drawing.Size(180, 21);
             this.comboBoxRoleSelectorDropDown.TabIndex = 1;
@@ -58,7 +58,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 217);
+            this.label2.Location = new System.Drawing.Point(31, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(215, 13);
             this.label2.TabIndex = 2;
@@ -67,7 +67,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 145);
+            this.label4.Location = new System.Drawing.Point(31, 81);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(250, 13);
             this.label4.TabIndex = 4;
@@ -75,7 +75,7 @@
             // 
             // buttonFinishDataEntry
             // 
-            this.buttonFinishDataEntry.Location = new System.Drawing.Point(34, 271);
+            this.buttonFinishDataEntry.Location = new System.Drawing.Point(34, 162);
             this.buttonFinishDataEntry.Name = "buttonFinishDataEntry";
             this.buttonFinishDataEntry.Size = new System.Drawing.Size(103, 40);
             this.buttonFinishDataEntry.TabIndex = 5;
@@ -85,23 +85,23 @@
             // 
             // textBoxPortNumberEntry
             // 
-            this.textBoxPortNumberEntry.Location = new System.Drawing.Point(34, 233);
+            this.textBoxPortNumberEntry.Location = new System.Drawing.Point(34, 136);
             this.textBoxPortNumberEntry.Name = "textBoxPortNumberEntry";
             this.textBoxPortNumberEntry.Size = new System.Drawing.Size(100, 20);
             this.textBoxPortNumberEntry.TabIndex = 6;
             // 
             // textBoxNodeNameEntry
             // 
-            this.textBoxNodeNameEntry.Location = new System.Drawing.Point(34, 161);
+            this.textBoxNodeNameEntry.Location = new System.Drawing.Point(34, 97);
             this.textBoxNodeNameEntry.Name = "textBoxNodeNameEntry";
-            this.textBoxNodeNameEntry.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNodeNameEntry.Size = new System.Drawing.Size(247, 20);
             this.textBoxNodeNameEntry.TabIndex = 7;
             // 
             // BootConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 323);
+            this.ClientSize = new System.Drawing.Size(302, 224);
             this.Controls.Add(this.textBoxNodeNameEntry);
             this.Controls.Add(this.textBoxPortNumberEntry);
             this.Controls.Add(this.buttonFinishDataEntry);
@@ -110,7 +110,7 @@
             this.Controls.Add(this.comboBoxRoleSelectorDropDown);
             this.Controls.Add(this.label1);
             this.Name = "BootConfigurator";
-            this.Text = "Form1";
+            this.Text = "Configurator";
             this.ResumeLayout(false);
             this.PerformLayout();
 

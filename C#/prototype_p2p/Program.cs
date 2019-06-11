@@ -20,7 +20,7 @@ namespace prototype_p2p
         public static string NodeName = "Unknown";
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "7", "8", "9", "10" };
         public static readonly List<string> existingRoles = new List<string> { "Politie", "OM", "Gemeente", "Reclassering" };
-        public static string currentRole = "s";
+        public static string currentRole = "";
         public static string pathKeyPrivate = @"..\\..\\Keys\\Private";
         public static string pathKeyPublic = @"..\\..\\Keys\\Public";
         public static FormGenericGUI genericGUIForm;
@@ -59,7 +59,12 @@ namespace prototype_p2p
             keyIDPaths.WriteLoadedKeyPaths();
 
             BootConfigurator bootConfigurator = new BootConfigurator();
-            Application.Run(bootConfigurator);
+
+            if (!existingRoles.Contains(currentRole) && !bootConfigurator.ValidatePortNumberEntry(NetworkPort.ToString()) && NodeName == "" && NodeName == "Unknown")
+            {
+                Application.Run(bootConfigurator);
+            }
+            
 
 
             while (NetworkPort == 0)

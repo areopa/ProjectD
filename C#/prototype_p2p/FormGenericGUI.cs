@@ -143,9 +143,6 @@ namespace prototype_p2p
             {
                 MessageBox.Show("There are no blocks to decrypt!");
             }
-
-            // Resets the input boxes to display their default text again after completing the task
-            comboBoxBlockDecryptNumber.Text = "Select block number";
         }
 
 
@@ -180,7 +177,7 @@ namespace prototype_p2p
             Program.flushMsgAndSend.Flush(receiverNamesForImprovedMultiEnc, encData);
             Program.ProjectD.SaveChainStateToDisk(Program.ProjectD);
 
-            //clears all checkex boxes
+            //clears all checked boxes
             foreach (int i in checkedListBoxPublicKeysToEncryptFor.CheckedIndices)
             {
                 checkedListBoxPublicKeysToEncryptFor.SetItemCheckState(i, CheckState.Unchecked);
@@ -199,13 +196,13 @@ namespace prototype_p2p
         {
             string serverURL = ServerUrlTextBox.Text;
             ClientInstance.Handshake($"{serverURL}/Chain");
-            //TODO: add window popup with handshake
+            // The code that updates the status box can be found in the Server class
         }
 
-        private void SaveNameAndPortToConfig_Click(object sender, EventArgs e)
+        private void SaveName_PortAndRoleToConfig_Click(object sender, EventArgs e)
         {
-            //saves the entered name and port to the config file
-            configData.SaveCurrentPortAndNameToConfigValues(Program.NodeName, Program.NetworkPort);
+            // Saves the entered name and port to the config file
+            configData.SaveCurrentPort_NameAndRoleToConfigValues(Program.NodeName, Program.NetworkPort, Program.currentRole);
         }
 
         private void ButtonResetConfigFileValues_Click(object sender, EventArgs e)

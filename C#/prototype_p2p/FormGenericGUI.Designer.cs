@@ -276,7 +276,7 @@
             this.SaveNameAndPortToConfig.TabIndex = 27;
             this.SaveNameAndPortToConfig.Text = "Save current port and name to config";
             this.SaveNameAndPortToConfig.UseVisualStyleBackColor = true;
-            this.SaveNameAndPortToConfig.Click += new System.EventHandler(this.SaveNameAndPortToConfig_Click);
+            this.SaveNameAndPortToConfig.Click += new System.EventHandler(this.SaveName_PortAndRoleToConfig_Click);
             // 
             // richTextBoxPrivateKeyPaths
             // 

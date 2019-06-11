@@ -110,6 +110,13 @@ namespace prototype_p2p
                     {
                         Program.pathKeyPrivate = altPrivateKeyPath;
                     }
+                    if (configSettings.TryGetValue("currentRole", out string currentRoleInConfig))
+                    {
+                        if (Program.existingRoles.Contains(currentRoleInConfig))
+                        {
+                            Program.currentRole = currentRoleInConfig;
+                        }
+                    }
 
 
                 }
@@ -160,7 +167,7 @@ namespace prototype_p2p
             }
         }
 
-        public void SaveCurrentPortAndNameToConfigValues(string nameToSet, int portToSet)
+        public void SaveCurrentPort_NameAndRoleToConfigValues(string nameToSet, int portToSet, string roleToSet)
         {
             try
             {
@@ -172,6 +179,9 @@ namespace prototype_p2p
                 {
                     configSettings["NetworkPort"] = portToSet.ToString();
                 }
+
+                configSettings["currentRole"] = roleToSet;
+                
                 using (StreamWriter file = new StreamWriter("Config.ini"))
                 {
                     file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty");
@@ -180,7 +190,7 @@ namespace prototype_p2p
                         file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
                     }
                 }
-                MessageBox.Show("Settings saved: " + "NodeName = " + configSettings["NodeName"] + " NetworkPort = " + configSettings["NetworkPort"]);
+                MessageBox.Show("Settings saved: " + "NodeName = " + configSettings["NodeName"] + " NetworkPort = " + configSettings["NetworkPort"] + " currentRole = " + configSettings["currentRole"]);
             }
             catch (Exception e)
             {
