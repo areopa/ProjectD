@@ -269,5 +269,10 @@ namespace prototype_p2p
             label13.Text = DateTime.Now.ToLongTimeString();
             timer1.Start();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(System.IO.Directory.GetParent(Program.pathKeyPublic).FullName);
+        }
     }
 }
