@@ -86,6 +86,9 @@
             this.comboBoxPrivateKeyGemeenteEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.Politie = new System.Windows.Forms.TabPage();
+            this.Data_Invoer_Politie_LokalePGA_Button = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -539,7 +542,7 @@
             this.Reclassering.Controls.Add(this.Data_Invoer_Reclassering_Button);
             this.Reclassering.Location = new System.Drawing.Point(4, 22);
             this.Reclassering.Name = "Reclassering";
-            this.Reclassering.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Reclassering.Padding = new System.Windows.Forms.Padding(3);
             this.Reclassering.Size = new System.Drawing.Size(656, 180);
             this.Reclassering.TabIndex = 0;
             this.Reclassering.Text = "Reclassering";
@@ -581,7 +584,7 @@
             this.OM.Controls.Add(this.label20);
             this.OM.Location = new System.Drawing.Point(4, 22);
             this.OM.Name = "OM";
-            this.OM.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.OM.Padding = new System.Windows.Forms.Padding(3);
             this.OM.Size = new System.Drawing.Size(656, 180);
             this.OM.TabIndex = 1;
             this.OM.Text = "OM";
@@ -659,6 +662,9 @@
             // 
             // Politie
             // 
+            this.Politie.Controls.Add(this.Data_Invoer_Politie_LokalePGA_Button);
+            this.Politie.Controls.Add(this.label23);
+            this.Politie.Controls.Add(this.label22);
             this.Politie.Controls.Add(this.label19);
             this.Politie.Controls.Add(this.comboBoxPrivateKeyPolitieEncryptDropDown);
             this.Politie.Controls.Add(this.label18);
@@ -669,6 +675,36 @@
             this.Politie.TabIndex = 3;
             this.Politie.Text = "Politie";
             this.Politie.UseVisualStyleBackColor = true;
+            // 
+            // Data_Invoer_Politie_LokalePGA_Button
+            // 
+            this.Data_Invoer_Politie_LokalePGA_Button.Location = new System.Drawing.Point(227, 128);
+            this.Data_Invoer_Politie_LokalePGA_Button.Name = "Data_Invoer_Politie_LokalePGA_Button";
+            this.Data_Invoer_Politie_LokalePGA_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Politie_LokalePGA_Button.TabIndex = 58;
+            this.Data_Invoer_Politie_LokalePGA_Button.Text = "Data invoer";
+            this.Data_Invoer_Politie_LokalePGA_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Politie_LokalePGA_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_LokalePGA_Button_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label23.Location = new System.Drawing.Point(388, 108);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(61, 17);
+            this.label23.TabIndex = 57;
+            this.label23.Text = "Detentie";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label22.Location = new System.Drawing.Point(224, 108);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(79, 17);
+            this.label22.TabIndex = 56;
+            this.label22.Text = "LokalePGA";
             // 
             // label19
             // 
@@ -836,6 +872,9 @@
         private System.Windows.Forms.Button Data_Invoer_Politie_Button;
         private System.Windows.Forms.Button Data_Invoer_OM_Button;
         private System.Windows.Forms.Button Data_Invoer_Gemeente_Button;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button Data_Invoer_Politie_LokalePGA_Button;
     }
 }
 

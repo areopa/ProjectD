@@ -435,7 +435,7 @@ namespace prototype_p2p
 
         }
 
-        public void Politie_DataEntry()
+        public void Politie_DataEntry_ZSM_Radicalen()
         {
             try
             {
@@ -503,9 +503,56 @@ namespace prototype_p2p
             }
         }
 
+        public void Politie_DataEntry_LokalePGA()
+        {
+            try
+            {
+                string dataToRetrieve = "";
+                Politie_DataEntry_LokalePGA testDialog = new Politie_DataEntry_LokalePGA();
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (testDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    dataToRetrieve = "Aantal antecedenten: " + testDialog.numericAntecendentenPolitie.Value + Environment.NewLine;
+                   
+                    dataToRetrieve += "BSN: " + testDialog.textBoxPolitie_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxPolitie_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerPolitie_DataEntry_Geb_Datum.Text + Environment.NewLine;
+
+                    
+
+                    //STUK IS VOOR OM EN RECLASSERING
+                    string[] recipient_Role_Paths = new string[4];
+                    int cnt = 0;
+
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        if (pair.Key == "OM" || pair.Key == "Reclassering" || pair.Key == "Politie" || pair.Key == "LokalePGA")
+                        {
+                            recipient_Role_Paths[cnt] = pair.Value;
+                        }
+                        cnt++;
+
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+
+                }
+                testDialog.Dispose();
+            }
+            catch (Exception e)
+            {
+                if (e is System.IO.DirectoryNotFoundException)
+                {
+                    MessageBox.Show("You didn't select a private key!");
+                }
+            }
+        }
+
+
         private void Data_Invoer_Politie_Button_Click(object sender, EventArgs e)
         {
-            Politie_DataEntry();
+            Politie_DataEntry_ZSM_Radicalen();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -521,6 +568,11 @@ namespace prototype_p2p
         private void richTextBoxConnections_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void Data_Invoer_Politie_LokalePGA_Button_Click(object sender, EventArgs e)
+        {
+            Politie_DataEntry_LokalePGA();
         }
     }
 }

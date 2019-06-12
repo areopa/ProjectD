@@ -80,6 +80,12 @@
     <Compile Include="Gemeente_DataEntry.Designer.cs">
       <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Politie_DataEntry_LokalePGA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Politie_DataEntry_LokalePGA.Designer.cs">
+      <DependentUpon>Politie_DataEntry_LokalePGA.cs</DependentUpon>
+    </Compile>
     <Compile Include="Politie_DataEntry_ZSM_Radicalen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormGenericGUI.resx">
       <DependentUpon>FormGenericGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Politie_DataEntry_LokalePGA.resx">
+      <DependentUpon>Politie_DataEntry_LokalePGA.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="Gemeente_DataEntry.resx">
