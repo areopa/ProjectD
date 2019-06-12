@@ -78,14 +78,21 @@
             this.label16 = new System.Windows.Forms.Label();
             this.comboBoxPrivateKeyReclasseringEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.OM = new System.Windows.Forms.TabPage();
-            this.Data_Invoer_OM_Button = new System.Windows.Forms.Button();
             this.comboBoxPrivateKeyOMEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.Gemeente = new System.Windows.Forms.TabPage();
-            this.Data_Invoer_Gemeente_Button = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Gemeente_Detentie_Button = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Gemeente_LokalePGA_Button = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Gemeente_Radicalen_Button = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Gemeente_ZSM_Button = new System.Windows.Forms.Button();
             this.comboBoxPrivateKeyGemeenteEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.Politie = new System.Windows.Forms.TabPage();
+            this.Data_Invoer_Politie_Detentie_Button = new System.Windows.Forms.Button();
             this.Data_Invoer_Politie_LokalePGA_Button = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -93,7 +100,14 @@
             this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.Data_Invoer_Politie_Button = new System.Windows.Forms.Button();
-            this.Data_Invoer_Politie_Detentie_Button = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.DataInvoerOmDetentie = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.DataInvoerOmLokalePGA = new System.Windows.Forms.Button();
+            this.label30 = new System.Windows.Forms.Label();
+            this.DataInvoerOmRadicalen = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.DataInvoerOmZSM = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Reclassering.SuspendLayout();
             this.OM.SuspendLayout();
@@ -580,7 +594,14 @@
             // 
             // OM
             // 
-            this.OM.Controls.Add(this.Data_Invoer_OM_Button);
+            this.OM.Controls.Add(this.label28);
+            this.OM.Controls.Add(this.DataInvoerOmDetentie);
+            this.OM.Controls.Add(this.label29);
+            this.OM.Controls.Add(this.DataInvoerOmLokalePGA);
+            this.OM.Controls.Add(this.label30);
+            this.OM.Controls.Add(this.DataInvoerOmRadicalen);
+            this.OM.Controls.Add(this.label31);
+            this.OM.Controls.Add(this.DataInvoerOmZSM);
             this.OM.Controls.Add(this.comboBoxPrivateKeyOMEncryptDropDown);
             this.OM.Controls.Add(this.label20);
             this.OM.Location = new System.Drawing.Point(4, 22);
@@ -590,16 +611,6 @@
             this.OM.TabIndex = 1;
             this.OM.Text = "OM";
             this.OM.UseVisualStyleBackColor = true;
-            // 
-            // Data_Invoer_OM_Button
-            // 
-            this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(25, 122);
-            this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
-            this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_OM_Button.TabIndex = 54;
-            this.Data_Invoer_OM_Button.Text = "Data invoer";
-            this.Data_Invoer_OM_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_OM_Button.Click += new System.EventHandler(this.Data_Invoer_OM_Button_Click);
             // 
             // comboBoxPrivateKeyOMEncryptDropDown
             // 
@@ -622,7 +633,14 @@
             // 
             // Gemeente
             // 
-            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_Button);
+            this.Gemeente.Controls.Add(this.label27);
+            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_Detentie_Button);
+            this.Gemeente.Controls.Add(this.label26);
+            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_LokalePGA_Button);
+            this.Gemeente.Controls.Add(this.label25);
+            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_Radicalen_Button);
+            this.Gemeente.Controls.Add(this.label24);
+            this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_ZSM_Button);
             this.Gemeente.Controls.Add(this.comboBoxPrivateKeyGemeenteEncryptDropDown);
             this.Gemeente.Controls.Add(this.label21);
             this.Gemeente.Location = new System.Drawing.Point(4, 22);
@@ -632,15 +650,81 @@
             this.Gemeente.Text = "Gemeente";
             this.Gemeente.UseVisualStyleBackColor = true;
             // 
-            // Data_Invoer_Gemeente_Button
+            // label27
             // 
-            this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(25, 118);
-            this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
-            this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_Gemeente_Button.TabIndex = 54;
-            this.Data_Invoer_Gemeente_Button.Text = "Data invoer";
-            this.Data_Invoer_Gemeente_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_Gemeente_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Button_Click);
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(484, 90);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(47, 13);
+            this.label27.TabIndex = 61;
+            this.label27.Text = "Detentie";
+            // 
+            // Data_Invoer_Gemeente_Detentie_Button
+            // 
+            this.Data_Invoer_Gemeente_Detentie_Button.Location = new System.Drawing.Point(487, 118);
+            this.Data_Invoer_Gemeente_Detentie_Button.Name = "Data_Invoer_Gemeente_Detentie_Button";
+            this.Data_Invoer_Gemeente_Detentie_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_Detentie_Button.TabIndex = 60;
+            this.Data_Invoer_Gemeente_Detentie_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_Detentie_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_Detentie_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Detentie_Button_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(332, 90);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(61, 13);
+            this.label26.TabIndex = 59;
+            this.label26.Text = "LokalePGA";
+            // 
+            // Data_Invoer_Gemeente_LokalePGA_Button
+            // 
+            this.Data_Invoer_Gemeente_LokalePGA_Button.Location = new System.Drawing.Point(335, 118);
+            this.Data_Invoer_Gemeente_LokalePGA_Button.Name = "Data_Invoer_Gemeente_LokalePGA_Button";
+            this.Data_Invoer_Gemeente_LokalePGA_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_LokalePGA_Button.TabIndex = 58;
+            this.Data_Invoer_Gemeente_LokalePGA_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_LokalePGA_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_LokalePGA_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_LokalePGA_Button_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(180, 90);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(55, 13);
+            this.label25.TabIndex = 57;
+            this.label25.Text = "Radicalen";
+            // 
+            // Data_Invoer_Gemeente_Radicalen_Button
+            // 
+            this.Data_Invoer_Gemeente_Radicalen_Button.Location = new System.Drawing.Point(183, 118);
+            this.Data_Invoer_Gemeente_Radicalen_Button.Name = "Data_Invoer_Gemeente_Radicalen_Button";
+            this.Data_Invoer_Gemeente_Radicalen_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_Radicalen_Button.TabIndex = 56;
+            this.Data_Invoer_Gemeente_Radicalen_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_Radicalen_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_Radicalen_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Radicalen_Button_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(22, 90);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(30, 13);
+            this.label24.TabIndex = 55;
+            this.label24.Text = "ZSM";
+            // 
+            // Data_Invoer_Gemeente_ZSM_Button
+            // 
+            this.Data_Invoer_Gemeente_ZSM_Button.Location = new System.Drawing.Point(25, 118);
+            this.Data_Invoer_Gemeente_ZSM_Button.Name = "Data_Invoer_Gemeente_ZSM_Button";
+            this.Data_Invoer_Gemeente_ZSM_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_ZSM_Button.TabIndex = 54;
+            this.Data_Invoer_Gemeente_ZSM_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_ZSM_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_ZSM_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_ZSM_Button_Click);
             // 
             // comboBoxPrivateKeyGemeenteEncryptDropDown
             // 
@@ -677,6 +761,16 @@
             this.Politie.TabIndex = 3;
             this.Politie.Text = "Politie";
             this.Politie.UseVisualStyleBackColor = true;
+            // 
+            // Data_Invoer_Politie_Detentie_Button
+            // 
+            this.Data_Invoer_Politie_Detentie_Button.Location = new System.Drawing.Point(409, 128);
+            this.Data_Invoer_Politie_Detentie_Button.Name = "Data_Invoer_Politie_Detentie_Button";
+            this.Data_Invoer_Politie_Detentie_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Politie_Detentie_Button.TabIndex = 59;
+            this.Data_Invoer_Politie_Detentie_Button.Text = "Data invoer";
+            this.Data_Invoer_Politie_Detentie_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Politie_Detentie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Detentie_Button_Click);
             // 
             // Data_Invoer_Politie_LokalePGA_Button
             // 
@@ -747,15 +841,81 @@
             this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;
             this.Data_Invoer_Politie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Button_Click);
             // 
-            // Data_Invoer_Politie_Detentie_Button
+            // label28
             // 
-            this.Data_Invoer_Politie_Detentie_Button.Location = new System.Drawing.Point(409, 128);
-            this.Data_Invoer_Politie_Detentie_Button.Name = "Data_Invoer_Politie_Detentie_Button";
-            this.Data_Invoer_Politie_Detentie_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_Politie_Detentie_Button.TabIndex = 59;
-            this.Data_Invoer_Politie_Detentie_Button.Text = "Data invoer";
-            this.Data_Invoer_Politie_Detentie_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_Politie_Detentie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Detentie_Button_Click);
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(490, 97);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(47, 13);
+            this.label28.TabIndex = 69;
+            this.label28.Text = "Detentie";
+            // 
+            // DataInvoerOmDetentie
+            // 
+            this.DataInvoerOmDetentie.Location = new System.Drawing.Point(493, 125);
+            this.DataInvoerOmDetentie.Name = "DataInvoerOmDetentie";
+            this.DataInvoerOmDetentie.Size = new System.Drawing.Size(115, 35);
+            this.DataInvoerOmDetentie.TabIndex = 68;
+            this.DataInvoerOmDetentie.Text = "Data invoer";
+            this.DataInvoerOmDetentie.UseVisualStyleBackColor = true;
+            this.DataInvoerOmDetentie.Click += new System.EventHandler(this.DataInvoerOmDetentie_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(338, 97);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(61, 13);
+            this.label29.TabIndex = 67;
+            this.label29.Text = "LokalePGA";
+            // 
+            // DataInvoerOmLokalePGA
+            // 
+            this.DataInvoerOmLokalePGA.Location = new System.Drawing.Point(341, 125);
+            this.DataInvoerOmLokalePGA.Name = "DataInvoerOmLokalePGA";
+            this.DataInvoerOmLokalePGA.Size = new System.Drawing.Size(115, 35);
+            this.DataInvoerOmLokalePGA.TabIndex = 66;
+            this.DataInvoerOmLokalePGA.Text = "Data invoer";
+            this.DataInvoerOmLokalePGA.UseVisualStyleBackColor = true;
+            this.DataInvoerOmLokalePGA.Click += new System.EventHandler(this.DataInvoerOmLokalePGA_Click);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(186, 97);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(55, 13);
+            this.label30.TabIndex = 65;
+            this.label30.Text = "Radicalen";
+            // 
+            // DataInvoerOmRadicalen
+            // 
+            this.DataInvoerOmRadicalen.Location = new System.Drawing.Point(189, 125);
+            this.DataInvoerOmRadicalen.Name = "DataInvoerOmRadicalen";
+            this.DataInvoerOmRadicalen.Size = new System.Drawing.Size(115, 35);
+            this.DataInvoerOmRadicalen.TabIndex = 64;
+            this.DataInvoerOmRadicalen.Text = "Data invoer";
+            this.DataInvoerOmRadicalen.UseVisualStyleBackColor = true;
+            this.DataInvoerOmRadicalen.Click += new System.EventHandler(this.DataInvoerOmRadicalen_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(28, 97);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(30, 13);
+            this.label31.TabIndex = 63;
+            this.label31.Text = "ZSM";
+            // 
+            // DataInvoerOmZSM
+            // 
+            this.DataInvoerOmZSM.Location = new System.Drawing.Point(31, 125);
+            this.DataInvoerOmZSM.Name = "DataInvoerOmZSM";
+            this.DataInvoerOmZSM.Size = new System.Drawing.Size(115, 35);
+            this.DataInvoerOmZSM.TabIndex = 62;
+            this.DataInvoerOmZSM.Text = "Data invoer";
+            this.DataInvoerOmZSM.UseVisualStyleBackColor = true;
+            this.DataInvoerOmZSM.Click += new System.EventHandler(this.DataInvoerOmZSM_Click);
             // 
             // FormGenericGUI
             // 
@@ -882,12 +1042,26 @@
         private System.Windows.Forms.ComboBox comboBoxPrivateKeyPolitieEncryptDropDown;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button Data_Invoer_Politie_Button;
-        private System.Windows.Forms.Button Data_Invoer_OM_Button;
-        private System.Windows.Forms.Button Data_Invoer_Gemeente_Button;
+        private System.Windows.Forms.Button Data_Invoer_Gemeente_ZSM_Button;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button Data_Invoer_Politie_LokalePGA_Button;
         private System.Windows.Forms.Button Data_Invoer_Politie_Detentie_Button;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button Data_Invoer_Gemeente_Detentie_Button;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Button Data_Invoer_Gemeente_LokalePGA_Button;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button Data_Invoer_Gemeente_Radicalen_Button;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Button DataInvoerOmDetentie;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button DataInvoerOmLokalePGA;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button DataInvoerOmRadicalen;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Button DataInvoerOmZSM;
     }
 }
 

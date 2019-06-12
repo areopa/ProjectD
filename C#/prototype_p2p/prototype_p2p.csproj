@@ -74,11 +74,47 @@
     <Compile Include="BootConfigurator.Designer.cs">
       <DependentUpon>BootConfigurator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gemeente_DataEntry.cs">
+    <Compile Include="Gemeente_DataEntry_Detentie.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gemeente_DataEntry.Designer.cs">
-      <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
+    <Compile Include="Gemeente_DataEntry_Detentie.Designer.cs">
+      <DependentUpon>Gemeente_DataEntry_Detentie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_LokalePGA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_LokalePGA.Designer.cs">
+      <DependentUpon>Gemeente_DataEntry_LokalePGA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OM_DataEntry_Detentie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OM_DataEntry_Detentie.Designer.cs">
+      <DependentUpon>OM_DataEntry_Detentie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_Radicalen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_Radicalen.Designer.cs">
+      <DependentUpon>Gemeente_DataEntry_Radicalen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OM_DataEntry_LokalePGA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OM_DataEntry_LokalePGA.Designer.cs">
+      <DependentUpon>OM_DataEntry_LokalePGA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_ZSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gemeente_DataEntry_ZSM.Designer.cs">
+      <DependentUpon>Gemeente_DataEntry_ZSM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OM_DataEntry_ZSM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OM_DataEntry_ZSM.Designer.cs">
+      <DependentUpon>OM_DataEntry_ZSM.cs</DependentUpon>
     </Compile>
     <Compile Include="Politie_DataEntry_LokalePGA.cs">
       <SubType>Form</SubType>
@@ -91,6 +127,12 @@
     </Compile>
     <Compile Include="Politie_DataEntry_Detentie.Designer.cs">
       <DependentUpon>Politie_DataEntry_Detentie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OM_DataEntry_Radicalen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OM_DataEntry_Radicalen.Designer.cs">
+      <DependentUpon>OM_DataEntry_Radicalen.cs</DependentUpon>
     </Compile>
     <Compile Include="Politie_DataEntry_ZSM_Radicalen.cs">
       <SubType>Form</SubType>
@@ -144,16 +186,37 @@
     <EmbeddedResource Include="FormGenericGUI.resx">
       <DependentUpon>FormGenericGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Gemeente_DataEntry_Detentie.resx">
+      <DependentUpon>Gemeente_DataEntry_Detentie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gemeente_DataEntry_LokalePGA.resx">
+      <DependentUpon>Gemeente_DataEntry_LokalePGA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OM_DataEntry_Detentie.resx">
+      <DependentUpon>OM_DataEntry_Detentie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gemeente_DataEntry_Radicalen.resx">
+      <DependentUpon>Gemeente_DataEntry_Radicalen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OM_DataEntry_LokalePGA.resx">
+      <DependentUpon>OM_DataEntry_LokalePGA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gemeente_DataEntry_ZSM.resx">
+      <DependentUpon>Gemeente_DataEntry_ZSM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OM_DataEntry_ZSM.resx">
+      <DependentUpon>OM_DataEntry_ZSM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Politie_DataEntry_LokalePGA.resx">
       <DependentUpon>Politie_DataEntry_LokalePGA.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Politie_DataEntry_Detentie.resx">
       <DependentUpon>Politie_DataEntry_Detentie.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx" />
-    <EmbeddedResource Include="Gemeente_DataEntry.resx">
-      <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
+    <EmbeddedResource Include="OM_DataEntry_Radicalen.resx">
+      <DependentUpon>OM_DataEntry_Radicalen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="Politie_DataEntry_ZSM_Radicalen.resx">
       <DependentUpon>Politie_DataEntry_ZSM_Radicalen.cs</DependentUpon>
     </EmbeddedResource>
