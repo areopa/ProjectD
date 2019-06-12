@@ -343,7 +343,7 @@ namespace prototype_p2p
                     }
 
                     // Zonder parameters worden de bestaande encryptie data velden gebruikt.
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text), true, "Gemeente, Politie, Reclassering, OM");
                 }
                 // Zonder deze dispose blijft de form in memory.
                 testDialog.Dispose();

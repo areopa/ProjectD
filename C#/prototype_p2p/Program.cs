@@ -112,7 +112,7 @@ namespace prototype_p2p
                 Console.WriteLine($"Your node name is: {NodeName}");
             }
 
-            flushMsgAndSend = new FlushBlock(NodeName, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
+            flushMsgAndSend = new FlushBlock(currentRole, ClientInstance); //Place this after the chain, clientinstance and nodename have been initialized.
 
 
 
