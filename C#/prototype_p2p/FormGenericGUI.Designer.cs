@@ -568,6 +568,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(885, 254);
             this.tabControl1.TabIndex = 50;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // Reclassering
             // 
@@ -588,10 +589,16 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+<<<<<<< HEAD
             this.label17.Location = new System.Drawing.Point(25, 34);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(198, 20);
+=======
+            this.label17.Location = new System.Drawing.Point(19, 28);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(169, 17);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.label17.TabIndex = 52;
             this.label17.Text = "ZSM, Radicalen, Detentie";
             // 
@@ -632,10 +639,16 @@
             // 
             // Data_Invoer_OM_Button
             // 
+<<<<<<< HEAD
             this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(28, 53);
             this.Data_Invoer_OM_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
             this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(153, 43);
+=======
+            this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(21, 43);
+            this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
+            this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(115, 35);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.Data_Invoer_OM_Button.TabIndex = 54;
             this.Data_Invoer_OM_Button.Text = "Data invoer";
             this.Data_Invoer_OM_Button.UseVisualStyleBackColor = true;
@@ -645,20 +658,32 @@
             // 
             this.comboBoxPrivateKeyOMEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPrivateKeyOMEncryptDropDown.FormattingEnabled = true;
+<<<<<<< HEAD
             this.comboBoxPrivateKeyOMEncryptDropDown.Location = new System.Drawing.Point(28, 166);
             this.comboBoxPrivateKeyOMEncryptDropDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxPrivateKeyOMEncryptDropDown.Name = "comboBoxPrivateKeyOMEncryptDropDown";
             this.comboBoxPrivateKeyOMEncryptDropDown.Size = new System.Drawing.Size(160, 24);
+=======
+            this.comboBoxPrivateKeyOMEncryptDropDown.Location = new System.Drawing.Point(21, 135);
+            this.comboBoxPrivateKeyOMEncryptDropDown.Name = "comboBoxPrivateKeyOMEncryptDropDown";
+            this.comboBoxPrivateKeyOMEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.comboBoxPrivateKeyOMEncryptDropDown.TabIndex = 53;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+<<<<<<< HEAD
             this.label20.Location = new System.Drawing.Point(24, 142);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(231, 20);
+=======
+            this.label20.Location = new System.Drawing.Point(18, 115);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(194, 17);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.label20.TabIndex = 52;
             this.label20.Text = "Select private key to sign with";
             // 
@@ -677,10 +702,16 @@
             // 
             // Data_Invoer_Gemeente_Button
             // 
+<<<<<<< HEAD
             this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(48, 48);
             this.Data_Invoer_Gemeente_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
             this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(153, 43);
+=======
+            this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(36, 39);
+            this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
+            this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(115, 35);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.Data_Invoer_Gemeente_Button.TabIndex = 54;
             this.Data_Invoer_Gemeente_Button.Text = "Data invoer";
             this.Data_Invoer_Gemeente_Button.UseVisualStyleBackColor = true;
@@ -690,20 +721,32 @@
             // 
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.FormattingEnabled = true;
+<<<<<<< HEAD
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.Location = new System.Drawing.Point(40, 165);
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.Name = "comboBoxPrivateKeyGemeenteEncryptDropDown";
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.Size = new System.Drawing.Size(160, 24);
+=======
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Location = new System.Drawing.Point(30, 134);
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Name = "comboBoxPrivateKeyGemeenteEncryptDropDown";
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.comboBoxPrivateKeyGemeenteEncryptDropDown.TabIndex = 53;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+<<<<<<< HEAD
             this.label21.Location = new System.Drawing.Point(36, 140);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(231, 20);
+=======
+            this.label21.Location = new System.Drawing.Point(27, 114);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(194, 17);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.label21.TabIndex = 52;
             this.label21.Text = "Select private key to sign with";
             // 
@@ -736,29 +779,47 @@
             // 
             this.comboBoxPrivateKeyPolitieEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPrivateKeyPolitieEncryptDropDown.FormattingEnabled = true;
+<<<<<<< HEAD
             this.comboBoxPrivateKeyPolitieEncryptDropDown.Location = new System.Drawing.Point(28, 167);
             this.comboBoxPrivateKeyPolitieEncryptDropDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxPrivateKeyPolitieEncryptDropDown.Name = "comboBoxPrivateKeyPolitieEncryptDropDown";
             this.comboBoxPrivateKeyPolitieEncryptDropDown.Size = new System.Drawing.Size(160, 24);
+=======
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Location = new System.Drawing.Point(21, 136);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Name = "comboBoxPrivateKeyPolitieEncryptDropDown";
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.comboBoxPrivateKeyPolitieEncryptDropDown.TabIndex = 54;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+<<<<<<< HEAD
             this.label18.Location = new System.Drawing.Point(24, 37);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(126, 20);
+=======
+            this.label18.Location = new System.Drawing.Point(18, 30);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(108, 17);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.label18.TabIndex = 53;
             this.label18.Text = "ZSM, Radicalen";
             // 
             // Data_Invoer_Politie_Button
             // 
+<<<<<<< HEAD
             this.Data_Invoer_Politie_Button.Location = new System.Drawing.Point(28, 62);
             this.Data_Invoer_Politie_Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Data_Invoer_Politie_Button.Name = "Data_Invoer_Politie_Button";
             this.Data_Invoer_Politie_Button.Size = new System.Drawing.Size(153, 43);
+=======
+            this.Data_Invoer_Politie_Button.Location = new System.Drawing.Point(21, 50);
+            this.Data_Invoer_Politie_Button.Name = "Data_Invoer_Politie_Button";
+            this.Data_Invoer_Politie_Button.Size = new System.Drawing.Size(115, 35);
+>>>>>>> 15a7711641ce4e18a6f9f5edc81f1c2a88045c55
             this.Data_Invoer_Politie_Button.TabIndex = 50;
             this.Data_Invoer_Politie_Button.Text = "Data invoer";
             this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;

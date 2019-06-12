@@ -191,6 +191,9 @@ namespace prototype_p2p
                 }
             }
 
+            //Checken of er recipients null zijn. 
+            recipientKeyPathsArr = recipientKeyPathsArr.Where(c => c != null).ToArray();
+
             if (inputData == "")
             {
                 inputData = Prompt.ShowDialog("Enter the data you want to encrypt", "Data entry");
@@ -343,6 +346,8 @@ namespace prototype_p2p
             }
         }
 
+
+
         private void Data_Invoer_Reclassering_Button_Click(object sender, EventArgs e)
         {
             Reclassering_DataEntry();
@@ -435,26 +440,57 @@ namespace prototype_p2p
             try
             {
                 string dataToRetrieve = "";
-                Politie_DataEntry testDialog = new Politie_DataEntry();
+                Politie_DataEntry_ZSM_Radicalen testDialog = new Politie_DataEntry_ZSM_Radicalen();
                 // Show testDialog as a modal dialog and determine if DialogResult = OK.
                 if (testDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     // Read the contents of testDialog's TextBox.
-                    //dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
-                    //dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
-                    //dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
-                    //dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
-                    //dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+                    dataToRetrieve = "Aantal antecedenten: " + testDialog.numericAntecendentenPolitie.Value + Environment.NewLine; 
+                    dataToRetrieve += "Aantal aanhoudingen: " + testDialog.numericAanhoudingenPolitie.Value + Environment.NewLine;
+                    dataToRetrieve += "BSN: " + testDialog.textBoxPolitie_DataEntry_BSN.Text + Environment.NewLine;
+                    dataToRetrieve += "Achternaam: " + testDialog.textBoxPolitie_DataEntry_Achternaam.Text + Environment.NewLine;
+                    dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerPolitie_DataEntry_Geb_Datum.Text + Environment.NewLine;
+
+                    //STUK IS ALLEEN VOOR ENCRYPTE GEMEENTE
                     string[] recipient_Role_Paths = new string[4];
                     int cnt = 0;
 
                     foreach (var pair in keyIDPaths.roleKeyPaths)
                     {
-                        recipient_Role_Paths[cnt] = pair.Value;
+                        if (pair.Key == "Gemeente" || pair.Key == "Politie")
+                        {
+                            recipient_Role_Paths[cnt] = pair.Value;
+                        }
                         cnt++;
+                            
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+
+                    if (testDialog.checkBoxHeeftISDMaatregel.Checked)
+                    {
+                        dataToRetrieve += "Heeft ISD maatregel";
+                    } else
+                    {
+                        dataToRetrieve += "Heeft geen ISD maatregel";
+                    }
+
+                    //STUK IS VOOR OM EN RECLASSERING
+                    string[] recipient_Role_Paths_2 = new string[4];
+                    cnt = 0;
+
+                    foreach (var pair in keyIDPaths.roleKeyPaths)
+                    {
+                        if (pair.Key == "OM" || pair.Key == "Reclassering" || pair.Key == "Politie")
+                        {
+                            recipient_Role_Paths_2[cnt] = pair.Value;
+                        }
+                        cnt++;
+
+                    }
+
+                    EncryptionCaller(recipient_Role_Paths_2, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+
                 }
                 testDialog.Dispose();
             }
@@ -468,6 +504,11 @@ namespace prototype_p2p
         }
 
         private void Data_Invoer_Politie_Button_Click(object sender, EventArgs e)
+        {
+            Politie_DataEntry();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
