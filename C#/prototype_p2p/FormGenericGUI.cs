@@ -321,6 +321,15 @@ namespace prototype_p2p
             System.Diagnostics.Process.Start(@"Config.ini");
         }
 
+
+        /*
+         * De finish knop in de Reclassering_DataEntry form heeft Properties -> Behavior -> DialogResult op "OK" staan, zonder deze setting werkt de data input niet.
+         * Ik heb de Reclassering_DataEntry() functie en de Reclassering_DataEntry form 3x gekopieërd en gerenamed. Deze moeten wel allemaal gevuld worden met de correcte textboxen en code.
+         * Waarschijnlijk zijn er nog meer forms nodig.
+         * Elke tab in de main form heeft al 1 data invoer knop en een werkende private key dropdown.
+         * in de OM, Politie, Gemeente en Reclassering mappen in de Keys\Public folder mogen maar 1 key, de logica gaat er vanuit dat de correcte key daarin geplaatst is. 
+        */
+
         public void Reclassering_DataEntry()
         {
             try
@@ -330,27 +339,34 @@ namespace prototype_p2p
                 // Show testDialog as a modal dialog and determine if DialogResult = OK.
                 if (testDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    // Read the contents of testDialog's TextBox.
+                    // Read the contents of testDialog's data fields
+                    // Alle data moet in 1 string staan voor de encryptie functie.
                     dataToRetrieve = "Lopend traject: " + testDialog.textBoxReclassering_DataEntry_Lopend_Traject.Text + Environment.NewLine;
                     dataToRetrieve += "Laatste gesprek: " + testDialog.dateTimePickerReclassering_DataEntry_Laatste_Gesprek.Text + Environment.NewLine;
                     dataToRetrieve += "BSN: " + testDialog.textBoxReclassering_DataEntry_BSN.Text + Environment.NewLine;
                     dataToRetrieve += "Achternaam: " + testDialog.textBoxReclassering_DataEntry_Achternaam.Text + Environment.NewLine;
                     dataToRetrieve += "Geb datum: " + testDialog.dateTimePickerReclassering_DataEntry_Geb_Datum.Text + Environment.NewLine;
+
+
+                    // Maakt de ontvangers lijst, het aantal partijen dat de data mag lezen + 1 (voor de eigen rol) is de size van de array.
                     string[] recipient_Role_Paths = new string[4];
                     int cnt = 0;
-
+                    // Je kan een rol hier uitsluiten met
+                    // if (pair.Key != "OM") { recipient_Role_Paths[cnt] = pair.Value; } voeg met || zonodig meer rollen toe om uit te sluiten. Iedereen behalve OM staat nu in de ontvangst lijst met dit voorbeeld.
                     foreach (var pair in keyIDPaths.roleKeyPaths)
                     {
                         recipient_Role_Paths[cnt] = pair.Value;
                         cnt++;
                     }
 
+                    // Zonder parameters worden de bestaande encryptie data velden gebruikt.
                     EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
                 }
+                // Zonder deze dispose blijft de form in memory.
                 testDialog.Dispose();
             }
             catch (Exception e)
-            {
+            {   // Voor als de user vergeet een key in de dropdown te selecteren.
                 if (e is System.IO.DirectoryNotFoundException)
                 {
                     MessageBox.Show("You didn't select a private key!");
