@@ -80,11 +80,11 @@
     <Compile Include="Gemeente_DataEntry.Designer.cs">
       <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Politie_DataEntry.cs">
+    <Compile Include="Politie_DataEntry_ZSM_Radicalen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Politie_DataEntry.Designer.cs">
-      <DependentUpon>Politie_DataEntry.cs</DependentUpon>
+    <Compile Include="Politie_DataEntry_ZSM_Radicalen.Designer.cs">
+      <DependentUpon>Politie_DataEntry_ZSM_Radicalen.cs</DependentUpon>
     </Compile>
     <Compile Include="OM_DataEntry.cs">
       <SubType>Form</SubType>
@@ -136,8 +136,8 @@
     <EmbeddedResource Include="Gemeente_DataEntry.resx">
       <DependentUpon>Gemeente_DataEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Politie_DataEntry.resx">
-      <DependentUpon>Politie_DataEntry.cs</DependentUpon>
+    <EmbeddedResource Include="Politie_DataEntry_ZSM_Radicalen.resx">
+      <DependentUpon>Politie_DataEntry_ZSM_Radicalen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OM_DataEntry.resx">
       <DependentUpon>OM_DataEntry.cs</DependentUpon>

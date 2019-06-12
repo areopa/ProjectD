@@ -74,22 +74,22 @@
             this.Data_Invoer_Reclassering_Button = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Reclassering = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.comboBoxPrivateKeyReclasseringEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.OM = new System.Windows.Forms.TabPage();
-            this.Gemeente = new System.Windows.Forms.TabPage();
-            this.Politie = new System.Windows.Forms.TabPage();
-            this.label17 = new System.Windows.Forms.Label();
-            this.Data_Invoer_Politie_Button = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.comboBoxPrivateKeyOMEncryptDropDown = new System.Windows.Forms.ComboBox();
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.Data_Invoer_OM_Button = new System.Windows.Forms.Button();
+            this.comboBoxPrivateKeyOMEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.Gemeente = new System.Windows.Forms.TabPage();
             this.Data_Invoer_Gemeente_Button = new System.Windows.Forms.Button();
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.Politie = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.Data_Invoer_Politie_Button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Reclassering.SuspendLayout();
             this.OM.SuspendLayout();
@@ -528,6 +528,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(664, 206);
             this.tabControl1.TabIndex = 50;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // Reclassering
             // 
@@ -542,6 +543,16 @@
             this.Reclassering.TabIndex = 0;
             this.Reclassering.Text = "Reclassering";
             this.Reclassering.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label17.Location = new System.Drawing.Point(19, 28);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(169, 17);
+            this.label17.TabIndex = 52;
+            this.label17.Text = "ZSM, Radicalen, Detentie";
             // 
             // label16
             // 
@@ -575,6 +586,35 @@
             this.OM.Text = "OM";
             this.OM.UseVisualStyleBackColor = true;
             // 
+            // Data_Invoer_OM_Button
+            // 
+            this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(21, 43);
+            this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
+            this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_OM_Button.TabIndex = 54;
+            this.Data_Invoer_OM_Button.Text = "Data invoer";
+            this.Data_Invoer_OM_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_OM_Button.Click += new System.EventHandler(this.Data_Invoer_OM_Button_Click);
+            // 
+            // comboBoxPrivateKeyOMEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyOMEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyOMEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyOMEncryptDropDown.Location = new System.Drawing.Point(21, 135);
+            this.comboBoxPrivateKeyOMEncryptDropDown.Name = "comboBoxPrivateKeyOMEncryptDropDown";
+            this.comboBoxPrivateKeyOMEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyOMEncryptDropDown.TabIndex = 53;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label20.Location = new System.Drawing.Point(18, 115);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(194, 17);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Select private key to sign with";
+            // 
             // Gemeente
             // 
             this.Gemeente.Controls.Add(this.Data_Invoer_Gemeente_Button);
@@ -586,6 +626,35 @@
             this.Gemeente.TabIndex = 2;
             this.Gemeente.Text = "Gemeente";
             this.Gemeente.UseVisualStyleBackColor = true;
+            // 
+            // Data_Invoer_Gemeente_Button
+            // 
+            this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(36, 39);
+            this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
+            this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Gemeente_Button.TabIndex = 54;
+            this.Data_Invoer_Gemeente_Button.Text = "Data invoer";
+            this.Data_Invoer_Gemeente_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Gemeente_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Button_Click);
+            // 
+            // comboBoxPrivateKeyGemeenteEncryptDropDown
+            // 
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Location = new System.Drawing.Point(30, 134);
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Name = "comboBoxPrivateKeyGemeenteEncryptDropDown";
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyGemeenteEncryptDropDown.TabIndex = 53;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label21.Location = new System.Drawing.Point(27, 114);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(194, 17);
+            this.label21.TabIndex = 52;
+            this.label21.Text = "Select private key to sign with";
             // 
             // Politie
             // 
@@ -600,25 +669,24 @@
             this.Politie.Text = "Politie";
             this.Politie.UseVisualStyleBackColor = true;
             // 
-            // label17
+            // label19
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label17.Location = new System.Drawing.Point(19, 28);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(169, 17);
-            this.label17.TabIndex = 52;
-            this.label17.Text = "ZSM, Radicalen, Detentie";
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label19.Location = new System.Drawing.Point(18, 116);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(194, 17);
+            this.label19.TabIndex = 55;
+            this.label19.Text = "Select private key to sign with";
             // 
-            // Data_Invoer_Politie_Button
+            // comboBoxPrivateKeyPolitieEncryptDropDown
             // 
-            this.Data_Invoer_Politie_Button.Location = new System.Drawing.Point(21, 50);
-            this.Data_Invoer_Politie_Button.Name = "Data_Invoer_Politie_Button";
-            this.Data_Invoer_Politie_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_Politie_Button.TabIndex = 50;
-            this.Data_Invoer_Politie_Button.Text = "Data invoer";
-            this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_Politie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Button_Click);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.FormattingEnabled = true;
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Location = new System.Drawing.Point(21, 136);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Name = "comboBoxPrivateKeyPolitieEncryptDropDown";
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxPrivateKeyPolitieEncryptDropDown.TabIndex = 54;
             // 
             // label18
             // 
@@ -630,82 +698,15 @@
             this.label18.TabIndex = 53;
             this.label18.Text = "ZSM, Radicalen";
             // 
-            // comboBoxPrivateKeyPolitieEncryptDropDown
+            // Data_Invoer_Politie_Button
             // 
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.FormattingEnabled = true;
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.Location = new System.Drawing.Point(21, 136);
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.Name = "comboBoxPrivateKeyPolitieEncryptDropDown";
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxPrivateKeyPolitieEncryptDropDown.TabIndex = 54;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label19.Location = new System.Drawing.Point(18, 116);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(194, 17);
-            this.label19.TabIndex = 55;
-            this.label19.Text = "Select private key to sign with";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label20.Location = new System.Drawing.Point(18, 115);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(194, 17);
-            this.label20.TabIndex = 52;
-            this.label20.Text = "Select private key to sign with";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label21.Location = new System.Drawing.Point(27, 114);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(194, 17);
-            this.label21.TabIndex = 52;
-            this.label21.Text = "Select private key to sign with";
-            // 
-            // comboBoxPrivateKeyOMEncryptDropDown
-            // 
-            this.comboBoxPrivateKeyOMEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPrivateKeyOMEncryptDropDown.FormattingEnabled = true;
-            this.comboBoxPrivateKeyOMEncryptDropDown.Location = new System.Drawing.Point(21, 135);
-            this.comboBoxPrivateKeyOMEncryptDropDown.Name = "comboBoxPrivateKeyOMEncryptDropDown";
-            this.comboBoxPrivateKeyOMEncryptDropDown.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxPrivateKeyOMEncryptDropDown.TabIndex = 53;
-            // 
-            // comboBoxPrivateKeyGemeenteEncryptDropDown
-            // 
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.FormattingEnabled = true;
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Location = new System.Drawing.Point(30, 134);
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Name = "comboBoxPrivateKeyGemeenteEncryptDropDown";
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxPrivateKeyGemeenteEncryptDropDown.TabIndex = 53;
-            // 
-            // Data_Invoer_OM_Button
-            // 
-            this.Data_Invoer_OM_Button.Location = new System.Drawing.Point(21, 43);
-            this.Data_Invoer_OM_Button.Name = "Data_Invoer_OM_Button";
-            this.Data_Invoer_OM_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_OM_Button.TabIndex = 54;
-            this.Data_Invoer_OM_Button.Text = "Data invoer";
-            this.Data_Invoer_OM_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_OM_Button.Click += new System.EventHandler(this.Data_Invoer_OM_Button_Click);
-            // 
-            // Data_Invoer_Gemeente_Button
-            // 
-            this.Data_Invoer_Gemeente_Button.Location = new System.Drawing.Point(36, 39);
-            this.Data_Invoer_Gemeente_Button.Name = "Data_Invoer_Gemeente_Button";
-            this.Data_Invoer_Gemeente_Button.Size = new System.Drawing.Size(115, 35);
-            this.Data_Invoer_Gemeente_Button.TabIndex = 54;
-            this.Data_Invoer_Gemeente_Button.Text = "Data invoer";
-            this.Data_Invoer_Gemeente_Button.UseVisualStyleBackColor = true;
-            this.Data_Invoer_Gemeente_Button.Click += new System.EventHandler(this.Data_Invoer_Gemeente_Button_Click);
+            this.Data_Invoer_Politie_Button.Location = new System.Drawing.Point(21, 50);
+            this.Data_Invoer_Politie_Button.Name = "Data_Invoer_Politie_Button";
+            this.Data_Invoer_Politie_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Politie_Button.TabIndex = 50;
+            this.Data_Invoer_Politie_Button.Text = "Data invoer";
+            this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Politie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Button_Click);
             // 
             // FormGenericGUI
             // 
