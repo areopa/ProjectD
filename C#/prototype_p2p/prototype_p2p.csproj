@@ -86,6 +86,12 @@
     <Compile Include="Politie_DataEntry_LokalePGA.Designer.cs">
       <DependentUpon>Politie_DataEntry_LokalePGA.cs</DependentUpon>
     </Compile>
+    <Compile Include="Politie_DataEntry_Detentie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Politie_DataEntry_Detentie.Designer.cs">
+      <DependentUpon>Politie_DataEntry_Detentie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Politie_DataEntry_ZSM_Radicalen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Politie_DataEntry_LokalePGA.resx">
       <DependentUpon>Politie_DataEntry_LokalePGA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Politie_DataEntry_Detentie.resx">
+      <DependentUpon>Politie_DataEntry_Detentie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="Gemeente_DataEntry.resx">

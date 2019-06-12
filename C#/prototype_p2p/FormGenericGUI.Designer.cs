@@ -93,6 +93,7 @@
             this.comboBoxPrivateKeyPolitieEncryptDropDown = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.Data_Invoer_Politie_Button = new System.Windows.Forms.Button();
+            this.Data_Invoer_Politie_Detentie_Button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Reclassering.SuspendLayout();
             this.OM.SuspendLayout();
@@ -662,6 +663,7 @@
             // 
             // Politie
             // 
+            this.Politie.Controls.Add(this.Data_Invoer_Politie_Detentie_Button);
             this.Politie.Controls.Add(this.Data_Invoer_Politie_LokalePGA_Button);
             this.Politie.Controls.Add(this.label23);
             this.Politie.Controls.Add(this.label22);
@@ -690,7 +692,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label23.Location = new System.Drawing.Point(388, 108);
+            this.label23.Location = new System.Drawing.Point(406, 108);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(61, 17);
             this.label23.TabIndex = 57;
@@ -744,6 +746,16 @@
             this.Data_Invoer_Politie_Button.Text = "Data invoer";
             this.Data_Invoer_Politie_Button.UseVisualStyleBackColor = true;
             this.Data_Invoer_Politie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Button_Click);
+            // 
+            // Data_Invoer_Politie_Detentie_Button
+            // 
+            this.Data_Invoer_Politie_Detentie_Button.Location = new System.Drawing.Point(409, 128);
+            this.Data_Invoer_Politie_Detentie_Button.Name = "Data_Invoer_Politie_Detentie_Button";
+            this.Data_Invoer_Politie_Detentie_Button.Size = new System.Drawing.Size(115, 35);
+            this.Data_Invoer_Politie_Detentie_Button.TabIndex = 59;
+            this.Data_Invoer_Politie_Detentie_Button.Text = "Data invoer";
+            this.Data_Invoer_Politie_Detentie_Button.UseVisualStyleBackColor = true;
+            this.Data_Invoer_Politie_Detentie_Button.Click += new System.EventHandler(this.Data_Invoer_Politie_Detentie_Button_Click);
             // 
             // FormGenericGUI
             // 
@@ -875,6 +887,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button Data_Invoer_Politie_LokalePGA_Button;
+        private System.Windows.Forms.Button Data_Invoer_Politie_Detentie_Button;
     }
 }
 
