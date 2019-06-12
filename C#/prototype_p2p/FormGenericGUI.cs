@@ -167,9 +167,10 @@ namespace prototype_p2p
             }
         }
 
-        private void EncryptionCaller(string[] recipientKeyPathsArr = null, string inputData = "", string privKeyPath = "")
+        private void EncryptionCaller(string[] recipientKeyPathsArr = null, string inputData = "", string privKeyPath = "", bool Precoded = false, string receiversPrecoded = null)
         {
-            string receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
+            string receiverNamesForImprovedMultiEnc = "";
+           
 
             if (privKeyPath == "")
             {
@@ -191,7 +192,17 @@ namespace prototype_p2p
                 }
             }
 
-            //Checken of er recipients null zijn. 
+
+            if (!Precoded)
+            {
+                 receiverNamesForImprovedMultiEnc = ReceiverNameTextBox.Text;
+            }
+            else
+            {
+                receiverNamesForImprovedMultiEnc = receiversPrecoded;
+            }
+
+            //Checken of er recipients null zijn. Anders verwijderen
             recipientKeyPathsArr = recipientKeyPathsArr.Where(c => c != null).ToArray();
 
             if (inputData == "")
@@ -377,7 +388,7 @@ namespace prototype_p2p
                         cnt++;
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyReclasseringEncryptDropDown.Text), true);
                 }
                 testDialog.Dispose();
             }
@@ -424,7 +435,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text), true, "Gemeente, Politie");
 
                     if (testDialog.checkBoxHeeftISDMaatregel.Checked)
                     {
@@ -449,7 +460,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths_2, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths_2, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text), true, "OM, Reclassering, Politie");
 
                 }
                 testDialog.Dispose();
@@ -487,7 +498,7 @@ namespace prototype_p2p
 
                     foreach (var pair in keyIDPaths.roleKeyPaths)
                     {
-                        if (pair.Key == "OM" || pair.Key == "Reclassering" || pair.Key == "Politie" || pair.Key == "LokalePGA")
+                        if (pair.Key == "OM" || pair.Key == "Reclassering" || pair.Key == "Politie" || pair.Key == "Gemeente")
                         {
                             recipient_Role_Paths[cnt] = pair.Value;
                         }
@@ -495,7 +506,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -541,7 +552,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyPolitieEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -587,7 +598,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -631,7 +642,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text), true, "OM, Reclassering");
 
                     if (testDialog.checkBoxHeeftOnderzoekRad.Checked)
                     {
@@ -656,7 +667,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths_2, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths_2, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text), true, "OM, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -700,7 +711,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -744,7 +755,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyOMEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -796,7 +807,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -833,7 +844,7 @@ namespace prototype_p2p
 
                     foreach (var pair in keyIDPaths.roleKeyPaths)
                     {
-                        if (pair.Key == "OM" || pair.Key == "Reclassering" || pair.Key == "Politie")
+                        if (pair.Key == "OM" || pair.Key == "Gemeente" || pair.Key == "Politie")
                         {
                             recipient_Role_Paths[cnt] = pair.Value;
                         }
@@ -841,7 +852,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text), true, "OM, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -904,7 +915,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
@@ -967,7 +978,7 @@ namespace prototype_p2p
 
                     }
 
-                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text));
+                    EncryptionCaller(recipient_Role_Paths, dataToRetrieve, (Program.pathKeyPrivate + "\\" + comboBoxPrivateKeyGemeenteEncryptDropDown.Text), true, "OM, Reclassering, Politie, Gemeente");
 
                 }
                 testDialog.Dispose();
