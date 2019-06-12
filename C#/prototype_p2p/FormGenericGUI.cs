@@ -245,42 +245,15 @@ namespace prototype_p2p
 
         private void connectionUpdateButton_Click(object sender, EventArgs e)
         {
-
-            string message = "";
-
-            if (Client.socketDictionary != null)
+            string result = "";
+            List<string> list = new List<string>();
+            list = ClientInstance.PingAll();
+            foreach( var item in list)
             {
-
-                foreach (var item in Client.socketDictionary)
-                {
-                    if (message.Equals("No connections"))
-                    {
-                        message = "";
-                    }
-
-                    WebSocket socket = new WebSocket(item.Key);
-                    socket.Connect();
-
-                    if (socket.IsAlive)
-                    {
-                        message = message + item.Key + " : connection alive \r\n";
-                    }
-                    else
-                    {
-                        message = message + item.Key + " : connection broken \r\n";
-                    }
-                }
-            }
-            else
-            {
-                message = "no connections";
+                result += item + "\n";
             }
 
-
-            richTextBoxConnections.Text = message;
-            
-
-
+            richTextBoxConnections.Text = result;
         }
 
         private void FormGenericGUI_Load(object sender, EventArgs e)
@@ -495,6 +468,16 @@ namespace prototype_p2p
         }
 
         private void Data_Invoer_Politie_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBoxConnections_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void richTextBoxConnections_TextChanged_1(object sender, EventArgs e)
         {
 
         }

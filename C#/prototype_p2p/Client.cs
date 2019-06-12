@@ -8,30 +8,44 @@ namespace prototype_p2p
 {
     public class Client
     {
-        public static IDictionary<string, WebSocket> socketDictionary = new Dictionary<string, WebSocket>();
+        public IDictionary<string, WebSocket> socketDictionary = new Dictionary<string, WebSocket>();
 
-        public string PingAll()
+        public List<string> PingAll()
         {
-            string result = null;
+            List<string> display = new List<string>() { };
 
             if (socketDictionary != null)
             {
                 foreach (var item in socketDictionary)
                 {
                     WebSocket socket = new WebSocket(item.Key);
-                    socket.Connect();
-                    if (socket.IsAlive)
+                    try
                     {
-                        Console.WriteLine(item.Key + " : connection alive");
+                        socket.Connect();
                     }
-                    else
+                    catch (Exception e)
                     {
-                        Console.WriteLine(item.Key + " : connection broken");
+                        Console.WriteLine(e);
+                    }
+                    finally
+                    {
+                        if (socket.IsAlive)
+                        {
+                            Console.WriteLine(item.Key + " : connection alive");
+                            display.Add(item.Key);
+                        }
+                        else
+                        {
+                            Console.WriteLine(item.Key + " : connection broken");
+                        }
                     }
                 }
             }
-            return result;
-
+            else
+            {
+                display.Add("no connections");
+            }
+            return display;
         }
 
         public void Handshake(string url)
@@ -39,6 +53,15 @@ namespace prototype_p2p
             if (!socketDictionary.ContainsKey(url))
             {
                 WebSocket socket = new WebSocket(url);
+
+                socket.OnClose += (sender, e) =>
+                {
+                    Console.WriteLine(url+" : connection closed");
+                    Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(
+                        url + " has fallen away. Nay!" + Environment.NewLine
+                        );
+                    return;
+                };
                 socket.OnMessage += (sender, e) =>
                 {
                     if (e.Data == "Handshake to client")
@@ -64,6 +87,10 @@ namespace prototype_p2p
                 socket.Send("Handshake to server");
                 socket.Send(JsonConvert.SerializeObject(Program.ProjectD));
                 socketDictionary.Add(url, socket);
+                Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(
+                        url + " is now connected" + Environment.NewLine
+                        );
+
             }
         }
 
