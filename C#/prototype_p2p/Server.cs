@@ -86,6 +86,7 @@ namespace prototype_p2p
 
         public void Initialize()
         {
+            //LocalIPAddress = GetExternalIPAddress(); // External ip is needed if the other nodes are not running on the same network.
             LocalIPAddress = GetLocalIPAddress();
             ServerInstance = new WebSocketServer($"ws://{LocalIPAddress}:{Program.NetworkPort}");
             ServerInstance.AddWebSocketService<Server>("/Chain");
