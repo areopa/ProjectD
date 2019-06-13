@@ -29,11 +29,12 @@ namespace prototype_p2p
             {
                 Console.WriteLine("Generating default Config.ini");
                 File.WriteAllText("Config.ini", "To disable a particular config setting place 2 equals (=) signs on that line or leave the space after the \"=\" blank\n" +
+                    "== The Public folder must contain 4 folders with the names: \"OM\", \"Politie\", \"Gemeente\" and \"Reclassering\". The Public keys of these parties must be placed in these maps as well as the Public folder itself.\n" +
                     "useConfigFile=false\n" +
                     "NetworkPort=\n" +
                     "NodeName=\n" +
-                    "pathKeyPrivate=" + Program.pathKeyPrivate + "\n" +
-                    "pathKeyPublic=" + Program.pathKeyPublic + "\n" +
+                    "pathKeyPrivate=\n" +
+                    "pathKeyPublic=\n" +
                     "currentRole=\n");
             }
         }
@@ -137,9 +138,14 @@ namespace prototype_p2p
                         configSettings["useConfigFile"] = "true";
                     }
                 }
+                else
+                {
+                    configSettings.Add("useConfigFile", "true");
+                }
                 using (StreamWriter file = new StreamWriter("Config.ini"))
                 {
-                    file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty");
+                    file.WriteLine("To disable a particular config setting place 2 equals (=) signs on that line or leave the space after the \"=\" blank\n" +
+                    "== The Public folder must contain 4 folders with the names: \"OM\", \"Politie\", \"Gemeente\" and \"Reclassering\". The Public keys of these parties must be placed in these maps as well as the Public folder itself.");
                     foreach (var entry in configSettings)
                     {
                         file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);
@@ -184,7 +190,8 @@ namespace prototype_p2p
                 
                 using (StreamWriter file = new StreamWriter("Config.ini"))
                 {
-                    file.WriteLine("//== Use two or more = characters in one line to prevent the program from loading it or leave the part after the = empty");
+                    file.WriteLine("To disable a particular config setting place 2 equals (=) signs on that line or leave the space after the \"=\" blank\n" +
+                    "== The Public folder must contain 4 folders with the names: \"OM\", \"Politie\", \"Gemeente\" and \"Reclassering\". The Public keys of these parties must be placed in these maps as well as the Public folder itself.");
                     foreach (var entry in configSettings)
                     {
                         file.WriteLine("{0}{1}{2}", entry.Key, "=", entry.Value);

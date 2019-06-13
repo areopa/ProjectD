@@ -53,7 +53,7 @@
             this.comboBoxRoleSelectorDropDown.Location = new System.Drawing.Point(34, 57);
             this.comboBoxRoleSelectorDropDown.Name = "comboBoxRoleSelectorDropDown";
             this.comboBoxRoleSelectorDropDown.Size = new System.Drawing.Size(180, 21);
-            this.comboBoxRoleSelectorDropDown.TabIndex = 1;
+            this.comboBoxRoleSelectorDropDown.TabIndex = 3;
             // 
             // label2
             // 
@@ -78,7 +78,7 @@
             this.buttonFinishDataEntry.Location = new System.Drawing.Point(34, 162);
             this.buttonFinishDataEntry.Name = "buttonFinishDataEntry";
             this.buttonFinishDataEntry.Size = new System.Drawing.Size(103, 40);
-            this.buttonFinishDataEntry.TabIndex = 5;
+            this.buttonFinishDataEntry.TabIndex = 2;
             this.buttonFinishDataEntry.Text = "Invoer afronden";
             this.buttonFinishDataEntry.UseVisualStyleBackColor = true;
             this.buttonFinishDataEntry.Click += new System.EventHandler(this.buttonFinishDataEntry_Click);
@@ -88,14 +88,14 @@
             this.textBoxPortNumberEntry.Location = new System.Drawing.Point(34, 136);
             this.textBoxPortNumberEntry.Name = "textBoxPortNumberEntry";
             this.textBoxPortNumberEntry.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPortNumberEntry.TabIndex = 6;
+            this.textBoxPortNumberEntry.TabIndex = 1;
             // 
             // textBoxNodeNameEntry
             // 
             this.textBoxNodeNameEntry.Location = new System.Drawing.Point(34, 97);
             this.textBoxNodeNameEntry.Name = "textBoxNodeNameEntry";
             this.textBoxNodeNameEntry.Size = new System.Drawing.Size(247, 20);
-            this.textBoxNodeNameEntry.TabIndex = 7;
+            this.textBoxNodeNameEntry.TabIndex = 0;
             // 
             // BootConfigurator
             // 

@@ -21,8 +21,8 @@ namespace prototype_p2p
         private static readonly List<string> validActions = new List<string> { "1", "2", "3", "4", "5", "7", "8", "9", "10" };
         public static readonly List<string> existingRoles = new List<string> { "Politie", "OM", "Gemeente", "Reclassering" };
         public static string currentRole = "";
-        public static string pathKeyPrivate = @"..\\..\\Keys\\Private";
-        public static string pathKeyPublic = @"..\\..\\Keys\\Public";
+        public static string pathKeyPrivate = @"Keys\\Private";
+        public static string pathKeyPublic = @"Keys\\Public";
         public static FormGenericGUI genericGUIForm;
         public static FlushBlock flushMsgAndSend;
         
@@ -46,9 +46,18 @@ namespace prototype_p2p
 
             if (!Directory.Exists(pathKeyPublic))
             {
+
                 pathKeyPublic = @"Keys\\Public";
                 Directory.CreateDirectory(pathKeyPublic);
             }
+            if (!Directory.Exists(pathKeyPublic + "\\Gemeente")|| !Directory.Exists(pathKeyPublic + "\\Politie") || !Directory.Exists(pathKeyPublic + "\\OM") || !Directory.Exists(pathKeyPublic + "\\Reclassering"))
+            {
+                Directory.CreateDirectory(pathKeyPublic + "\\Gemeente");
+                Directory.CreateDirectory(pathKeyPublic + "\\Politie");
+                Directory.CreateDirectory(pathKeyPublic + "\\OM");
+                Directory.CreateDirectory(pathKeyPublic + "\\Reclassering");
+            }
+
             if (!Directory.Exists(pathKeyPrivate))
             {
                 pathKeyPrivate = @"Keys\\Private";

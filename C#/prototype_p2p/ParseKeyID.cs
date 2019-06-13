@@ -41,10 +41,24 @@ namespace prototype_p2p
 
         public void LoadRolePublicKeyPaths()
         {
-            roleKeyPaths.Add(Program.existingRoles.ElementAt(0), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(0))[0]);
-            roleKeyPaths.Add(Program.existingRoles.ElementAt(1), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(1))[0]);
-            roleKeyPaths.Add(Program.existingRoles.ElementAt(2), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(2))[0]);
-            roleKeyPaths.Add(Program.existingRoles.ElementAt(3), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(3))[0]);
+            try
+            {
+                roleKeyPaths.Add(Program.existingRoles.ElementAt(0), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(0))[0]);
+                roleKeyPaths.Add(Program.existingRoles.ElementAt(1), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(1))[0]);
+                roleKeyPaths.Add(Program.existingRoles.ElementAt(2), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(2))[0]);
+                roleKeyPaths.Add(Program.existingRoles.ElementAt(3), Directory.GetFiles(Program.pathKeyPublic + "\\" + Program.existingRoles.ElementAt(3))[0]);
+            }
+            catch(Exception e)
+            {
+                if (e is IndexOutOfRangeException)
+                {
+                    MessageBox.Show("One or more public key files are missing from the designed role folders.\n\nPlease add the missing keys to ensure that the program will function correctly.");
+                }
+                else
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
 
         // Only used for the CLI, not used in the GUI.
