@@ -37,6 +37,7 @@ namespace prototype_p2p
                         else
                         {
                             Console.WriteLine(item.Key + " : connection broken");
+                            socketDictionary.Remove(item.Key);
                         }
                     }
                 }
@@ -60,6 +61,7 @@ namespace prototype_p2p
                     Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(
                         url + " has fallen away. Nay!" + Environment.NewLine
                         );
+                    socketDictionary.Remove(url);
                     return;
                 };
                 socket.OnMessage += (sender, e) =>
