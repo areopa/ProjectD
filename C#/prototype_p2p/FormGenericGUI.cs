@@ -57,6 +57,7 @@ namespace prototype_p2p
 
             this.ServerInitAt.Click +=
                 new EventHandler(EventServerInitAtClipboard_OnClick);
+            TabInit(); // Removes all tabs that do not match the current role
         }
 
 
