@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -95,25 +96,43 @@ namespace prototype_p2p
             }
             else
             {
-                Console.WriteLine("Creating new chain from server");
-                //TODO: Onderstaande regel geefterrors bij verbinden.
-                Chain newChain = JsonConvert.DeserializeObject<Chain>(e.Data);
 
-                if (newChain.CheckIntegrity() && newChain.ChainList.Count > Program.ProjectD.ChainList.Count)
+                try
                 {
-                    List<Message> messagesToAdd = new List<Message>();
-                    messagesToAdd.AddRange(newChain.MessageQueue);
-                    messagesToAdd.AddRange(Program.ProjectD.MessageQueue);
+                    Chain newChain = JsonConvert.DeserializeObject<Chain>(e.Data);
+                    Console.WriteLine("Creating new chain from server");
+                    if (newChain.CheckIntegrity() && newChain.ChainList.Count > Program.ProjectD.ChainList.Count)
+                    {
+                        List<Message> messagesToAdd = new List<Message>();
+                        messagesToAdd.AddRange(newChain.MessageQueue);
+                        messagesToAdd.AddRange(Program.ProjectD.MessageQueue);
 
-                    newChain.MessageQueue = messagesToAdd;
-                    Program.ProjectD = newChain;
+                        newChain.MessageQueue = messagesToAdd;
+                        Program.ProjectD = newChain;
+                    }
+
+                    if (!Synchronized)
+                    {
+                        Send(JsonConvert.SerializeObject(Program.ProjectD));
+                        Synchronized = true;
+                    }
+                }
+                catch(Exception g)
+                {
+                    if (g is JsonReaderException)
+                    {
+                        if (!e.Data.IsNullOrEmpty())
+                        {
+                            Console.WriteLine(e.Data.ToString() + " received as data");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine(g);
+                    }
                 }
 
-                if (!Synchronized)
-                {
-                    Send(JsonConvert.SerializeObject(Program.ProjectD));
-                    Synchronized = true;
-                }
+
             }
         }
     }

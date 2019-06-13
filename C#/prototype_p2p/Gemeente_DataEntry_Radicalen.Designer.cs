@@ -43,78 +43,92 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(43, 311);
+            this.button1.Location = new System.Drawing.Point(57, 383);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 1;
             this.button1.Text = "Finish";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // textBoxPolitie_DataEntry_BSN
             // 
-            this.textBoxPolitie_DataEntry_BSN.Location = new System.Drawing.Point(321, 95);
+            this.textBoxPolitie_DataEntry_BSN.Location = new System.Drawing.Point(428, 117);
+            this.textBoxPolitie_DataEntry_BSN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPolitie_DataEntry_BSN.Name = "textBoxPolitie_DataEntry_BSN";
-            this.textBoxPolitie_DataEntry_BSN.Size = new System.Drawing.Size(167, 20);
+            this.textBoxPolitie_DataEntry_BSN.Size = new System.Drawing.Size(221, 22);
             this.textBoxPolitie_DataEntry_BSN.TabIndex = 3;
             // 
             // textBoxPolitie_DataEntry_Achternaam
             // 
-            this.textBoxPolitie_DataEntry_Achternaam.Location = new System.Drawing.Point(43, 95);
+            this.textBoxPolitie_DataEntry_Achternaam.Location = new System.Drawing.Point(57, 117);
+            this.textBoxPolitie_DataEntry_Achternaam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPolitie_DataEntry_Achternaam.Name = "textBoxPolitie_DataEntry_Achternaam";
-            this.textBoxPolitie_DataEntry_Achternaam.Size = new System.Drawing.Size(167, 20);
+            this.textBoxPolitie_DataEntry_Achternaam.Size = new System.Drawing.Size(221, 22);
             this.textBoxPolitie_DataEntry_Achternaam.TabIndex = 0;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(40, 152);
+            this.label2.Location = new System.Drawing.Point(53, 187);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 18);
+            this.label2.Size = new System.Drawing.Size(209, 22);
             this.label2.TabIndex = 6;
             this.label2.Text = "Meldingen rad";
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(40, 74);
+            this.label3.Location = new System.Drawing.Point(53, 91);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 18);
+            this.label3.Size = new System.Drawing.Size(209, 22);
             this.label3.TabIndex = 7;
             this.label3.Text = "Achternaam";
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(318, 74);
+            this.label4.Location = new System.Drawing.Point(424, 91);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(157, 18);
+            this.label4.Size = new System.Drawing.Size(209, 22);
             this.label4.TabIndex = 8;
             this.label4.Text = "BSN";
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(318, 232);
+            this.label5.Location = new System.Drawing.Point(424, 286);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 18);
+            this.label5.Size = new System.Drawing.Size(209, 22);
             this.label5.TabIndex = 9;
             this.label5.Text = "Geb datum";
             // 
             // dateTimePickerPolitie_DataEntry_Geb_Datum
             // 
-            this.dateTimePickerPolitie_DataEntry_Geb_Datum.Location = new System.Drawing.Point(321, 250);
+            this.dateTimePickerPolitie_DataEntry_Geb_Datum.Location = new System.Drawing.Point(428, 308);
+            this.dateTimePickerPolitie_DataEntry_Geb_Datum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePickerPolitie_DataEntry_Geb_Datum.Name = "dateTimePickerPolitie_DataEntry_Geb_Datum";
-            this.dateTimePickerPolitie_DataEntry_Geb_Datum.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerPolitie_DataEntry_Geb_Datum.Size = new System.Drawing.Size(265, 22);
             this.dateTimePickerPolitie_DataEntry_Geb_Datum.TabIndex = 10;
             // 
             // numericAntecendentenPolitie
             // 
-            this.numericAntecendentenPolitie.Location = new System.Drawing.Point(43, 174);
+            this.numericAntecendentenPolitie.Location = new System.Drawing.Point(57, 214);
+            this.numericAntecendentenPolitie.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericAntecendentenPolitie.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericAntecendentenPolitie.Name = "numericAntecendentenPolitie";
-            this.numericAntecendentenPolitie.Size = new System.Drawing.Size(120, 20);
+            this.numericAntecendentenPolitie.Size = new System.Drawing.Size(160, 22);
             this.numericAntecendentenPolitie.TabIndex = 13;
             // 
             // Gemeente_DataEntry_Radicalen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 370);
+            this.ClientSize = new System.Drawing.Size(849, 455);
             this.Controls.Add(this.numericAntecendentenPolitie);
             this.Controls.Add(this.dateTimePickerPolitie_DataEntry_Geb_Datum);
             this.Controls.Add(this.label5);
@@ -124,6 +138,7 @@
             this.Controls.Add(this.textBoxPolitie_DataEntry_Achternaam);
             this.Controls.Add(this.textBoxPolitie_DataEntry_BSN);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Gemeente_DataEntry_Radicalen";
             this.Text = "Data Entry";
             ((System.ComponentModel.ISupportInitialize)(this.numericAntecendentenPolitie)).EndInit();

@@ -35,7 +35,7 @@ namespace prototype_p2p
             {
                         //public static string pathKey = @"..\\..\\Keys";
 
-                using (StreamReader sr = new StreamReader(@"..\\..\\chain/chain.json"))//this points to Debug\chain.json currently because that's where the .exe is located. @ is for relative path
+                using (StreamReader sr = new StreamReader(@"..\\..\\chain/chain.json"))// @ is for relative path
                 {
                     string json = sr.ReadToEnd();
                     Console.WriteLine("Reading from previous state...");
