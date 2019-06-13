@@ -73,6 +73,7 @@ namespace prototype_p2p
             try
             {
                 string externalip = new WebClient().DownloadString("http://icanhazip.com");
+                externalip = externalip.Replace("\n", String.Empty);
                 return externalip;
             }
             catch(Exception w)
@@ -86,7 +87,14 @@ namespace prototype_p2p
 
         public void Initialize()
         {
+            //IPAddress extIP = IPAddress.Any;
             //LocalIPAddress = GetExternalIPAddress(); // External ip is needed if the other nodes are not running on the same network.
+            //ServerInstance = new WebSocketServer($"ws://{extIP}:{Program.NetworkPort}");
+            //ServerInstance.AddWebSocketService<Server>("/Chain");
+            //ServerInstance.Start();
+            //serverInitAt = $"ws://{LocalIPAddress}:{Program.NetworkPort}";
+            //Console.WriteLine($"Server initialized at ws://{LocalIPAddress}:{Program.NetworkPort}");
+
             LocalIPAddress = GetLocalIPAddress();
             ServerInstance = new WebSocketServer($"ws://{LocalIPAddress}:{Program.NetworkPort}");
             ServerInstance.AddWebSocketService<Server>("/Chain");
