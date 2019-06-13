@@ -87,7 +87,21 @@ namespace prototype_p2p
                 Console.WriteLine(Context.UserEndPoint.Address.ToString());
                 //Console.WriteLine(Context.UserEndPoint.Port.ToString());
                 Send("Handshake to client");
-                Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(Context.UserEndPoint.Address.ToString() + " is connected to you!"+Environment.NewLine);
+                try
+                {
+                    Program.genericGUIForm.richTextBoxStatusUpdates.AppendText(Context.UserEndPoint.Address.ToString() + " is connected to you!" + Environment.NewLine);
+                }
+                catch (Exception f)
+                {
+                    if(f is InvalidOperationException)
+                    {
+                        Console.WriteLine("Threading error: " + f);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unexpected error: " + f);
+                    }
+                }
             }
             if (e.IsPing)
             {
