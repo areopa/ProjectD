@@ -12,13 +12,13 @@ namespace prototype_p2p
     {
         public IList<Message> MessageQueue = new List<Message>();
         public IList<Block> ChainList { set; get; }
-        public string chainPath = @"..\\..\\chain\chain.json";
+        public string chainPath = @"chain.json";
 
         public Chain()
         {
-            if (!File.Exists(chainPath))
+            if (File.Exists(@"..\\..\\chain\chain.json"))
             {
-                chainPath = @"chain.json";
+                chainPath = @"..\\..\\chain\chain.json";
             }
 
         }

@@ -17,6 +17,7 @@ namespace prototype_p2p
         bool Synchronized = false;
         WebSocketServer ServerInstance = null;
         public string LocalIPAddress;
+        public string externalIPAddress;
         public string serverInitAt;
 
 
@@ -87,20 +88,21 @@ namespace prototype_p2p
 
         public void Initialize()
         {
-            //IPAddress extIP = IPAddress.Any;
-            //LocalIPAddress = GetExternalIPAddress(); // External ip is needed if the other nodes are not running on the same network.
-            //ServerInstance = new WebSocketServer($"ws://{extIP}:{Program.NetworkPort}");
+            IPAddress ipAddresses = IPAddress.Any;
+            externalIPAddress = GetExternalIPAddress(); // External ip is needed if the other nodes are not running on the same network.
+            LocalIPAddress = GetLocalIPAddress();
+            ServerInstance = new WebSocketServer($"ws://{ipAddresses}:{Program.NetworkPort}");
+            ServerInstance.AddWebSocketService<Server>("/Chain");
+            ServerInstance.Start();
+            serverInitAt = $"ws://{LocalIPAddress}:{Program.NetworkPort}" + " & " + $"ws://{externalIPAddress}:{ Program.NetworkPort}";
+            Console.WriteLine($"Server initialized at ws://{LocalIPAddress}:{Program.NetworkPort}" + " & " + $"ws://{externalIPAddress}:{ Program.NetworkPort}");
+
+            //LocalIPAddress = GetLocalIPAddress();
+            //ServerInstance = new WebSocketServer($"ws://{LocalIPAddress}:{Program.NetworkPort}");
             //ServerInstance.AddWebSocketService<Server>("/Chain");
             //ServerInstance.Start();
             //serverInitAt = $"ws://{LocalIPAddress}:{Program.NetworkPort}";
             //Console.WriteLine($"Server initialized at ws://{LocalIPAddress}:{Program.NetworkPort}");
-
-            LocalIPAddress = GetLocalIPAddress();
-            ServerInstance = new WebSocketServer($"ws://{LocalIPAddress}:{Program.NetworkPort}");
-            ServerInstance.AddWebSocketService<Server>("/Chain");
-            ServerInstance.Start();
-            serverInitAt = $"ws://{LocalIPAddress}:{Program.NetworkPort}";
-            Console.WriteLine($"Server initialized at ws://{LocalIPAddress}:{Program.NetworkPort}");
         }
 
         protected override void OnMessage(MessageEventArgs e)
