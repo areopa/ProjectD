@@ -54,6 +54,9 @@ namespace prototype_p2p
             this.comboBoxBlockDecryptNumber.DropDown +=
                 new System.EventHandler(EventComboBoxBlockDecryptNumber_DropDown);
             //TabInit(); // Removes all tabs that do not match the current role
+
+            this.ServerInitAt.Click +=
+                new EventHandler(EventServerInitAtClipboard_OnClick);
         }
 
 
@@ -1062,6 +1065,11 @@ namespace prototype_p2p
         private void DataInvoerOmDetentie_Click(object sender, EventArgs e)
         {
             OM_DataEntry_Detentie();
+        }
+
+        private void EventServerInitAtClipboard_OnClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(ServerInitAt.Text);
         }
     }
 
