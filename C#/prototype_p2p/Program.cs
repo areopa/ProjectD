@@ -40,14 +40,24 @@ namespace prototype_p2p
             Console.WriteLine("Default Private Keys directory exists:" + Directory.Exists(pathKeyPrivate));
             Console.WriteLine("Config.ini exists:" + File.Exists("Config.ini"));
 
-
             ConfigFile configData = new ConfigFile();
             configData.WriteAllValuesConsole();
 
+            // The first if checks if the directory entered in the config file exists, the second checks the default location. The else if is there because of the directory location during development.
             if (!Directory.Exists(pathKeyPublic))
             {
-
-                pathKeyPublic = @"Keys\\Public";
+                if (Directory.Exists(@"Keys\\Public"))
+                {
+                    pathKeyPublic = @"Keys\\Public";
+                }
+                else if (Directory.Exists(@"..\\..\\Keys\\Public"))
+                {
+                    pathKeyPublic = @"..\\..\\Keys\\Public";
+                }
+                else
+                {
+                    pathKeyPublic = @"Keys\\Public";
+                }
                 Directory.CreateDirectory(pathKeyPublic);
             }
             if (!Directory.Exists(pathKeyPublic + "\\Gemeente")|| !Directory.Exists(pathKeyPublic + "\\Politie") || !Directory.Exists(pathKeyPublic + "\\OM") || !Directory.Exists(pathKeyPublic + "\\Reclassering"))
@@ -58,9 +68,21 @@ namespace prototype_p2p
                 Directory.CreateDirectory(pathKeyPublic + "\\Reclassering");
             }
 
+            // The first if checks if the directory entered in the config file exists, the second checks the default location. The else if is there because of the directory location during development.
             if (!Directory.Exists(pathKeyPrivate))
             {
-                pathKeyPrivate = @"Keys\\Private";
+                if (Directory.Exists(@"Keys\\Private"))
+                {
+                    pathKeyPrivate = @"Keys\\Private";
+                }
+                else if (Directory.Exists(@"..\\..\\Keys\\Private"))
+                {
+                    pathKeyPrivate = @"..\\..\\Keys\\Private";
+                }
+                else
+                {
+                    pathKeyPrivate = @"Keys\\Private";
+                }
                 Directory.CreateDirectory(pathKeyPrivate);
             }
 

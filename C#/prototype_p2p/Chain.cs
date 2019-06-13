@@ -12,9 +12,14 @@ namespace prototype_p2p
     {
         public IList<Message> MessageQueue = new List<Message>();
         public IList<Block> ChainList { set; get; }
+        public string chainPath = @"..\\..\\chain\chain.json";
 
         public Chain()
         {
+            if (!File.Exists(chainPath))
+            {
+                chainPath = @"chain.json";
+            }
 
         }
 
@@ -33,9 +38,7 @@ namespace prototype_p2p
         {
             try
             {
-                        //public static string pathKey = @"..\\..\\Keys";
-
-                using (StreamReader sr = new StreamReader(@"..\\..\\chain/chain.json"))// @ is for relative path
+                using (StreamReader sr = new StreamReader(chainPath))// @ is for relative path
                 {
                     string json = sr.ReadToEnd();
                     Console.WriteLine("Reading from previous state...");
@@ -100,7 +103,7 @@ namespace prototype_p2p
         }
         public void SaveChainStateToDisk(Chain ProjectD)
         {
-            using (StreamWriter file = File.CreateText(@"..\\..\\chain/chain.json"))
+            using (StreamWriter file = File.CreateText(chainPath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, ProjectD);
