@@ -53,7 +53,7 @@ namespace prototype_p2p
             // Updates the available block numbers to decrypt on dropdown event
             this.comboBoxBlockDecryptNumber.DropDown +=
                 new System.EventHandler(EventComboBoxBlockDecryptNumber_DropDown);
-            //TabInit(); // Removes all tabs that do not match the current role
+            TabInit(); // Removes all tabs that do not match the current role
         }
 
 
