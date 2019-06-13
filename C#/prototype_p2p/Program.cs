@@ -260,7 +260,6 @@ namespace prototype_p2p
                         ClientInstance.PingAll();
                         break;
                 }
-
                         ProjectD.SaveChainStateToDisk(ProjectD);
                         Console.Write("Enter the number of the action you want to execute: ");
                         string action = Console.ReadLine();
@@ -275,7 +274,6 @@ namespace prototype_p2p
                         }
                         
                 }
-
             ProjectD.SaveChainStateToDisk(ProjectD);
 
             ClientInstance.Exit();

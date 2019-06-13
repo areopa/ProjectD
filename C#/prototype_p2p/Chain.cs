@@ -16,11 +16,26 @@ namespace prototype_p2p
 
         public Chain()
         {
-            if (File.Exists(@"..\\..\\chain\chain.json"))
-            {
-                chainPath = @"..\\..\\chain\chain.json";
-            }
+            CheckDevChain();
+        }
 
+        public void CheckDevChain()
+        {
+            if (Directory.Exists(@"..\\..\\chain"))
+            {
+                if (File.Exists(@"..\\..\\chain\chain.json"))
+                {
+                    chainPath = @"..\\..\\chain\chain.json";
+                }
+                else
+                {
+                    chainPath = @"chain.json";
+                }
+            }
+            else
+            {
+                chainPath = @"chain.json";
+            }
         }
 
         public string ReadChainPretty()
@@ -103,6 +118,7 @@ namespace prototype_p2p
         }
         public void SaveChainStateToDisk(Chain ProjectD)
         {
+            CheckDevChain();
             using (StreamWriter file = File.CreateText(chainPath))
             {
                 JsonSerializer serializer = new JsonSerializer();
