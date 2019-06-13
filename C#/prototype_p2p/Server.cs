@@ -67,6 +67,21 @@ namespace prototype_p2p
                 ? mostSuitableIp.Address.ToString()
                 : "";
         }
+
+        public string GetExternalIPAddress()
+        {
+            try
+            {
+                string externalip = new WebClient().DownloadString("http://icanhazip.com");
+                return externalip;
+            }
+            catch(Exception w)
+            {
+                Console.WriteLine(w);
+                MessageBox.Show("Something went wrong with obtaining external IP address, switching over to local IP.\n" + w);
+                return GetLocalIPAddress();
+            }
+        }
         
 
         public void Initialize()
